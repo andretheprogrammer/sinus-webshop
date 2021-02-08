@@ -1,22 +1,17 @@
 <template>
   <div class="product-wrapper">
-    <div class="product-title">
-      <h2>Title here</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure dolorum
-        eos tempore accusamus suscipit deleniti mollitia, nihil minima atque
-        architecto. Ad sunt illum libero itaque perspiciatis nisi, ipsam aut
-        expedita!
-      </p>
-      <p>{{ item.title }}</p>
-    </div>
     <button class="product-lock"></button>
+    <div class="product-title">
+      <h2>{{ product.title }}</h2>
+      <p>
+        {{ product.longDesc }}
+      </p>
+    </div>
 
     <img class="generic-board" src="@/assets/skateboard-generic.png" alt="" />
 
     <div class="product-price">
-      <h5>799</h5>
-      <p>SEK</p>
+      <h5>{{ product.price }} SEK</h5>
     </div>
   </div>
 </template>
@@ -24,8 +19,12 @@
 <script>
 export default {
   props: {
-    item: Array,
+    product: Object,
   },
+  // mounted() {
+  // this.title = this.$props.product.title;
+  // this.content = this.$props.product.content;
+  // },
 };
 </script>
 
@@ -37,8 +36,21 @@ export default {
   border: 2px solid black;
   text-align: center;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.product-title {
+  text-align: center;
+  h2 {
+    padding: 1rem;
+  }
+}
+.product-lock {
+  @include lock-button;
 }
 .generic-board {
   height: 25rem;
+  width: 25rem;
+  align-self: center;
 }
 </style>

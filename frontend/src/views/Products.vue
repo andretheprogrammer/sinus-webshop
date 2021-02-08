@@ -4,25 +4,25 @@
     <div class="showcase-products">
       <ul>
         <li
-          v-for="item of productList"
-          :key="item.id"
-          @click="toggleModal()"
+          v-for="product of productList"
+          :key="product.id"
+          @click="toggleModal(product)"
           class="product"
         >
           <div class="product-item">
-            <img class="img-product" :src="getIcon(item)" alt />
+            <img class="img-product" :src="getIcon(product)" alt />
           </div>
           <div class="product-details">
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.desc }}</p>
-            <h3>{{ item.price }}kr</h3>
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.desc }}</p>
+            <h3>{{ product.price }} SEK</h3>
           </div>
         </li>
       </ul>
     </div>
 
     <Overlay :show="showModal" @close="showModal = false">
-      <Product :item="productList" />
+      <Product :product="chosenProduct" />
     </Overlay>
   </div>
 </template>
@@ -34,7 +34,7 @@ import Product from "@/components/Product";
 
 export default {
   props: {
-    item: Object,
+    product: Object,
   },
   data() {
     return {
@@ -47,15 +47,19 @@ export default {
     Product,
   },
   methods: {
-    toggleModal() {
+    toggleModal(product) {
+      this.$store.commit("setChosenProduct", product);
       this.showModal = !this.showModal;
     },
-    getIcon(item) {
-      return require(`@/assets/${item.imgFile}`);
+    getIcon(product) {
+      return require(`@/assets/${product.imgFile}`);
     },
   },
   computed: {
-    productList() {
+    chosenProduct: function () {
+      return this.$store.state.chosenProduct;
+    },
+    productList: function () {
       return this.$store.state.productResponse;
     },
   },
@@ -81,7 +85,18 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: gainsboro;
+  cursor: pointer;
 }
+
+.product:hover {
+  background-color: lightsteelblue;
+  cursor: pointer;
+}
+
 .product-item {
   display: flex;
   justify-content: center;
@@ -89,5 +104,8 @@ ul {
 }
 .img-product {
   height: 250px;
+}
+.product-details {
+  text-align: center;
 }
 </style>

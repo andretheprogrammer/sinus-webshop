@@ -7,21 +7,22 @@
         <div class="register-intro">
           <h1>Cowabunga</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
-            commodi similique dolorum dolore praesentium. Totam perferendis
-            consequatur ad inventore, fuga eos, sed nulla cum atque eaque, culpa
-            earum sit quos.
+            720 ollie north roll-in street 1080 full pipe. Nose grab spine
+            helipop bone air ollie hole fakie. Blunt melancholy hard flip slap
+            maxwell egg plant fast plant. 270 layback Sacto kick-nose smith
+            grind finger flip 1080. Rail slide sponsored egg plant Jason Jesse
+            roll-in crail slide
           </p>
         </div>
 
         <div class="register-input">
           <h4>Register</h4>
           <label>Name</label>
-          <input type="text" />
+          <input type="text" v-model="name" @keyup.enter="submitUser" />
           <label>Email</label>
-          <input type="email" />
+          <input type="email" v-model="email" @keyup.enter="submitUser" />
           <label>Password</label>
-          <input type="password" />
+          <input type="password" v-model="password" @keyup.enter="submitUser" />
         </div>
       </div>
     </div>
@@ -31,6 +32,24 @@
 <script>
 import Header from "@/components/Header";
 export default {
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      user: {},
+    };
+  },
+  methods: {
+    submitUser() {
+      this.user = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+      console.log(this.user);
+    },
+  },
   components: {
     Header,
   },

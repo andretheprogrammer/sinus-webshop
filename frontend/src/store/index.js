@@ -13,7 +13,9 @@ export default new Vuex.Store({
     showApiProducts(state, data) {
       state.productResponse = data
     },
-
+    setChosenProduct(state, payload) {
+      state.chosenProduct = payload
+    }
   },
   actions: {
     async getProducts(context, payload) {
