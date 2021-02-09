@@ -39,17 +39,17 @@ import ProductInfo from "@/components/ProductInfo";
 
 export default {
   props: {
-    product: Object
+    product: Object,
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
     };
   },
   components: {
     Header,
     Overlay,
-    ProductInfo
+    ProductInfo,
   },
   methods: {
     toggleModal(product) {
@@ -58,19 +58,19 @@ export default {
     },
     getIcon(product) {
       return require(`@/assets/${product.imgFile}`);
-    }
+    },
   },
   computed: {
-    chosenProduct: function() {
+    chosenProduct: function () {
       return this.$store.state.chosenProduct;
     },
-    productList: function() {
+    productList: function () {
       return this.$store.state.productResponse;
-    }
+    },
   },
   created() {
     this.$store.dispatch("getProducts");
-  }
+  },
 };
 </script>
 

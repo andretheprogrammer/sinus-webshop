@@ -4,14 +4,22 @@
     <h1>YOUR CART</h1>
     <div class="section-wrapper">
       <section>
-        <p>ITEMS______________</p>
+        <p>ITEMS_________________________</p>
         <Cart />
       </section>
-      <section>
-        <p>Delivery______________</p>
+      <section class="name-city">
+        <p>Delivery______________________</p>
+        <label>Name</label>
+        <input type="text" placeholder="Sixten Von Sauerkraut" />
+        <label>Street Adress</label>
+        <input type="text" placeholder="Roligavägen 1337" />
+        <label>City</label>
+        <input type="text" placeholder="Ankeborg" />
+        <label>Zipcode</label>
+        <input type="text" placeholder="13377" />
       </section>
       <section>
-        <p>Payment____________</p>
+        <p>Payment________________________</p>
       </section>
     </div>
   </div>
@@ -33,5 +41,7 @@ export default {
 
 .section-wrapper {
   display: flex;
+}
+.name-city {
 }
 </style>
