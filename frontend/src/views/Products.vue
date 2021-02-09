@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <Header />
-    <div class="showcase-products">
-      <ul>
+    <div>
+      <ul class="showcase-products">
         <li
           v-for="product of productList"
           :key="product.id"
@@ -83,7 +83,7 @@ export default {
   justify-content: center;
 }
 
-ul {
+.showcase-products {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
