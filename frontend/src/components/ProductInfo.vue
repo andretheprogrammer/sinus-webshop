@@ -5,17 +5,19 @@
     </section>
     <section class="right-side">
       <button class="product-lock"></button>
-      <div class="product-price">
-        <h5>{{ product.price }} SEK</h5>
-      </div>
-      <div class="product-title">
+      <div class="product-price"></div>
+      <div class="product-content">
         <h2>{{ product.title }}</h2>
         <h3>{{ product.shortDesc }}</h3>
         <p>
           {{ product.longDesc }}
         </p>
+
+        <h5>{{ product.price }} SEK</h5>
       </div>
-      <button class="product-btn">Take my money!</button>
+      <button class="product-button" @click="goCheckout(product)">
+        Take my money!
+      </button>
     </section>
   </div>
 </template>
@@ -28,6 +30,10 @@ export default {
   methods: {
     getIcon(product) {
       return require(`@/assets/${product.imgFile}`);
+    },
+    goCheckout(product) {
+      this.$store.state.cartItems.push(product);
+      this.$router.push("/checkout");
     },
   },
   // mounted() {
@@ -48,7 +54,8 @@ export default {
   padding: 1rem;
   display: flex;
 }
-.product-title {
+
+.product-content {
   text-align: left;
   h2 {
     text-transform: uppercase;
@@ -56,6 +63,10 @@ export default {
   h2,
   h3 {
     padding-bottom: 0.5rem;
+  }
+  h5 {
+    margin-top: 5px;
+    font-size: large;
   }
   padding: 0.5rem;
   min-width: 250px;
@@ -67,7 +78,7 @@ export default {
   height: 100%;
   width: 20rem;
   align-self: left;
-  background-color: lightgray;
+  margin-top: 1rem;
 }
 
 .right-side {
@@ -77,10 +88,7 @@ export default {
 section {
   padding: 2rem;
 }
-.product-btn {
-  background-color: black;
-  color: white;
-  border-radius: 30px;
-  margin-top: 0.5rem;
+.product-button {
+  @include product-btn;
 }
 </style>

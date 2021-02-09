@@ -25,7 +25,7 @@
     </div>
 
     <Overlay :show="showModal" @close="showModal = false">
-      <Product :product="chosenProduct" />
+      <ProductInfo :product="chosenProduct" />
     </Overlay>
   </div>
 </template>
@@ -33,7 +33,7 @@
 <script>
 import Header from "@/components/Header";
 import Overlay from "@/components/Overlay";
-import Product from "@/components/Product";
+import ProductInfo from "@/components/ProductInfo";
 
 export default {
   props: {
@@ -47,7 +47,7 @@ export default {
   components: {
     Header,
     Overlay,
-    Product,
+    ProductInfo,
   },
   methods: {
     toggleModal(product) {
@@ -88,8 +88,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin: 1rem;
+  margin: 0.3rem;
   padding: 1rem;
   background-color: gainsboro;
   cursor: pointer;
@@ -99,6 +98,9 @@ ul {
 .product:hover {
   background-color: lightsteelblue;
   cursor: pointer;
+  .price-container {
+    border: 2px solid white;
+  }
 }
 
 .price-container {

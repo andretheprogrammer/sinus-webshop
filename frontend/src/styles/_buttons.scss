@@ -1,10 +1,17 @@
 @mixin lock-button{
-
         cursor: pointer;
         height: 35px;
         width: 35px;
         border-radius: 50px;
         border: none;
         align-self: flex-end;
-    
+}
+
+@mixin product-btn{
+        background-color: black;
+        color: white;
+        border-radius: 30px;
+        margin-top: 0.5rem;
+        width: 8rem;
+        align-self: center;
 }

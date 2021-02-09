@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     chosenProduct: {},
     productResponse: [],
+    cartItems: []
   },
   mutations: {
     showApiProducts(state, data) {
