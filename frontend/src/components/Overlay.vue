@@ -2,7 +2,7 @@
   <div class="overlay">
     <div class="fade-layer" :class="{ show }" @click="$emit('close')"></div>
     <div class="content" :class="{ show }">
-      <slot></slot>
+      <slot> </slot>
     </div>
   </div>
 </template>

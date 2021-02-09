@@ -10,12 +10,15 @@
           class="product"
         >
           <div class="product-item">
+            <div class="product-details">
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.desc }}</p>
+            </div>
             <img class="img-product" :src="getIcon(product)" alt />
-          </div>
-          <div class="product-details">
-            <h3>{{ product.title }}</h3>
-            <p>{{ product.desc }}</p>
-            <h3>{{ product.price }} SEK</h3>
+            <div class="price-container">
+              <h3>{{ product.price }}</h3>
+              <p class="sek">SEK</p>
+            </div>
           </div>
         </li>
       </ul>
@@ -90,6 +93,7 @@ ul {
   padding: 1rem;
   background-color: gainsboro;
   cursor: pointer;
+  height: 25rem;
 }
 
 .product:hover {
@@ -97,15 +101,41 @@ ul {
   cursor: pointer;
 }
 
+.price-container {
+  background-color: black;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 30px;
+  display: flex;
+  font-weight: 800;
+  position: absolute;
+  margin-left: 1rem;
+  margin-top: 3rem;
+  align-self: flex-start;
+  .sek {
+    font-weight: initial;
+    font-size: small;
+    margin-left: 2px;
+    line-height: 5px;
+  }
+}
+
 .product-item {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 2rem;
+  width: 18rem;
 }
 .img-product {
-  height: 250px;
+  height: 20rem;
+  padding: 3px;
 }
 .product-details {
   text-align: center;
+  h3 {
+    text-transform: uppercase;
+  }
 }
 </style>
