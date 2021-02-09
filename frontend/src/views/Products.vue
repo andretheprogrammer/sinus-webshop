@@ -12,7 +12,7 @@
           <div class="product-item">
             <div class="product-details">
               <h3>{{ product.title }}</h3>
-              <p>{{ product.desc }}</p>
+              <p>{{ product.shortDesc }}</p>
             </div>
             <img class="img-product" :src="getIcon(product)" alt />
             <div class="price-container">

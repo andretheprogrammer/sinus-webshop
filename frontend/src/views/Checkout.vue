@@ -4,14 +4,14 @@
     <h1>YOUR CART</h1>
     <div class="section-wrapper">
       <section>
-        <p>ITEMS______________</p>
+        <p>ITEMS_________________________</p>
         <Cart />
       </section>
       <section>
-        <p>Delivery______________</p>
+        <p>Delivery______________________</p>
       </section>
       <section>
-        <p>Payment____________</p>
+        <p>Payment________________________</p>
       </section>
     </div>
   </div>
