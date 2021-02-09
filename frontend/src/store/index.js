@@ -16,7 +16,22 @@ export default new Vuex.Store({
     },
     setChosenProduct(state, payload) {
       state.chosenProduct = payload
-    }
+    },
+    Add_Item(state, object) {
+      var addProduct = this.state.cartItems.find(o => o._id === object)
+      if (addProduct) {
+        addProduct.amount++
+      } else {
+        state.storeCart.push({
+          item: object,
+          amount: 1,
+
+        })
+      }
+    },
+    Remove_Item(state, index) {
+      state.storeCart.splice(index, 1)
+    },
   },
   actions: {
     async getProducts(context, payload) {
