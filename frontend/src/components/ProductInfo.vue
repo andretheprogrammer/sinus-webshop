@@ -32,7 +32,9 @@ export default {
       return require(`@/assets/${product.imgFile}`);
     },
     goCheckout(product) {
-      this.$store.state.cartItems.push(product);
+      this.$store.dispatch("addItem", product);
+
+      // this.$store.state.cartItems.push(product);
       this.$router.push("/checkout");
     },
   },

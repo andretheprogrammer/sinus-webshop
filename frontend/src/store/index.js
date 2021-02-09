@@ -10,6 +10,10 @@ export default new Vuex.Store({
     productResponse: [],
     cartItems: []
   },
+  getters: {
+    CartItems: (state) => state.cartItems,
+
+  },
   mutations: {
     showApiProducts(state, data) {
       state.productResponse = data
@@ -17,26 +21,23 @@ export default new Vuex.Store({
     setChosenProduct(state, payload) {
       state.chosenProduct = payload
     },
-    Add_Item(state, object) {
-      var addProduct = this.state.cartItems.find(o => o._id === object)
-      if (addProduct) {
-        addProduct.amount++
-      } else {
-        state.storeCart.push({
-          item: object,
-          amount: 1,
-
-        })
-      }
+    ADD_ITEM(state, object) {
+      state.cartItems.push(object)
     },
-    Remove_Item(state, index) {
-      state.storeCart.splice(index, 1)
+    REMOVE_ITEM(state, index) {
+      state.cartItems.splice(index, 1)
     },
   },
   actions: {
     async getProducts(context, payload) {
       const result = await API.fetchData(payload)
       context.commit('showApiProducts', result)
+    },
+    addItem(context, product) {
+      context.commit("ADD_ITEM", product)
+    },
+    removeItem(context, index) {
+      context.commit("REMOVE_ITEM", index)
     },
   },
   modules: {

@@ -2,7 +2,7 @@
   <div class="wrapper">
     <p v-if="!cartItems.length">No items in cart</p>
     <ul v-else>
-      <li v-for="product of cartItems" :key="product._id">
+      <li v-for="(product, index) of cartItems" :key="index">
         <section>
           <img
             class="cart-img"
@@ -15,6 +15,9 @@
           <p>{{ product.shortDesc }}</p>
 
           <p>SN {{ product.serial }}</p>
+        </section>
+        <section class="x-btn">
+          <i @click="removeItem(index)" class="material-icons">highlight_off</i>
         </section>
       </li>
     </ul>
@@ -39,6 +42,11 @@ export default {
       return total;
     },
   },
+  methods: {
+    removeItem(index) {
+      this.$store.dispatch("removeItem", index);
+    },
+  },
 };
 </script>
 
@@ -52,6 +60,10 @@ li {
   padding: 0.5rem;
   padding-bottom: 0;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
   cursor: pointer;
 }
 li:hover {
@@ -64,5 +76,8 @@ li:hover {
 .total-price {
   display: flex;
   justify-content: space-between;
+}
+.x-btn {
+  justify-self: flex-end;
 }
 </style>
