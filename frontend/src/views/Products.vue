@@ -15,10 +15,11 @@
               <i class="material-icons">shopping_bag</i>
             </div>
             <p>{{ product.shortDesc }}</p>
-            <img class="img-product" :src="getIcon(product)" alt />
-            <div class="price-container">
-              <h3>{{ product.price }}</h3>
-              <p class="sek-p">SEK</p>
+            <div class="img-product" :style="{'background-image': 'url('+ getIcon(product) +')'}">
+              <div class="price-container">
+                <h3>{{ product.price }}</h3>
+                <p class="sek">SEK</p>
+              </div>
             </div>
           </div>
         </li>
@@ -81,35 +82,53 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
+
 ul {
   display: flex;
   flex-wrap: wrap;
+  width: 90%;
+  margin: auto;
+  justify-content: center;
 }
+
 .product {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 22rem;
+  width: 14rem;
   margin: 0.3rem;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   background-color: gainsboro;
   cursor: pointer;
-  height: 25rem;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+.product:hover {
+  background-color: lightsteelblue;
+  cursor: pointer;
+  .price-container {
+    border: 1px solid white !important;
+    box-shadow: 0 0 5px white;
+  }
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 
   .product-header {
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
-    padding-left: 2rem;
-    padding-right: 2rem;
-
-    h3 {
-      font-size: 32px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+    align-items: left;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
 
     .icon {
       width: 30px;
@@ -123,52 +142,47 @@ ul {
       align-items: center;
     }
   }
+
   p {
     align-self: flex-start;
-    margin: 0.3rem 0px 0px 2rem;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.5);
   }
-}
 
-.product:hover {
-  background-color: lightsteelblue;
-  cursor: pointer;
-  .price-container {
-    border: 2px solid white;
+  .img-product {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+
+    .price-container {
+      display: flex;
+      flex-direction: row;
+      background-color: black;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 30px;
+      font-weight: 800;
+      justify-content: center;
+      align-items: center;
+      align-self: flex-start;
+      margin-bottom: 2rem;
+      border: 1px solid transparent;
+
+      .sek {
+        color: inherit;
+        font-weight: initial;
+        font-size: small;
+        margin-left: 2px;
+        line-height: 5px;
+      }
+    }
   }
-}
-
-.price-container {
-  background-color: black;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 30px;
-  display: flex;
-  font-weight: 800;
-  position: absolute;
-  margin-left: 1rem;
-  margin-top: 3rem;
-  align-self: flex-start;
-  .sek {
-    font-weight: initial;
-    font-size: small;
-    margin-left: 2px;
-    line-height: 5px;
-  }
-}
-
-.product-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 2rem;
-  width: 18rem;
-}
-.img-product {
-  height: 20rem;
-  padding: 3px;
 }
 </style>
