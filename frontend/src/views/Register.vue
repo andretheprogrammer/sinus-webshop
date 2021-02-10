@@ -62,7 +62,6 @@ export default {
 @import "@/styles/_global.scss";
 
 .image-text {
-  position: absolute;
 }
 .register-wrapper {
   display: flex;
@@ -81,15 +80,15 @@ input {
 .register-intro {
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
-  padding-left: 11rem;
+  width: 90%;
+  padding-left: 5rem;
 }
 
 .register-input {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-right: 11rem;
+  padding-right: 5rem;
 }
 
 .bottom-regwrapper {

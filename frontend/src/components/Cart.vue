@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <p v-if="!cartItems.length">No items in cart</p>
+    <div class="no-items-wrapper" v-if="!cartItems.length">
+      <p>No items in cart</p>
+    </div>
     <ul v-else>
       <li v-for="(product, index) of cartItems" :key="index">
         <section>
@@ -67,7 +69,7 @@ li {
   cursor: pointer;
 }
 li:hover {
-  border: 1px solid grey;
+  border: 1px solid black;
 }
 .cart-img {
   height: 3rem;
@@ -79,5 +81,11 @@ li:hover {
 }
 .x-btn {
   justify-self: flex-end;
+}
+.no-items-wrapper {
+  margin-top: 1vh;
+  padding-top: 2vh;
+  min-height: 14vh;
+  background-color: grey;
 }
 </style>

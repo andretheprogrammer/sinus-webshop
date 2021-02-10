@@ -23,9 +23,11 @@ export default {};
 .centered {
   position: absolute;
   top: 50%;
+  right: 50%;
+  left: 50%;
   bottom: 50%;
   width: 30vw;
-  transform: translate(77%, 40%);
+  transform: translate(-50%, -50%);
 }
 slot {
   position: absolute;
@@ -33,6 +35,6 @@ slot {
 
 .image-frame {
   height: 50vh;
-  width: 100vh;
+  width: 120vh;
 }
 </style>
