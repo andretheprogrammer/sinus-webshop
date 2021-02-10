@@ -1,6 +1,5 @@
 <template>
   <main>
-    <Header />
     <div class="register-wrapper">
       <!-- <img id="imgHero" src="@/assets/skate-hero-1.jpg" alt="" /> -->
       <ImageSlot>
@@ -35,7 +34,6 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
 import ImageSlot from "@/components/ImageSlot";
 export default {
   data() {
@@ -43,7 +41,7 @@ export default {
       name: "",
       email: "",
       password: "",
-      user: {},
+      user: {}
     };
   },
   methods: {
@@ -51,15 +49,14 @@ export default {
       this.user = {
         name: this.name,
         email: this.email,
-        password: this.password,
+        password: this.password
       };
       console.log(this.user);
-    },
+    }
   },
   components: {
-    Header,
-    ImageSlot,
-  },
+    ImageSlot
+  }
 };
 </script>
 

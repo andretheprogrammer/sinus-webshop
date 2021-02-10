@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <Header />
     <h1>YOUR CART</h1>
     <div class="section-wrapper">
       <section>
@@ -34,13 +33,11 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
 import Cart from "@/components/Cart";
 export default {
   components: {
-    Header,
-    Cart,
-  },
+    Cart
+  }
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <Header />
     <div>
       <ul class="showcase-products">
         <li
@@ -37,24 +36,22 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Header from "@/components/Header";
 import Overlay from "@/components/Overlay";
 import ProductInfo from "@/components/ProductInfo";
 
 export default {
   data() {
     return {
-      showModal: false,
+      showModal: false
     };
   },
   props: {
-    product: Object,
+    product: Object
   },
 
   components: {
-    Header,
     Overlay,
-    ProductInfo,
+    ProductInfo
   },
   methods: {
     closeModal() {
@@ -69,18 +66,18 @@ export default {
     },
     isModalActive() {
       this.$store.state.activeModal;
-    },
+    }
   },
   computed: {
     ...mapGetters([
       "chosenProduct",
-      "productResponse",
+      "productResponse"
       // ...
-    ]),
+    ])
   },
   created() {
     this.$store.dispatch("getProducts");
-  },
+  }
 };
 </script>
 

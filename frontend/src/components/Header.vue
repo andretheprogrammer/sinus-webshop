@@ -30,7 +30,7 @@ export default {
   width: 90%;
   display: flex !important;
   align-items: center;
-  margin: 1.5rem auto;
+  margin: 1rem auto;
 }
 
 #logo {
@@ -43,6 +43,8 @@ export default {
 
 .header-links {
   padding: 0.5rem 0 0 0;
+  display: flex;
+  align-items: center;
 
   button {
     font-weight: bold;
