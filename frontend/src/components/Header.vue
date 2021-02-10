@@ -6,7 +6,12 @@
         <router-link to="/products">
           <button>Products</button>
         </router-link>
-        <button class="login-btn"></button>
+
+        <button class="login-btn">
+          <i @click="routeCart" class="material-icons product-lock"
+            >shopping_bag</i
+          >
+        </button>
       </div>
     </div>
   </header>
@@ -18,8 +23,8 @@ export default {
   methods: {
     routeToStart() {
       this.$router.push(`/`);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -45,6 +50,17 @@ export default {
   padding: 0.5rem 0 0 0;
   display: flex;
   align-items: center;
+  :hover {
+    color: grey;
+    cursor: pointer;
+  }
+
+  :active,
+  :focus {
+    border: none;
+    outline: none;
+    text-decoration: none;
+  }
 
   button {
     font-weight: bold;
@@ -55,9 +71,6 @@ export default {
     background-color: transparent;
   }
 
-  button:hover {
-    color: white;
-  }
   .login-btn {
     @include lock-button;
     margin-bottom: 0.1rem;
