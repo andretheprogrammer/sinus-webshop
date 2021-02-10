@@ -29,8 +29,8 @@
       </ul>
     </div>
 
-    <Overlay :show="showModal" @close="closeModal">
-      <ProductInfo :product="chosenProduct" />
+    <Overlay v-if="chosenProduct" :show="showModal" @close="closeModal">
+      <ProductInfo :product="chosenProduct" @close="closeModal" />
     </Overlay>
   </div>
 </template>
