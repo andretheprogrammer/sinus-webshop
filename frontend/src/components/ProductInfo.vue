@@ -18,6 +18,7 @@
       <button class="product-button" @click="addCart(product)">
         Take my money!
       </button>
+      <button @click="goCheckout">Checkout</button>
     </section>
   </div>
 </template>
@@ -43,8 +44,8 @@ export default {
       this.$store.dispatch("addItem", product);
       this.$emit("close");
     },
-    created() {
-      // console.log(product);
+    goCheckout() {
+      this.$router.push("/checkout");
     },
   },
 };
