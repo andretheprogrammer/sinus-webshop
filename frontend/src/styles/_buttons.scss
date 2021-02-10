@@ -4,7 +4,12 @@
         width: 35px;
         border-radius: 50px;
         border: none;
+        display: flex;
         align-self: flex-end;
+        background-color: whitesmoke;
+        align-items: center;
+        justify-content: center;
+
 }
 
 @mixin product-btn{

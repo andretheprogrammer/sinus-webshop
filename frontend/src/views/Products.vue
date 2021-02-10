@@ -4,9 +4,9 @@
     <div>
       <ul class="showcase-products">
         <li
-          v-for="product of productList"
+          v-for="product of productResponse"
           :key="product.id"
-          @click="toggleModal(product)"
+          @click="openModal(product)"
           class="product"
         >
           <div class="product-item">
@@ -15,7 +15,10 @@
               <i class="material-icons">shopping_bag</i>
             </div>
             <p>{{ product.shortDesc }}</p>
-            <div class="img-product" :style="{'background-image': 'url('+ getIcon(product) +')'}">
+            <div
+              class="img-product"
+              :style="{ 'background-image': 'url(' + getIcon(product) + ')' }"
+            >
               <div class="price-container">
                 <h3>{{ product.price }}</h3>
                 <p class="sek">SEK</p>
@@ -26,47 +29,54 @@
       </ul>
     </div>
 
-    <Overlay :show="showModal" @close="showModal = false">
-      <ProductInfo :product="chosenProduct" />
+    <Overlay v-if="chosenProduct" :show="showModal" @close="closeModal">
+      <ProductInfo :product="chosenProduct" @close="closeModal" />
     </Overlay>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Header from "@/components/Header";
 import Overlay from "@/components/Overlay";
 import ProductInfo from "@/components/ProductInfo";
 
 export default {
-  props: {
-    product: Object,
-  },
   data() {
     return {
       showModal: false,
     };
   },
+  props: {
+    product: Object,
+  },
+
   components: {
     Header,
     Overlay,
     ProductInfo,
   },
   methods: {
-    toggleModal(product) {
-      this.$store.commit("setChosenProduct", product);
-      this.showModal = !this.showModal;
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal(product) {
+      this.$store.dispatch("setChosenProduct", product);
+      this.showModal = true;
     },
     getIcon(product) {
       return require(`@/assets/${product.imgFile}`);
     },
+    isModalActive() {
+      this.$store.state.activeModal;
+    },
   },
   computed: {
-    chosenProduct: function () {
-      return this.$store.state.chosenProduct;
-    },
-    productList: function () {
-      return this.$store.state.productResponse;
-    },
+    ...mapGetters([
+      "chosenProduct",
+      "productResponse",
+      // ...
+    ]),
   },
   created() {
     this.$store.dispatch("getProducts");

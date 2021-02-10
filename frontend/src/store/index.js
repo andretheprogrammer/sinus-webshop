@@ -1,44 +1,60 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import *as API from "@/API/";
+import *as Mutations from './mutationTypes'
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    chosenProduct: {},
+    chosenProduct: null,
     productResponse: [],
     cartItems: []
   },
   getters: {
-    CartItems: (state) => state.cartItems,
+    cartItems: (state) => state.cartItems,
+    activeModal: (state) => state.modalActive,
+    chosenProduct: (state) => state.chosenProduct,
+    productResponse: (state) => state.productResponse,
 
   },
   mutations: {
-    showApiProducts(state, data) {
+    [Mutations.SHOW_API_PRODUCTS](state, data) {
       state.productResponse = data
     },
-    setChosenProduct(state, payload) {
-      state.chosenProduct = payload
+
+
+    [Mutations.SET_CHOSEN_PRODUCT](state, product) {
+      state.chosenProduct = product
+      console.log('mutations -->', state.chosenProduct)
     },
-    ADD_ITEM(state, object) {
+    [Mutations.ADD_ITEM](state, object) {
       state.cartItems.push(object)
     },
-    REMOVE_ITEM(state, index) {
+    [Mutations.REMOVE_ITEM](state, index) {
       state.cartItems.splice(index, 1)
     },
+
+
   },
   actions: {
     async getProducts(context, payload) {
       const result = await API.fetchData(payload)
-      context.commit('showApiProducts', result)
+
+      context.commit(Mutations.SHOW_API_PRODUCTS, result)
     },
     addItem(context, product) {
-      context.commit("ADD_ITEM", product)
+      context.commit(Mutations.ADD_ITEM, product)
     },
-    removeItem(context, index) {
-      context.commit("REMOVE_ITEM", index)
+    async removeItem(context, index) {
+      await context.commit(Mutations.REMOVE_ITEM, index)
     },
+
+    async setChosenProduct(context, product) {
+      await context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
+    },
+
   },
   modules: {
   }

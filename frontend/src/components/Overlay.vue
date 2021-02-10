@@ -1,6 +1,10 @@
 <template>
   <div class="overlay">
-    <div class="fade-layer" :class="{ show }" @click="$emit('close')"></div>
+    <div
+      class="fade-layer"
+      :class="{ show }"
+      @click.self="$emit('close')"
+    ></div>
     <div class="content" :class="{ show }">
       <slot> </slot>
     </div>
@@ -11,6 +15,11 @@
 export default {
   props: {
     show: Boolean,
+  },
+  methods: {
+    // closeModal() {
+    //   this.$emit("closeModal");
+    // },
   },
 };
 </script>
