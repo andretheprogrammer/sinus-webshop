@@ -36,22 +36,29 @@
 import Cart from "@/components/Cart";
 export default {
   components: {
-    Cart
-  }
+    Cart,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/_global.scss";
-
+.wrapper {
+  text-align: center;
+}
 .section-wrapper {
   display: flex;
+  justify-content: center;
+  width: 100vw;
 }
 section {
   margin: 1.5rem;
 }
 input {
   height: 1rem;
+}
+label {
+  margin-top: 0.5rem;
 }
 .name-city {
   display: flex;
