@@ -6,12 +6,15 @@
         <router-link to="/products">
           <button>Products</button>
         </router-link>
-
-        <button class="login-btn">
-          <i @click="routeCart" class="material-icons product-lock"
-            >shopping_bag</i
-          >
+        <button v-if="!loggedIn" @click="loggedIn = true">Login</button>
+        <button v-else class="account-btn" @click="loggedIn = false">
+          <i class="material-icons product-lock">account_circle</i>
         </button>
+        <router-link to="/checkout">
+          <button class="cart-btn">
+            <i class="material-icons product-lock">shopping_bag</i>
+          </button>
+        </router-link>
       </div>
     </div>
   </header>
@@ -19,12 +22,16 @@
 
 <script>
 export default {
-  name: "Header",
+  data() {
+    return {
+      loggedIn: false
+    };
+  },
   methods: {
     routeToStart() {
       this.$router.push(`/`);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -35,19 +42,20 @@ export default {
   width: 90%;
   display: flex !important;
   align-items: center;
-  margin: 1rem auto;
+  margin: 0 auto;
+  padding: 1rem 0 0.2rem 0;
 }
 
 #logo {
   height: auto;
   max-height: 4rem;
   cursor: pointer;
-  margin: 0.1rem;
+  padding: 0.1rem;
   margin-right: auto;
 }
 
 .header-links {
-  padding: 0.5rem 0 0 0;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   :hover {
@@ -71,11 +79,14 @@ export default {
     background-color: transparent;
   }
 
-  .login-btn {
+  .cart-btn {
     @include lock-button;
-    margin-bottom: 0.1rem;
-    background-color: white;
-    vertical-align: middle;
+    background-color: whitesmoke;
+  }
+
+  .account-btn {
+    @include lock-button;
+    background-color: silver;
   }
 }
 </style>
