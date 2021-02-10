@@ -1,10 +1,10 @@
 <template>
   <div class="product-wrapper">
     <section>
-      <img class="generic-board" :src="getIcon(product)" alt />
+      <img class="skate-img" :src="getIcon(product)" />
     </section>
     <section class="right-side">
-      <button class="product-lock"></button>
+      <i class="material-icons product-lock">shopping_bag</i>
       <div class="product-price"></div>
       <div class="product-content">
         <h2>{{ product.title }}</h2>
@@ -15,7 +15,7 @@
 
         <h5>{{ product.price }} SEK</h5>
       </div>
-      <button class="product-button" @click="goCheckout(product)">
+      <button class="product-button" @click="addCart(product)">
         Take my money!
       </button>
     </section>
@@ -23,25 +23,30 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  name: "ProductInfo",
+  computed: {
+    ...mapGetters(["chosenProduct", "productResponse"]),
+  },
   props: {
     product: Object,
   },
   methods: {
     getIcon(product) {
+      console.log("getIcon -->", product);
       return require(`@/assets/${product.imgFile}`);
     },
-    goCheckout(product) {
-      this.$store.dispatch("addItem", product);
-
+    addCart(product) {
+      console.log(this.$store.state.cartItems);
       // this.$store.state.cartItems.push(product);
-      this.$router.push("/checkout");
+      this.$store.dispatch("addItem", product);
+      this.$emit("close");
+    },
+    created() {
+      // console.log(product);
     },
   },
-  // mounted() {
-  // this.title = this.$props.product.title;
-  // this.content = this.$props.product.content;
-  // },
 };
 </script>
 
@@ -76,7 +81,7 @@ export default {
 .product-lock {
   @include lock-button;
 }
-.generic-board {
+.skate-img {
   height: 100%;
   width: 20rem;
   align-self: left;

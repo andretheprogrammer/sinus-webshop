@@ -18,8 +18,16 @@
         <label>Zipcode</label>
         <input type="text" placeholder="13377" />
       </section>
-      <section>
+      <section class="card-city">
         <p>Payment________________________</p>
+        <label>Card Owner</label>
+        <input type="text" />
+        <label>Card Number</label>
+        <input type="text" />
+        <label>Valid until</label>
+        <input type="text" />
+        <label>CCV</label>
+        <input type="text" />
       </section>
     </div>
   </div>
@@ -42,6 +50,18 @@ export default {
 .section-wrapper {
   display: flex;
 }
+section {
+  margin: 1.5rem;
+}
+input {
+  height: 1rem;
+}
 .name-city {
+  display: flex;
+  flex-direction: column;
+}
+.card-city {
+  display: flex;
+  flex-direction: column;
 }
 </style>
