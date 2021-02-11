@@ -41,7 +41,11 @@ export default new Vuex.Store({
       state.user = user
     },
     [Mutations.LOGIN](state, user) {
-      state.user = 
+      if (user.status == 200) {
+        state.isLoggedIn = true;
+      } else {
+        alert(state.statusText)
+      }
     },
 
   },
@@ -52,11 +56,12 @@ export default new Vuex.Store({
       context.commit(Mutations.SHOW_API_PRODUCTS, result)
     },
     async registerUser(context, payload) {
-      const user = await API.registerUser(payload)
+      let user = await API.registerUser(payload)
       context.commit(Mutations.REGISTER_USER, user)
     },
     async login(context, payload) {
-      const user = await API.login(payload)
+      let user = await API.login(payload)
+      console.log('from user ->>', user)
       context.commit(Mutations.LOGIN, user)
     },
     addItem(context, product) {

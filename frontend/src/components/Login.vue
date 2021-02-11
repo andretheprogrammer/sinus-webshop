@@ -4,7 +4,13 @@
     <div v-if="show" class="login-window">
       <div class="login-form">
         <input type="text" v-model="email" placeholder="Email" id="email" />
-        <input type="password" v-model="password" placeholder="Password" name id="password" />
+        <input
+          type="password"
+          v-model="password"
+          placeholder="Password"
+          name
+          id="password"
+        />
         <button @click="loginUser()">Login</button>
       </div>
     </div>
@@ -17,19 +23,22 @@ export default {
     return {
       show: false,
       email: "",
-      password: ""
+      password: "",
     };
   },
   computed: {
     loggedIn() {
       return this.$store.state.isLoggedIn;
-    }
+    },
   },
   methods: {
     loginUser() {
-      this.$store.state.isLoggedIn = !this.$store.state.isLoggedIn;
-    }
-  }
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
+    },
+  },
 };
 </script>
 

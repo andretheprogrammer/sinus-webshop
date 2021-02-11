@@ -45,20 +45,6 @@ export default {
     };
   },
   methods: {
-    // isFieldsFilled() {
-    //   const signupForm = document.getElementById("signup-form");
-    //   const nameInput = signupForm.querySelector("input[name=name]");
-    //   const emailInput = signupForm.querySelector("input[email=email]");
-    //   const passwordInput = signupForm.querySelector(
-    //     "input[password=password]"
-    //   );
-    // },
-    // processSignupForm(e) {
-    //   e.preventDefault();
-    //   this.name = nameInput.value;
-    //   this.email = emailInput.value;
-    //   this.password = passwordInput.value;
-    // },
     submitUser() {
       this.user = {
         name: this.name,
@@ -69,9 +55,6 @@ export default {
 
       this.$store.dispatch("registerUser", this.user);
     },
-    // created() {
-    //   signupForm.addEventListener("submit", processSignupForm);
-    // },
   },
   components: {
     ImageSlot,

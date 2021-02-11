@@ -35,6 +35,5 @@ export async function login(user) {
         });
 
     const data = await res.json()
-
-    console.log('login --> ', data)
+    return data, res
 }
