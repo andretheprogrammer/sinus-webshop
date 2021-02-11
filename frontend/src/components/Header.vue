@@ -10,7 +10,7 @@
         </div>
         <Login v-if="!loggedIn" />
         <div v-else class="menu-item">
-          <button class="account-btn" @click="LoginUser(false)">
+          <button class="account-btn" @click="logout">
             <i class="material-icons product-lock">account_circle</i>
           </button>
         </div>
@@ -46,8 +46,8 @@ export default {
         this.$router.push(`/`);
       }
     },
-    LoginUser(p) {
-      this.$store.state.isLoggedIn = p;
+    logout() {
+      this.$store.state.isLoggedIn = false;
     },
   },
 };

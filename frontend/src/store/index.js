@@ -40,12 +40,10 @@ export default new Vuex.Store({
     },
 
     [Mutations.LOGIN](state, user) {
-
       if (user.token) {
-
         state.isLoggedIn = true;
       } else {
-        alert(state.statusText)
+        state.isLoggedIn = false;
       }
     },
     [Mutations.GET_PRODUCT_BY_ID](state, id) {
