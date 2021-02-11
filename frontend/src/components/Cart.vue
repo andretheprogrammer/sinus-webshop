@@ -68,7 +68,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  border: 1px solid transparent;
   width: 100%;
   cursor: pointer;
 }

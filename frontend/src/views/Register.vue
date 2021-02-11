@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/_global.scss";
 
 .register-wrapper {
@@ -69,9 +69,12 @@ export default {
   align-items: center;
 }
 input {
-  width: 100%;
+  @include input-standard;
   background: transparent;
-  border-radius: 8px;
+  margin: 0;
+}
+label {
+  font-size: 12px;
 }
 
 .fat-text {
@@ -81,21 +84,19 @@ input {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
-  padding-left: 5rem;
 }
 
 .register-input {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-right: 5rem;
 }
 
 .bottom-regwrapper {
   display: flex;
-  gap: 6rem;
+  gap: 3rem;
   padding-bottom: 50rem;
-  align-self: flex-start;
-  width: 100%;
+  align-self: center;
+  width: 90%;
 }
 </style>

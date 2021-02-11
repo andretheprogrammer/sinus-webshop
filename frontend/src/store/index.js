@@ -46,6 +46,12 @@ export default new Vuex.Store({
         state.isLoggedIn = false;
       }
     },
+    [Mutations.GET_PRODUCT_BY_ID](state, id) {
+      let productByID = state.productResponse.find(e => e.id == id)
+      console.log(productByID)
+      return productByID
+    },
+
 
   },
   actions: {
@@ -56,7 +62,6 @@ export default new Vuex.Store({
     },
     async registerUser(context, payload) {
       await API.registerUser(payload)
-
     },
     async login(context, payload) {
       let user = await API.login(payload)
@@ -73,7 +78,14 @@ export default new Vuex.Store({
     async setChosenProduct(context, product) {
       await context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
     },
+    async getProductById(context, id) {
+      await context.commit(Mutations.GET_PRODUCT_BY_ID, id)
+    },
+    async getAllOrders(context, jwt) {
+      const res = await API.getAllOrders(jwt)
 
+      console.log(res)
+    },
   },
   modules: {
   }

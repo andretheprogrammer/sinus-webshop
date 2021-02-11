@@ -55,7 +55,7 @@ section {
   margin: 1.5rem;
 }
 input {
-  height: 1rem;
+  @include input-standard;
 }
 label {
   margin-top: 0.5rem;
