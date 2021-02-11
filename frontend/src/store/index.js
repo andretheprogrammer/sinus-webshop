@@ -40,8 +40,7 @@ export default new Vuex.Store({
       state.user = user
     },
     [Mutations.LOGIN](state, user) {
-      state.user = user
-      console.log(user)
+      state.user = 
     },
 
   },
