@@ -41,9 +41,9 @@ export default {
   },
   methods: {
     makeOrder() {
-      let cartItem = this.$store.state.cartItems;
-      cartItem.forEach((element) => {});
-      this.$store.dispatch("makeOrder", {});
+      // let cartItem = this.$store.state.cartItems;
+      // cartItem.forEach((element) => {});
+      // this.$store.dispatch("makeOrder", {});
     },
   },
 };
