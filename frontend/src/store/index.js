@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isLoggedIn: false,
     chosenProduct: null,
     productResponse: [],
     cartItems: []

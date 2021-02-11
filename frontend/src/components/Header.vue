@@ -3,33 +3,47 @@
     <div class="navbar">
       <img id="logo" src="@/assets/sinus-logo.svg" alt @click="routeToStart" />
       <div class="header-links">
-        <router-link to="/products">
-          <button>Products</button>
-        </router-link>
-        <button v-if="!loggedIn" @click="loggedIn = true">Login</button>
-        <button v-else class="account-btn" @click="loggedIn = false">
-          <i class="material-icons product-lock">account_circle</i>
-        </button>
-        <router-link to="/checkout">
-          <button class="cart-btn">
-            <i class="material-icons product-lock">shopping_bag</i>
+        <div class="menu-item">
+          <router-link to="/products">
+            <button>Products</button>
+          </router-link>
+        </div>
+        <Login v-if="!loggedIn" />
+        <div v-else class="menu-item">
+          <button class="account-btn" @click="LoginUser(false)">
+            <i class="material-icons product-lock">account_circle</i>
           </button>
-        </router-link>
+        </div>
+        <div class="menu-item">
+          <router-link to="/checkout">
+            <button class="cart-btn">
+              <i class="material-icons product-lock">shopping_bag</i>
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import Login from "@/components/Login";
+
 export default {
-  data() {
-    return {
-      loggedIn: false
-    };
+  components: {
+    Login
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.isLoggedIn;
+    }
   },
   methods: {
     routeToStart() {
       this.$router.push(`/`);
+    },
+    LoginUser(p) {
+      this.$store.state.isLoggedIn = p;
     }
   }
 };
@@ -58,6 +72,7 @@ export default {
   margin-top: 1rem;
   display: flex;
   align-items: center;
+
   :hover {
     color: grey;
     cursor: pointer;
@@ -74,9 +89,15 @@ export default {
     font-weight: bold;
     font-size: 16px;
     font-family: inherit;
-    margin: 0 0.5rem;
     border: none;
     background-color: transparent;
+  }
+
+  .menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.5rem;
   }
 
   .cart-btn {
