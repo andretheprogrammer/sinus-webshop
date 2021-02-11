@@ -13,7 +13,7 @@ export default new Vuex.Store({
     productResponse: [],
     cartItems: [],
     user: {},
-
+    orderPending: null
   },
   getters: {
     cartItems: (state) => state.cartItems,
@@ -51,7 +51,9 @@ export default new Vuex.Store({
       console.log(productByID)
       return productByID
     },
-
+    [Mutations.MAKE_ORDER](state, order) {
+      state.orderPending = order;
+    },
 
   },
   actions: {
@@ -86,6 +88,13 @@ export default new Vuex.Store({
 
       console.log(res)
     },
+    async makeOrder(context, order) {
+      const res = await API.makeOrder(order)
+      await context.commit(Mutations.MAKE_ORDER, order)
+
+      console.log(res)
+    },
+
   },
   modules: {
   }

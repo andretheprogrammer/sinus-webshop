@@ -28,6 +28,7 @@
         <label>CCV</label>
         <input type="text" />
       </section>
+      <button @click="makeOrder">Press to make an order</button>
     </div>
   </div>
 </template>
@@ -37,6 +38,13 @@ import Cart from "@/components/Cart";
 export default {
   components: {
     Cart,
+  },
+  methods: {
+    makeOrder() {
+      let cartItem = this.$store.state.cartItems;
+      cartItem.forEach((element) => {});
+      this.$store.dispatch("makeOrder", {});
+    },
   },
 };
 </script>

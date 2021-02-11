@@ -59,3 +59,19 @@ export async function fetchOrders(jwt) {
     return data
 
 }
+
+export async function makeOrder(order, token = null) {
+    const res = await fetch('http://localhost:5000/api/orders',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            body: JSON.stringify(order)
+        });
+
+    const data = await res.json()
+    return data
+}
