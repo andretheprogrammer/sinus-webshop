@@ -2,7 +2,12 @@ export async function fetchProducts() {
     const req = await fetch('http://localhost:5000/api/products/')
     const data = await req.json()
     return data
+}
 
+export async function fetchProductsById(id) {
+    const req = await fetch(`http://localhost:5000/api/products/${id}`)
+    const data = await req.json()
+    return data
 }
 
 export async function registerUser(user) {
@@ -37,4 +42,20 @@ export async function login(user) {
     const data = await res.json()
 
     return data
+}
+
+export async function fetchOrders(jwt) {
+    const req = await fetch('http://localhost:5000/api/orders/',
+        {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+            }
+
+        });
+    const data = await req.json()
+    return data
+
 }

@@ -65,12 +65,7 @@ export default {
   width: 100%;
 
   input {
-    padding: 0.3rem 0.4rem;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid gray;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 0px;
+    @include input-standard;
   }
 
   button {
