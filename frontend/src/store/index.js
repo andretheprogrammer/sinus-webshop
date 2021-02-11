@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     chosenProduct: null,
     productResponse: [],
-    cartItems: []
+    cartItems: [],
+    user: {},
   },
   getters: {
     cartItems: (state) => state.cartItems,
@@ -35,14 +36,28 @@ export default new Vuex.Store({
     [Mutations.REMOVE_ITEM](state, index) {
       state.cartItems.splice(index, 1)
     },
-
+    [Mutations.REGISTER_USER](state, user) {
+      state.user = user
+    },
+    [Mutations.LOGIN](state, user) {
+      state.user = user
+      console.log(user)
+    },
 
   },
   actions: {
     async getProducts(context, payload) {
-      const result = await API.fetchData(payload)
+      const result = await API.fetchProducts(payload)
 
       context.commit(Mutations.SHOW_API_PRODUCTS, result)
+    },
+    async registerUser(context, payload) {
+      const user = await API.registerUser(payload)
+      context.commit(Mutations.REGISTER_USER, user)
+    },
+    async login(context, payload) {
+      const user = await API.login(payload)
+      context.commit(Mutations.LOGIN, user)
     },
     addItem(context, product) {
       context.commit(Mutations.ADD_ITEM, product)

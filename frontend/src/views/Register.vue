@@ -18,15 +18,16 @@
         </p>
       </div>
 
-      <div class="register-input">
+      <form id="signup-form" class="register-input">
         <h4>Register</h4>
         <label>Name</label>
-        <input type="text" v-model="name" @keyup.enter="submitUser" />
+        <input type="text" v-model="name" />
         <label>Email</label>
-        <input type="email" v-model="email" @keyup.enter="submitUser" />
+        <input type="email" v-model="email" />
         <label>Password</label>
-        <input type="password" v-model="password" @keyup.enter="submitUser" />
-      </div>
+        <input type="password" v-model="password" />
+        <button @click="submitUser">Register</button>
+      </form>
     </div>
   </div>
 </template>
@@ -39,18 +40,38 @@ export default {
       name: "",
       email: "",
       password: "",
+      repeatPassword: "",
       user: {},
     };
   },
   methods: {
+    // isFieldsFilled() {
+    //   const signupForm = document.getElementById("signup-form");
+    //   const nameInput = signupForm.querySelector("input[name=name]");
+    //   const emailInput = signupForm.querySelector("input[email=email]");
+    //   const passwordInput = signupForm.querySelector(
+    //     "input[password=password]"
+    //   );
+    // },
+    // processSignupForm(e) {
+    //   e.preventDefault();
+    //   this.name = nameInput.value;
+    //   this.email = emailInput.value;
+    //   this.password = passwordInput.value;
+    // },
     submitUser() {
       this.user = {
         name: this.name,
         email: this.email,
         password: this.password,
+        repeatPassword: this.password,
       };
-      console.log(this.user);
+
+      this.$store.dispatch("registerUser", this.user);
     },
+    // created() {
+    //   signupForm.addEventListener("submit", processSignupForm);
+    // },
   },
   components: {
     ImageSlot,
@@ -61,8 +82,6 @@ export default {
 <style lang="scss">
 @import "@/styles/_global.scss";
 
-.image-text {
-}
 .register-wrapper {
   display: flex;
   flex-direction: column;

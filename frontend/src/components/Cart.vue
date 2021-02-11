@@ -19,7 +19,11 @@
           <p>SN {{ product.serial }}</p>
         </section>
         <section class="x-btn">
-          <i @click="removeItem(index)" class="material-icons">highlight_off</i>
+          <div class="cart-container">
+            <i @click="removeItem(index)" class="material-icons"
+              >highlight_off</i
+            >
+          </div>
         </section>
       </li>
     </ul>
@@ -75,6 +79,7 @@ li:hover {
   height: 3rem;
   align-self: flex-end;
 }
+
 .total-price {
   display: flex;
   justify-content: space-between;
