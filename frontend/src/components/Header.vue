@@ -31,21 +31,25 @@ import Login from "@/components/Login";
 
 export default {
   components: {
-    Login
+    Login,
   },
   computed: {
     loggedIn() {
       return this.$store.state.isLoggedIn;
-    }
+    },
   },
   methods: {
     routeToStart() {
-      this.$router.push(`/`);
+      if (this.$route.path == `/`) {
+        return;
+      } else {
+        this.$router.push(`/`);
+      }
     },
     LoginUser(p) {
       this.$store.state.isLoggedIn = p;
-    }
-  }
+    },
+  },
 };
 </script>
 
