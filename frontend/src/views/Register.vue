@@ -41,19 +41,17 @@ export default {
       email: "",
       password: "",
       repeatPassword: "",
-      user: {},
     };
   },
   methods: {
     submitUser() {
-      this.user = {
+      let user = {
         name: this.name,
         email: this.email,
         password: this.password,
         repeatPassword: this.password,
       };
-
-      this.$store.dispatch("registerUser", this.user);
+      this.$store.dispatch("registerUser", user);
     },
   },
   components: {

@@ -13,6 +13,7 @@ export default new Vuex.Store({
     productResponse: [],
     cartItems: [],
     user: {},
+
   },
   getters: {
     cartItems: (state) => state.cartItems,
@@ -37,11 +38,11 @@ export default new Vuex.Store({
     [Mutations.REMOVE_ITEM](state, index) {
       state.cartItems.splice(index, 1)
     },
-    [Mutations.REGISTER_USER](state, user) {
-      state.user = user
-    },
+
     [Mutations.LOGIN](state, user) {
-      if (user.status == 200) {
+
+      if (user.token) {
+
         state.isLoggedIn = true;
       } else {
         alert(state.statusText)
@@ -56,8 +57,8 @@ export default new Vuex.Store({
       context.commit(Mutations.SHOW_API_PRODUCTS, result)
     },
     async registerUser(context, payload) {
-      let user = await API.registerUser(payload)
-      context.commit(Mutations.REGISTER_USER, user)
+      await API.registerUser(payload)
+
     },
     async login(context, payload) {
       let user = await API.login(payload)

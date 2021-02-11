@@ -5,3 +5,4 @@
 {"email":"das@","name":"asd123","role":"customer","password":"$2a$10$xOMdwrX9mvmFub7XkoUHQeiSDUx25DtcDbDotXI/VmlHIDDolEqdK","orderHistory":[],"_id":"gjqvEKDJXk2iVGqM"}
 {"email":"röv","name":"röv","role":"customer","password":"$2a$10$avRypmsVENuyNM37KtN7QOuGeszsxMKF0WDAwnhy0EDXl.XdwN.mi","orderHistory":[],"_id":"qaN7Sl2DN1XIjSMS"}
 {"email":"lurken@example.com","name":"Johan Kivi","role":"customer","password":"$2a$10$u0ggaNNcAXf2A7uBbSArBefMP36wo7LvgZAwhy.e68XWsg3XLroLe","orderHistory":[],"_id":"xj8KXahUnZ0aG5xn"}
+{"email":"hej@123.se","name":"hej@hej.se","role":"customer","password":"$2a$10$xlh8eLHLQ/6HcedLvj9euujgaU7PNusinvP5I9v3voqmiCP8KDyry","orderHistory":[],"_id":"w0RA85u7ukBfMCss"}

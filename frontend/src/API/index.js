@@ -23,7 +23,7 @@ export async function registerUser(user) {
 }
 
 export async function login(user) {
-    console.log('registeruser -->', user)
+
     const res = await fetch('http://localhost:5000/api/auth/',
         {
             method: 'POST',
@@ -35,5 +35,6 @@ export async function login(user) {
         });
 
     const data = await res.json()
-    return data, res
+
+    return data
 }
