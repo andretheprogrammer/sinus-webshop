@@ -1,17 +1,11 @@
 <template>
-  <div class="menu-item">
+  <div class="menu-item" v-click-outside-window="closeWindow">
     <button @click="show = !show">Login</button>
     <div v-if="show" class="login-window">
       <div class="login-form">
         <input type="text" v-model="email" placeholder="Email" id="email" />
-        <input
-          type="password"
-          v-model="password"
-          placeholder="Password"
-          name
-          id="password"
-        />
-        <button @click="loginUser()">Login</button>
+        <input type="password" v-model="password" placeholder="Password" id="password" />
+        <button @click="loginUser">Login</button>
       </div>
     </div>
   </div>
@@ -23,22 +17,51 @@ export default {
     return {
       show: false,
       email: "",
-      password: "",
+      password: ""
     };
+  },
+  directives: {
+    "click-outside-window": {
+      bind: function(el, binding) {
+        const ourClickEventHandler = event => {
+          if (typeof binding.value !== "function") {
+            console.warn(
+              "[Vue-click-outside:] provided expression",
+              binding.expression,
+              "is not a function."
+            );
+          }
+
+          if (!el.contains(event.target) && el !== event.target) {
+            binding.value(event);
+          }
+        };
+        el.__vueClickEventHandler__ = ourClickEventHandler;
+
+        document.addEventListener("click", ourClickEventHandler);
+      },
+      unbind: function(el) {
+        document.removeEventListener("click", el.__vueClickEventHandler__);
+      }
+    }
   },
   computed: {
     loggedIn() {
       return this.$store.state.isLoggedIn;
-    },
+    }
   },
   methods: {
     loginUser() {
       this.$store.dispatch("login", {
         email: this.email,
-        password: this.password,
+        password: this.password
       });
+      this.show = false;
     },
-  },
+    closeWindow() {
+      this.show = false;
+    }
+  }
 };
 </script>
 
@@ -55,6 +78,7 @@ export default {
   box-shadow: 0 0 11px 7px rgba(0, 0, 0, 0.1);
   transform: translateX(-5%);
   top: 6rem;
+  z-index: 99;
 }
 
 .login-form {
