@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     getIcon(product) {
-      console.log("getIcon -->", product);
       return require(`@/assets/${product.imgFile}`);
     },
     addCart(product) {

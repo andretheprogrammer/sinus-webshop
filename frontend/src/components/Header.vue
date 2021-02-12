@@ -4,6 +4,9 @@
       <img id="logo" src="@/assets/sinus-logo.svg" alt @click="routeToStart" />
       <div class="header-links">
         <div class="menu-item">
+          <router-link v-if="isAdmin" to="/products">
+            <button>Admin view</button>
+          </router-link>
           <router-link to="/products">
             <button>Products</button>
           </router-link>
@@ -27,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Login from "@/components/Login";
 
 export default {
@@ -34,6 +38,7 @@ export default {
     Login,
   },
   computed: {
+    ...mapGetters(["isAdmin"]),
     loggedIn() {
       return this.$store.state.isLoggedIn;
     },

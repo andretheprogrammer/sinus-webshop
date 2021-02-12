@@ -13,21 +13,22 @@ export default new Vuex.Store({
     productResponse: [],
     cartItems: [],
     user: {},
-    orderPending: null
+    orderPending: null,
+    isAdmin: false
+
   },
   getters: {
     cartItems: (state) => state.cartItems,
-    activeModal: (state) => state.modalActive,
     chosenProduct: (state) => state.chosenProduct,
     productResponse: (state) => state.productResponse,
+    isAdmin: (state) => state.isAdmin
+
 
   },
   mutations: {
     [Mutations.SHOW_API_PRODUCTS](state, data) {
       state.productResponse = data
     },
-
-
     [Mutations.SET_CHOSEN_PRODUCT](state, product) {
       state.chosenProduct = product
       console.log('mutations -->', state.chosenProduct)
@@ -39,16 +40,21 @@ export default new Vuex.Store({
       state.cartItems.splice(index, 1)
     },
 
-    [Mutations.LOGIN](state, user) {
-      if (user.token) {
+    [Mutations.LOGIN](state, data) {
+      debugger
+      if (data.token) {
+        if (data.user.role == 'admin') {
+          state.isAdmin = true;
+        }
         state.isLoggedIn = true;
+        // localStorage.setItem('data', data);
+        state.user = data.user;
       } else {
         state.isLoggedIn = false;
       }
     },
     [Mutations.GET_PRODUCT_BY_ID](state, id) {
       let productByID = state.productResponse.find(e => e.id == id)
-      console.log(productByID)
       return productByID
     },
     [Mutations.MAKE_ORDER](state, order) {
@@ -66,9 +72,8 @@ export default new Vuex.Store({
       await API.registerUser(payload)
     },
     async login(context, payload) {
-      let user = await API.login(payload)
-      console.log('from user ->>', user)
-      context.commit(Mutations.LOGIN, user)
+      let data = await API.login(payload)
+      context.commit(Mutations.LOGIN, data)
     },
     addItem(context, product) {
       context.commit(Mutations.ADD_ITEM, product)
@@ -84,9 +89,9 @@ export default new Vuex.Store({
       await context.commit(Mutations.GET_PRODUCT_BY_ID, id)
     },
     async getAllOrders(context, jwt) {
-      const res = await API.getAllOrders(jwt)
-
+      const res = await API.fetchOrders(jwt)
       console.log(res)
+
     },
     async makeOrder(context, order) {
       const res = await API.makeOrder(order)

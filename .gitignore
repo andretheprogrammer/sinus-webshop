@@ -6,3 +6,4 @@ backend/package-lock.json
 backend/*.db
 backend/.env
 backend/database/users.db
+backend/database/orders.db

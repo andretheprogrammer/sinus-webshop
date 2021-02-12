@@ -8,5 +8,6 @@ export const TOGGLE_MODAL = 'TOGGLE_MODAL'
 export const SET_MODAL = 'SET_MODAL'
 export const LOGIN = 'LOGIN'
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID'
+export const MAKE_ORDER = 'MAKE_ORDER'
 
 
