@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Register from '../views/Register.vue'
 import Products from '../views/Products.vue'
 import Checkout from '../views/Checkout.vue'
+import AdminOrders from '../views/AdminOrders.vue'
+import AdminProducts from '../views/AdminProducts.vue'
 
 Vue.use(VueRouter)
 
@@ -22,7 +24,16 @@ const routes = [
     name: 'Checkout',
     component: Checkout
   },
-
+  {
+    path: '/orders',
+    name: 'AdminOrders',
+    component: AdminOrders
+  },
+  {
+    path: '/adminproducts',
+    name: 'AdminProducts',
+    component: AdminProducts
+  },
 ]
 
 const router = new VueRouter({

@@ -16,6 +16,7 @@ export default new Vuex.Store({
     orderPending: null,
     isAdmin: false
 
+
   },
   getters: {
     cartItems: (state) => state.cartItems,
@@ -41,13 +42,13 @@ export default new Vuex.Store({
     },
 
     [Mutations.LOGIN](state, data) {
-      debugger
+
       if (data.token) {
         if (data.user.role == 'admin') {
           state.isAdmin = true;
         }
         state.isLoggedIn = true;
-        // localStorage.setItem('data', data);
+        sessionStorage.setItem('jwt', data.token);
         state.user = data.user;
       } else {
         state.isLoggedIn = false;
@@ -58,7 +59,19 @@ export default new Vuex.Store({
       return productByID
     },
     [Mutations.MAKE_ORDER](state, order) {
+
       state.orderPending = order;
+    },
+    [Mutations.LOGOUT](state) {
+      state.isLoggedIn = false,
+        state.chosenProduct = null,
+        state.productResponse = [],
+        state.cartItems = [],
+        state.user = {},
+        state.orderPending = null,
+        state.isAdmin = false
+      state.user = {};
+      sessionStorage.clear()
     },
 
   },
@@ -97,9 +110,12 @@ export default new Vuex.Store({
       const res = await API.makeOrder(order)
       await context.commit(Mutations.MAKE_ORDER, order)
 
-      console.log(res)
-    },
+      console.log('make order ->', res)
 
+    },
+    async logout(context) {
+      await context.commit(Mutations.LOGOUT)
+    }
   },
   modules: {
   }

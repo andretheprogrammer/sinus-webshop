@@ -4,9 +4,16 @@
       <img id="logo" src="@/assets/sinus-logo.svg" alt @click="routeToStart" />
       <div class="header-links">
         <div class="menu-item">
-          <router-link v-if="isAdmin" to="/products">
+          <router-link v-if="isAdmin" to="/adminproducts">
             <button>Admin view</button>
           </router-link>
+        </div>
+        <div class="menu-item">
+          <router-link v-if="isAdmin" to="/orders">
+            <button>Admin order view</button>
+          </router-link>
+        </div>
+        <div class="menu-item">
           <router-link to="/products">
             <button>Products</button>
           </router-link>
@@ -53,6 +60,7 @@ export default {
     },
     logout() {
       this.$store.state.isLoggedIn = false;
+      this.$store.dispatch("logout");
     },
   },
 };

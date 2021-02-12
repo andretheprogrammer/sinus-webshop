@@ -17,6 +17,7 @@
         <label>Zipcode</label>
         <input type="text" placeholder="13377" />
       </section>
+
       <section class="card-city">
         <p>Payment________________________</p>
         <label>Card Owner</label>
@@ -40,7 +41,25 @@ export default {
     Cart,
   },
   methods: {
-    makeOrder() {},
+    makeOrder() {
+      let list = [];
+      let cartItems = this.$store.state.cartItems;
+      if (cartItems.length < 1) {
+        alert("no things in cart gringo");
+      } else {
+        cartItems.forEach((item) => {
+          {
+            list.push(item._id);
+          }
+        });
+        console.log(this.$store.state.isLoggedIn);
+
+        this.$store.dispatch("makeOrder", {
+          items: list,
+          user: sessionStorage.getItem("jwt"),
+        });
+      }
+    },
   },
 };
 </script>
