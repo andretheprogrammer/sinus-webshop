@@ -25,6 +25,7 @@ export default new Vuex.Store({
     isAdmin: (state) => state.isAdmin
 
 
+
   },
   mutations: {
     [Mutations.SHOW_API_PRODUCTS](state, data) {
@@ -35,7 +36,15 @@ export default new Vuex.Store({
       console.log('mutations -->', state.chosenProduct)
     },
     [Mutations.ADD_ITEM](state, object) {
-      state.cartItems.push(object)
+      let exists = state.cartItems.find(i => i.item._id == object._id);
+      if (exists) {
+        exists.amount++
+      } else {
+        state.cartItems.push({ item: object, amount: 1 })
+
+      }
+      console.log(state.cartItems)
+
     },
     [Mutations.REMOVE_ITEM](state, index) {
       state.cartItems.splice(index, 1)
@@ -59,7 +68,7 @@ export default new Vuex.Store({
       return productByID
     },
     [Mutations.MAKE_ORDER](state, order) {
-
+      state.cartItems = []
       state.orderPending = order;
     },
     [Mutations.LOGOUT](state) {
@@ -108,6 +117,7 @@ export default new Vuex.Store({
     },
     async makeOrder(context, order) {
       const res = await API.makeOrder(order)
+      // sessionStorage.getItem('jwt')
       await context.commit(Mutations.MAKE_ORDER, order)
 
       console.log('make order ->', res)

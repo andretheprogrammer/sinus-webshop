@@ -6,30 +6,33 @@
         <p>ITEMS_________________________</p>
         <Cart />
       </section>
-      <section class="name-city">
-        <p>Delivery______________________</p>
-        <label>Name</label>
-        <input type="text" placeholder="Sixten Von Sauerkraut" />
-        <label>Street Adress</label>
-        <input type="text" placeholder="Roligavägen 1337" />
-        <label>City</label>
-        <input type="text" placeholder="Ankeborg" />
-        <label>Zipcode</label>
-        <input type="text" placeholder="13377" />
-      </section>
 
-      <section class="card-city">
-        <p>Payment________________________</p>
-        <label>Card Owner</label>
-        <input type="text" />
-        <label>Card Number</label>
-        <input type="text" />
-        <label>Valid until</label>
-        <input type="text" />
-        <label>CCV</label>
-        <input type="text" />
-      </section>
-      <button @click="makeOrder">Press to make an order</button>
+      <form @submit.prevent="makeOrder">
+        <section class="name-city">
+          <p>Delivery______________________</p>
+          <label>Name</label>
+          <input type="text" placeholder="Sixten Von Sauerkraut" required />
+          <label>Street Adress</label>
+          <input type="text" placeholder="Roligavägen 1337" />
+          <label>City</label>
+          <input type="text" placeholder="Ankeborg" />
+          <label>Zipcode</label>
+          <input type="text" placeholder="13377" />
+        </section>
+
+        <section class="card-city">
+          <p>Payment________________________</p>
+          <label>Card Owner</label>
+          <input type="text" />
+          <label>Card Number</label>
+          <input type="text" />
+          <label>Valid until</label>
+          <input type="text" />
+          <label>CCV</label>
+          <input type="text" />
+        </section>
+        <input type="submit" placeholder="Press to make an order" />
+      </form>
     </div>
   </div>
 </template>
@@ -47,17 +50,20 @@ export default {
       if (cartItems.length < 1) {
         alert("no things in cart gringo");
       } else {
-        cartItems.forEach((item) => {
+        cartItems.forEach((product) => {
           {
-            list.push(item._id);
+            for (let i = 0; i < product.amount; i++) {
+              list.push(product.item._id);
+            }
           }
         });
         console.log(this.$store.state.isLoggedIn);
 
         this.$store.dispatch("makeOrder", {
           items: list,
-          user: sessionStorage.getItem("jwt"),
+          user: this.$store.state.user,
         });
+        this.$router.push("/thanks");
       }
     },
   },

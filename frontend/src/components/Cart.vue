@@ -8,22 +8,27 @@
         <section>
           <img
             class="cart-img"
-            :src="require(`@/assets/${product.imgFile}`)"
+            :src="require(`@/assets/${product.item.imgFile}`)"
             alt
           />
         </section>
         <section>
-          <h1>{{ product.title }}</h1>
-          <p>{{ product.shortDesc }}</p>
+          <h1>{{ product.item.title }}</h1>
+          <p>{{ product.item.shortDesc }}</p>
 
-          <p>SN {{ product.serial }}</p>
+          <p>{{ product.item.serial }}</p>
         </section>
-        <section class="x-btn">
+        <section class="upxdown">
           <div class="cart-container">
-            <i @click="removeItem(index)" class="material-icons"
-              >highlight_off</i
-            >
+            <span class="material-icons" @click="incrementAmount(product)">
+              arrow_upward
+            </span>
+            <p>{{ product.amount }}</p>
+            <span class="material-icons" @click="decrementAmount(product)">
+              arrow_downward
+            </span>
           </div>
+          <i @click="removeItem(index)" class="material-icons">highlight_off</i>
         </section>
       </li>
     </ul>
@@ -43,12 +48,22 @@ export default {
     totalSum() {
       let total = 0;
       for (let s of this.$store.state.cartItems) {
-        total += s.price;
+        total += s.item.price * s.amount;
       }
       return total;
     },
   },
   methods: {
+    decrementAmount(product) {
+      if (product.amount > 1) {
+        product.amount--;
+      } else {
+        this.$store.state.cartItems.splice(product, 1);
+      }
+    },
+    incrementAmount(product) {
+      product.amount++;
+    },
     removeItem(index) {
       this.$store.dispatch("removeItem", index);
     },
@@ -84,7 +99,9 @@ li:hover {
   display: flex;
   justify-content: space-between;
 }
-.x-btn {
+.upxdown {
+  display: flex;
+  align-items: center;
   justify-self: flex-end;
 }
 .no-items-wrapper {
@@ -92,5 +109,7 @@ li:hover {
   padding-top: 2vh;
   min-height: 14vh;
   background-color: grey;
+}
+.cart-container {
 }
 </style>

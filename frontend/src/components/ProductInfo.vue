@@ -4,8 +4,8 @@
       <img class="skate-img" :src="getIcon(product)" />
     </section>
     <section class="right-side">
-      <i class="material-icons product-lock">shopping_bag</i>
       <div class="product-price"></div>
+
       <div class="product-content">
         <h2>{{ product.title }}</h2>
         <h3>{{ product.shortDesc }}</h3>
@@ -18,7 +18,6 @@
       <button class="product-button" @click="addCart(product)">
         Take my money!
       </button>
-      <button @click="goCheckout">Checkout</button>
     </section>
   </div>
 </template>
@@ -39,7 +38,7 @@ export default {
     },
     addCart(product) {
       console.log(this.$store.state.cartItems);
-      // this.$store.state.cartItems.push(product);
+
       this.$store.dispatch("addItem", product);
       this.$emit("close");
     },
@@ -90,10 +89,8 @@ export default {
 
 .right-side {
   display: flex;
+  align-self: center;
   flex-direction: column;
-}
-section {
-  padding: 2rem;
 }
 .product-button {
   @include product-btn;
