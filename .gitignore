@@ -7,3 +7,4 @@ backend/*.db
 backend/.env
 backend/database/users.db
 backend/database/orders.db
+backend/database/products.db

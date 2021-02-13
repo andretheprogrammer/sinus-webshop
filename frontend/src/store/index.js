@@ -111,17 +111,17 @@ export default new Vuex.Store({
       await context.commit(Mutations.GET_PRODUCT_BY_ID, id)
     },
     async getAllOrders(context, jwt) {
-      const res = await API.fetchOrders(jwt)
-      console.log(res)
+      const result = await API.fetchOrders(jwt)
+      console.log('fetchOrders -->', result)
+      context.commit(Mutations.GET_ALL_ORDERS, result)
 
+      await API.fetchOrders(jwt)
     },
     async makeOrder(context, order) {
       const res = await API.makeOrder(order)
-      // sessionStorage.getItem('jwt')
       await context.commit(Mutations.MAKE_ORDER, order)
-
       console.log('make order ->', res)
-
+      // sessionStorage.getItem('jwt')
     },
     async logout(context) {
       await context.commit(Mutations.LOGOUT)

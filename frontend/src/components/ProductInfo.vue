@@ -17,6 +17,7 @@
       </div>
       <button class="product-button" @click="addCart(product)">
         Take my money!
+        <span class="material-icons"> skateboarding </span>
       </button>
     </section>
   </div>
@@ -42,6 +43,7 @@ export default {
       this.$store.dispatch("addItem", product);
       this.$emit("close");
     },
+
     goCheckout() {
       this.$router.push("/checkout");
     },
@@ -94,5 +96,6 @@ export default {
 }
 .product-button {
   @include product-btn;
+  display: flex;
 }
 </style>

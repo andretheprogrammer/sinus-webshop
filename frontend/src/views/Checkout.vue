@@ -3,13 +3,14 @@
     <h1>YOUR CART</h1>
     <div class="section-wrapper">
       <section>
-        <p>ITEMS_________________________</p>
+        <p>ITEMS</p>
+        <hr />
         <Cart />
       </section>
 
       <form @submit.prevent="makeOrder">
         <section class="name-city">
-          <p>Delivery______________________</p>
+          <p>Delivery</p>
           <label>Name</label>
           <input type="text" placeholder="Sixten Von Sauerkraut" required />
           <label>Street Adress</label>
@@ -31,7 +32,11 @@
           <label>CCV</label>
           <input type="text" />
         </section>
-        <input type="submit" placeholder="Press to make an order" />
+        <input
+          class="invisible"
+          type="submit"
+          placeholder="Press to make an order"
+        />
       </form>
     </div>
   </div>
@@ -85,6 +90,9 @@ section {
 }
 input {
   @include input-standard;
+}
+.invisible {
+  display: none;
 }
 label {
   margin-top: 0.5rem;

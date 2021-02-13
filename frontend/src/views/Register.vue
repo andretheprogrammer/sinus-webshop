@@ -18,15 +18,17 @@
         </p>
       </div>
 
-      <form id="signup-form" class="register-input">
-        <h4>Register</h4>
-        <label>Name</label>
-        <input type="text" v-model="name" />
-        <label>Email</label>
-        <input type="email" v-model="email" />
-        <label>Password</label>
-        <input type="password" v-model="password" />
-        <button @click="submitUser">Register</button>
+      <form v-if="!isLogin" class="register-form" @submit.prevent="submitUser">
+        <div class="register-input">
+          <h4>Register</h4>
+          <label>Name</label>
+          <input type="text" v-model="name" />
+          <label>Email</label>
+          <input type="email" v-model="email" />
+          <label>Password</label>
+          <input type="password" v-model="password" />
+          <input type="submit" class="invisible" />
+        </div>
       </form>
     </div>
   </div>
@@ -83,20 +85,26 @@ label {
 .register-intro {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  width: 50%;
 }
-
+.invisible {
+  display: none;
+}
 .register-input {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
 }
 
 .bottom-regwrapper {
   display: flex;
-  gap: 3rem;
-  padding-bottom: 50rem;
-  align-self: center;
-  width: 90%;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  gap: 2rem;
+}
+.register-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
 }
 </style>

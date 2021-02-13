@@ -1,10 +1,10 @@
 <template>
-  <div class="wrapper">
-    <ImageSlot>
+  <div class="order-complete-wrapper">
+    <ImageSlot class="imgslot">
       <h1>Your order has been completed!</h1>
     </ImageSlot>
 
-    <div class="container">
+    <div class="order-completed-lorem">
       <h1>Your order is being processed, go out and skate while you wait</h1>
       <p>
         Lipslide trucks boardslide boneless Chris Buchinsky g-turn snake.
@@ -31,5 +31,22 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "@/styles/_global.scss";
+
+.order-complete-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-completed-lorem {
+  width: 80%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  transform: translate(0% 10%);
+}
+.imgslot {
+  align-self: center;
+}
 </style>

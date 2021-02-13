@@ -108,8 +108,5 @@ li:hover {
   margin-top: 1vh;
   padding-top: 2vh;
   min-height: 14vh;
-  background-color: grey;
-}
-.cart-container {
 }
 </style>
