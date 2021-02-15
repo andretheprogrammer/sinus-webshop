@@ -4,22 +4,36 @@
       <div class="p-photo">
         <label>Product Photo</label>
 
-        <input class="input-big" type="text" />
+        <input v-model="product.imgFile" class="input-big" type="text" />
       </div>
       <div class="create-desc">
-        <label>Product Name</label>
-        <input class="input" type="text" required />
-        <label>Product short desc</label>
-        <input class="input" type="text" required />
+        <label>Product title</label>
+        <input v-model="product.title" class="input" type="text" required />
         <label>Product price</label>
-        <input class="input" type="text" required />
-        <label>Product Serial</label>
-        <input class="input" type="text" required />
+        <input v-model="product.price" class="input" type="text" required />
+        <label>Product short desc</label>
+        <input v-model="product.shortDesc" class="input" type="text" required />
+        <select
+          v-model="product.category"
+          name="categories"
+          id="category"
+          required
+        >
+          <option value="board">Board</option>
+          <option value="clothes">Clothes</option>
+          <option value="wheels">Wheels</option>
+        </select>
       </div>
       <div class="p-desc">
         <label>Product description</label>
-        <input class="input-big" type="text" required />
+        <input
+          v-model="product.longDesc"
+          class="input-big"
+          type="text"
+          required
+        />
       </div>
+
       <input type="submit" />
     </form>
   </div>
@@ -29,12 +43,20 @@
 export default {
   data() {
     return {
-      file: "",
+      product: {
+        title: "",
+        price: 0,
+        shortDesc: "",
+        longDesc: "",
+        imgFile: "",
+        category: "",
+      },
     };
   },
   methods: {
     createProduct() {
-      this.$store.dispatch();
+      console.log(this.product);
+      this.$store.dispatch("createNewProduct", this.product);
     },
     // handleFileUpload() {
     //   this.file = this.$refs.file.files[0];
@@ -55,6 +77,8 @@ export default {
   display: flex;
   flex-direction: row;
   background-color: grey;
+  width: 100%;
+  justify-content: center;
 }
 form {
   display: flex;
@@ -62,20 +86,24 @@ form {
 .create-desc {
   display: flex;
   flex-direction: column;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .input {
   @include input-standard;
   height: 2rem;
   background-color: transparent;
   border: 1px solid white;
+  cursor: pointer;
 }
 .input-big {
   @include input-standard;
   background-color: transparent;
 
   border: 1px solid white;
+  cursor: pointer;
 
-  height: 10rem;
+  height: 14rem;
 }
 .p-desc {
   display: flex;

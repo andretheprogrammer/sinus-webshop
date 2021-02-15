@@ -1,8 +1,6 @@
 <template>
   <div class="admin-wrapper">
     <h1>ADMIN PRODUCTS</h1>
-    <p>Add / Edit</p>
-    <hr />
     <EditProduct />
     <ul>
       <li
@@ -44,9 +42,7 @@ import Overlay from "../components/Overlay.vue";
 import ProductInfo from "../components/ProductInfo.vue";
 export default {
   components: { ProductInfo, EditProduct, Overlay },
-  created() {
-    this.$store.dispatch("getProducts");
-  },
+
   data() {
     return {
       showModal: false,

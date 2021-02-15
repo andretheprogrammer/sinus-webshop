@@ -75,3 +75,26 @@ export async function makeOrder(order, token = null) {
     return data
 }
 
+export async function postProduct(product, token) {
+    const res = await fetch('http://localhost:5000/api/product',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                title: product.title,
+                price: product.price,
+                shortDesc: product.shortDesc,
+                longDesc: product.longDesc,
+                imgFile: product.imgFile,
+                category: product.category,
+                serial: product.serial
+            }),
+        }).then((response) => response.json());
+
+    const data = await res.json()
+    return data
+}

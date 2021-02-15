@@ -31,15 +31,7 @@ export default new Vuex.Store({
         ordersResponse: (state) => state.ordersResponse,
         ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
         ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
-        user: (state) => {
-            if (state.user) {
-                console.log(true)
-            }
-            else {
-                console.log(false)
-            }
-            return state.user;
-        },
+        user: (state) => state.user,
         isAdmin: (state) => {
             if (state.user.role == 'admin') {
                 console.log('true')
@@ -65,6 +57,7 @@ export default new Vuex.Store({
 
     mutations: {
         [Mutations.SHOW_API_PRODUCTS](state, data) {
+            console.log('data ->', data)
             state.productResponse = data
         },
         [Mutations.SET_CHOSEN_PRODUCT](state, product) {
@@ -123,11 +116,11 @@ export default new Vuex.Store({
         [Mutations.GET_ALL_ORDERS](state, data) {
             state.ordersResponse = data
         },
+
     },
     actions: {
-        async getProducts(context, payload) {
-            const result = await API.fetchProducts(payload)
-
+        async getProducts(context) {
+            const result = await API.fetchProducts()
             context.commit(Mutations.SHOW_API_PRODUCTS, result)
         },
         async registerUser(context, payload) {
@@ -143,7 +136,12 @@ export default new Vuex.Store({
         async removeItem(context, index) {
             await context.commit(Mutations.REMOVE_ITEM, index)
         },
-
+        async createNewProduct(context, product) {
+            console.log(product)
+            let data = await API.postProduct(product, sessionStorage.getItem('jwt'))
+            console.log(data, context)
+            // await context.commit(Mutations.CREATE_NEW_PRODUCT, data)
+        },
 
 
         // async submitFile(context, payload) {
@@ -166,8 +164,8 @@ export default new Vuex.Store({
         },
         async makeOrder(context, order) {
             const res = await API.makeOrder(order, sessionStorage.getItem('jwt'))
-            await context.commit(Mutations.MAKE_ORDER, order)
             console.log('make order ->', res)
+            await context.commit(Mutations.MAKE_ORDER, order)
             // sessionStorage.getItem('jwt')
         },
         async logout(context) {

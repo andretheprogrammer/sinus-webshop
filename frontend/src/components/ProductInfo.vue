@@ -38,8 +38,6 @@ export default {
       return require(`@/assets/${product.imgFile}`);
     },
     addCart(product) {
-      console.log(this.$store.state.cartItems);
-
       this.$store.dispatch("addItemToCart", product);
       this.$emit("close");
     },

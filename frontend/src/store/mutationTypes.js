@@ -12,6 +12,6 @@ export const MAKE_ORDER = 'MAKE_ORDER'
 export const LOGOUT = 'LOGOUT'
 export const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
 export const SET_CHOSEN_ORDER = 'SET_CHOSEN_ORDER'
-// export const SUBMIT_FILE = 'SUBMIT_FILE'
+export const CREATE_NEW_PRODUCT = 'CREATE_NEW_PRODUCT'
 
 

@@ -85,8 +85,18 @@ li {
   justify-content: space-between;
   border: 1px solid transparent;
   width: 100%;
-  cursor: pointer;
   text-align: left;
+  p {
+    align-self: center;
+  }
+  span {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+.material-icons {
+  font-size: 15px;
+  cursor: pointer;
 }
 li:hover {
   border: 1px solid black;
