@@ -40,7 +40,7 @@ export default {
     addCart(product) {
       console.log(this.$store.state.cartItems);
 
-      this.$store.dispatch("addItem", product);
+      this.$store.dispatch("addItemToCart", product);
       this.$emit("close");
     },
 

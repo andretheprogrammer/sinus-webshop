@@ -35,7 +35,7 @@
           <li
             v-for="(item, index) in ordersDone"
             :key="index"
-            @click="openModal(order)"
+            @click="openModal(item)"
           >
             <div class="item-item">
               <h3>Order ID: {{ item._id }}</h3>
@@ -75,6 +75,7 @@ export default {
       "ordersInProgress",
       "ordersDone",
       "chosenOrder",
+      "isAdmin",
     ]),
   },
 

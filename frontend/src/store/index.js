@@ -16,7 +16,8 @@ export default new Vuex.Store({
         orderPending: null,
         isAdmin: false,
         ordersResponse: [],
-        chosenOrder: null
+        chosenOrder: null,
+        // fileSubmitted: null
 
     },
     getters: {
@@ -47,13 +48,11 @@ export default new Vuex.Store({
         },
         [Mutations.SET_CHOSEN_PRODUCT](state, product) {
             state.chosenProduct = product
-            console.log('mutations -->', state.chosenProduct)
         },
         [Mutations.SET_CHOSEN_ORDER](state, order) {
             state.chosenOrder = order
-            console.log('mutations -->', state.chosenOrder)
         },
-        [Mutations.ADD_ITEM](state, object) {
+        [Mutations.ADD_ITEM_TO_CART](state, object) {
             let exists = state.cartItems.find(i => i.item._id == object._id);
             if (exists) {
                 exists.amount++
@@ -101,6 +100,10 @@ export default new Vuex.Store({
         [Mutations.GET_ALL_ORDERS](state, data) {
             state.ordersResponse = data
         },
+        // [Mutations.SUBMIT_FILE](state, data) {
+        //     console.log(data)
+        //     state.fileSubmitted = data
+        // },
     },
     actions: {
         async getProducts(context, payload) {
@@ -115,8 +118,8 @@ export default new Vuex.Store({
             let data = await API.login(payload)
             context.commit(Mutations.LOGIN, data)
         },
-        async addItem(context, product) {
-            await context.commit(Mutations.ADD_ITEM, product)
+        async addItemToCart(context, product) {
+            await context.commit(Mutations.ADD_ITEM_TO_CART, product)
         },
         async removeItem(context, index) {
             await context.commit(Mutations.REMOVE_ITEM, index)
@@ -145,7 +148,10 @@ export default new Vuex.Store({
         },
         async logout(context) {
             await context.commit(Mutations.LOGOUT)
-        }
+        },
+        // async submitFile(context, payload) {
+        //     await context.commit(Mutations.SUBMIT_FILE, payload)
+        // }
     },
 
 })

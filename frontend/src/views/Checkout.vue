@@ -58,7 +58,6 @@ export default {
             }
           }
         });
-        console.log(this.$store.state.isLoggedIn);
 
         this.$store.dispatch("makeOrder", {
           items: list,
