@@ -2,9 +2,9 @@
   <div id="app">
     <Header />
     <hr />
-    <main>
+    <transition mode="out-in" name="view">
       <router-view />
-    </main>
+    </transition>
   </div>
 </template>
 
@@ -13,8 +13,8 @@ import Header from "@/components/Header";
 
 export default {
   components: {
-    Header
-  }
+    Header,
+  },
 };
 </script>
 

@@ -32,12 +32,8 @@
           <label>CCV</label>
           <input type="text" />
         </section>
+        <input type="submit" placeholder="Press to make an order" />
       </form>
-      <input
-        @click="makeOrder"
-        type="submit"
-        placeholder="Press to make an order"
-      />
     </div>
   </div>
 </template>

@@ -15,14 +15,16 @@ export default new Vuex.Store({
     user: {},
     orderPending: null,
     isAdmin: false,
-    orderResponse: []
+    ordersResponse: []
 
   },
   getters: {
     cartItems: (state) => state.cartItems,
     chosenProduct: (state) => state.chosenProduct,
     productResponse: (state) => state.productResponse,
-    orderResponse: (state) => state.orderResponse,
+    ordersResponse: (state) => state.ordersResponse,
+    ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
+    ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
     isAdmin: (state) => state.isAdmin,
     isLoggedIn: (state) => {
       if (sessionStorage.getItem('jwt')) {
@@ -82,7 +84,6 @@ export default new Vuex.Store({
     [Mutations.LOGOUT](state) {
       state.isLoggedIn = false,
         state.chosenProduct = null,
-        state.productResponse = [],
         state.cartItems = [],
         state.user = {},
         state.orderPending = null,
@@ -91,7 +92,7 @@ export default new Vuex.Store({
       sessionStorage.clear()
     },
     [Mutations.GET_ALL_ORDERS](state, data) {
-      state.orderResponse = data
+      state.ordersResponse = data
     },
   },
   actions: {
@@ -125,7 +126,6 @@ export default new Vuex.Store({
       console.log('fetchOrders -->', result)
       context.commit(Mutations.GET_ALL_ORDERS, result)
 
-      await API.fetchOrders(jwt)
     },
     async makeOrder(context, order) {
       const res = await API.makeOrder(order, sessionStorage.getItem('jwt'))

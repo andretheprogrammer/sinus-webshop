@@ -27,10 +27,13 @@
         </li>
       </ul>
     </div>
-
-    <Overlay v-if="chosenProduct" :show="showModal" @close="closeModal">
-      <ProductInfo :product="chosenProduct" @close="closeModal" />
-    </Overlay>
+    <div class="product-info-wrapper">
+      <transition mode="out-in" name="product-trans">
+        <Overlay v-if="chosenProduct" :show="showModal" @close="closeModal">
+          <ProductInfo :product="chosenProduct" @close="closeModal" />
+        </Overlay>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -110,10 +113,10 @@ export default {
 .product:hover {
   background-color: lightsteelblue;
   cursor: pointer;
-  .price-container {
-    border: 1px solid white !important;
-    box-shadow: 0 0 5px white;
-  }
+}
+.price-container {
+  border: 1px solid white !important;
+  box-shadow: 0 0 5px white;
 }
 
 .product-item {
@@ -187,5 +190,21 @@ export default {
       }
     }
   }
+}
+.product-trans-enter-active,
+.product-trans-leave-active {
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.product-trans-enter,
+.product-trans-leave-to {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.product-trans-enter-to,
+.product-trans-leave {
+  transform: scale(1);
+  opacity: 1;
 }
 </style>
