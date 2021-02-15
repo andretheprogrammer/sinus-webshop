@@ -8,21 +8,21 @@
         <Cart />
       </section>
 
-      <form @submit.prevent="makeOrder">
+      <form class="submit-form" @submit.prevent="makeOrder">
         <section class="name-city">
           <p>Delivery</p>
           <label>Name</label>
-          <input type="text" placeholder="Sixten Von Sauerkraut" required />
+          <input type="text" v-model="customer.name" readonly />
           <label>Street Adress</label>
-          <input type="text" placeholder="Roligavägen 1337" />
+          <input type="text" v-model="customer.adress.street" readonly />
           <label>City</label>
-          <input type="text" placeholder="Ankeborg" />
+          <input type="text" v-model="customer.adress.city" readonly />
           <label>Zipcode</label>
-          <input type="text" placeholder="13377" />
+          <input type="text" v-model="customer.adress.zip" readonly />
         </section>
 
         <section class="card-city">
-          <p>Payment________________________</p>
+          <p>Payment</p>
           <label>Card Owner</label>
           <input type="text" />
           <label>Card Number</label>
@@ -42,6 +42,29 @@
 import { mapGetters } from "vuex";
 import Cart from "@/components/Cart";
 export default {
+  data() {
+    return {
+      customer: {
+        email: "",
+        name: "",
+        role: "",
+        adress: { street: "", city: "", zip: "" },
+        payment: { cardOwner: "", cardNumber: "", validUntil: "", cvv: "" },
+        orderHistory: [],
+        password: "",
+        _id: ""
+      }
+    };
+  },
+  mounted() {
+    if (this.user.email) {
+      this.customer = this.user;
+      console.log("user", this.customer);
+    } else {
+      for (var param in this.customer) delete this.customer[param];
+      console.log("no user", this.user);
+    }
+  },
   components: {
     Cart
   },
@@ -65,7 +88,7 @@ export default {
 
         this.$store.dispatch("makeOrder", {
           items: list,
-          user: this.user
+          user: this.customer
         });
         this.$router.push("/thanks");
       }
@@ -91,12 +114,16 @@ input {
   @include input-standard;
 }
 
-.name-city {
+.submit-form {
   display: flex;
-  flex-direction: column;
-}
-.card-city {
-  display: flex;
-  flex-direction: column;
+
+  .name-city {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-city {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
