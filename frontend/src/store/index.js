@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false,
+    isLoggedIn: null,
     chosenProduct: null,
     productResponse: [],
     cartItems: [],
@@ -23,7 +23,17 @@ export default new Vuex.Store({
     chosenProduct: (state) => state.chosenProduct,
     productResponse: (state) => state.productResponse,
     orderResponse: (state) => state.orderResponse,
-    isAdmin: (state) => state.isAdmin
+    isAdmin: (state) => state.isAdmin,
+    isLoggedIn: (state) => {
+      if (sessionStorage.getItem('jwt')) {
+        state.isLoggedIn = true;
+      }
+      else {
+        state.isLoggedIn = false;
+      }
+
+      return state.isLoggedIn;
+    }
 
   },
   mutations: {

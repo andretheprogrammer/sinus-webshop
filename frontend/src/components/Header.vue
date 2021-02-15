@@ -18,7 +18,7 @@
             <button>Products</button>
           </router-link>
         </div>
-        <Login v-if="!loggedIn" />
+        <Login v-if="!isLoggedIn" />
         <div v-else class="menu-item">
           <button class="account-btn" @click="$store.dispatch('logout')">
             <i class="material-icons product-lock">account_circle</i>
@@ -28,9 +28,7 @@
           <router-link to="/checkout">
             <button class="cart-btn">
               <div v-if="cartItems.length > 0" class="cart-amount">
-                <p>
-                  {{ cartItems.length }}
-                </p>
+                <p>{{ cartItems.length }}</p>
               </div>
               <i class="material-icons product-lock">shopping_bag</i>
             </button>
@@ -47,13 +45,10 @@ import Login from "@/components/Login";
 
 export default {
   components: {
-    Login,
+    Login
   },
   computed: {
-    ...mapGetters(["isAdmin", "cartItems"]),
-    loggedIn() {
-      return this.$store.state.isLoggedIn;
-    },
+    ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"])
   },
   methods: {
     routeToStart() {
@@ -62,17 +57,8 @@ export default {
       } else {
         this.$router.push(`/`);
       }
-    },
-
-    // calculateCart() {
-    //   for (this.item in this.cartItems) {
-    //     for (let i = 0; i < this.amount; i++) {
-    //       this.count++;
-    //     }
-    //   }
-    // console.log(this.count);
-    // return this.count;
-  },
+    }
+  }
 };
 </script>
 
