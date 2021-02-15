@@ -97,5 +97,9 @@ export default {
 .product-button {
   @include product-btn;
   display: flex;
+  :active,
+  :visited {
+    text-decoration: none;
+  }
 }
 </style>

@@ -9,7 +9,11 @@
         <h1>No orders in progress!</h1>
       </div>
       <ul v-else>
-        <li v-for="(order, index) in ordersInProgress" :key="index">
+        <li
+          v-for="(order, index) in ordersInProgress"
+          :key="index"
+          @click="openModal(order)"
+        >
           <div class="order-item">
             <h4>Ordered Items: {{ order.items }}</h4>
             <p>TimeStamp: {{ order.timeStamp }}</p>
@@ -28,7 +32,11 @@
         <h1>Orders finished</h1>
         <hr />
         <ul>
-          <li v-for="(item, index) in ordersDone" :key="index">
+          <li
+            v-for="(item, index) in ordersDone"
+            :key="index"
+            @click="openModal(order)"
+          >
             <div class="item-item">
               <h3>Order ID: {{ item._id }}</h3>
               <h4>Ordered Items: {{ item.items }}</h4>
@@ -37,6 +45,11 @@
             </div>
           </li>
         </ul>
+        <div class="order-info-wrapper">
+          <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
+            <OrderInfo :order="chosenOrder" @close="closeModal" />
+          </Overlay>
+        </div>
       </div>
     </section>
   </div>
@@ -44,14 +57,39 @@
 
 <script >
 import { mapGetters } from "vuex";
+import Overlay from "@/components/Overlay";
+import OrderInfo from "@/components/OrderInfo";
 export default {
-  computed: {
-    ...mapGetters(["ordersResponse", "ordersInProgress", "ordersDone"]),
-  },
-
   created() {
     let token = sessionStorage.getItem("jwt");
     this.$store.dispatch("getAllOrders", token);
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  computed: {
+    ...mapGetters([
+      "ordersResponse",
+      "ordersInProgress",
+      "ordersDone",
+      "chosenOrder",
+    ]),
+  },
+
+  methods: {
+    openModal(order) {
+      this.$store.dispatch("setChosenOrder", order);
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+  },
+  components: {
+    Overlay,
+    OrderInfo,
   },
 };
 </script>

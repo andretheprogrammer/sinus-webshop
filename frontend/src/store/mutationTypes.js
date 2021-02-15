@@ -11,6 +11,6 @@ export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID'
 export const MAKE_ORDER = 'MAKE_ORDER'
 export const LOGOUT = 'LOGOUT'
 export const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
-
+export const SET_CHOSEN_ORDER = 'SET_CHOSEN_ORDER'
 
 

@@ -43,13 +43,16 @@ import Overlay from "@/components/Overlay";
 import ProductInfo from "@/components/ProductInfo";
 
 export default {
+  computed: {
+    ...mapGetters(["productResponse", "chosenProduct"]),
+  },
+  created() {
+    this.$store.dispatch("getProducts");
+  },
   data() {
     return {
       showModal: false,
     };
-  },
-  props: {
-    product: Object,
   },
 
   components: {
@@ -70,12 +73,6 @@ export default {
     isModalActive() {
       this.$store.state.activeModal;
     },
-  },
-  computed: {
-    ...mapGetters(["productResponse", "chosenProduct"]),
-  },
-  created() {
-    this.$store.dispatch("getProducts");
   },
 };
 </script>
