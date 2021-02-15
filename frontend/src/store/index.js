@@ -22,6 +22,7 @@ export default new Vuex.Store({
     getters: {
         cartItems: (state) => state.cartItems,
         chosenProduct: (state) => state.chosenProduct,
+        chosenOrder: (state) => state.chosenOrder,
         productResponse: (state) => state.productResponse,
         ordersResponse: (state) => state.ordersResponse,
         ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),

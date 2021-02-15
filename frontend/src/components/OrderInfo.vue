@@ -1,5 +1,7 @@
 <template>
-  <h1>{{ chosenOrder }}</h1>
+  <div class="wrapper">
+    <h1>{{ chosenOrder }}</h1>
+  </div>
 </template>
 
 <script>
@@ -11,5 +13,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.wrapper {
+  background-color: gray;
+  border: white 1px solid;
+}
 </style>
