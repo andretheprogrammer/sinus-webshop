@@ -32,12 +32,12 @@
           <label>CCV</label>
           <input type="text" />
         </section>
-        <input
-          class="invisible"
-          type="submit"
-          placeholder="Press to make an order"
-        />
       </form>
+      <input
+        @click="makeOrder"
+        type="submit"
+        placeholder="Press to make an order"
+      />
     </div>
   </div>
 </template>
@@ -91,12 +91,7 @@ section {
 input {
   @include input-standard;
 }
-.invisible {
-  display: none;
-}
-label {
-  margin-top: 0.5rem;
-}
+
 .name-city {
   display: flex;
   flex-direction: column;

@@ -3,18 +3,14 @@
     <h1>ORDERS</h1>
     <h3>In progress</h3>
     <hr />
+
     <section>
-      <ul>
-        <li>
-          <h1>tja</h1>
-        </li>
-      </ul>
-    </section>
-    <hr />
-    <section>
-      <ul>
-        <li>
-          <h1>tja</h1>
+      <div v-if="!orderResponse.length" class="no-orders">
+        <h1>The list is empty!</h1>
+      </div>
+      <ul v-else>
+        <li v-for="(order, index) in orderResponse" :key="index">
+          {{ order }}
         </li>
       </ul>
     </section>
@@ -22,7 +18,17 @@
 </template>
 
 <script >
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["orderResponse"]),
+  },
+
+  created() {
+    let token = sessionStorage.getItem("jwt");
+    this.$store.dispatch("getAllOrders", token);
+  },
+};
 </script>
 
 <style lang="scss" scoped>

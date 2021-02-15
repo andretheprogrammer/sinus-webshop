@@ -18,7 +18,7 @@
         </p>
       </div>
 
-      <form v-if="!isLogin" class="register-form" @submit.prevent="submitUser">
+      <form class="register-form" @submit.prevent="submitUser">
         <div class="register-input">
           <h4>Register</h4>
           <label>Name</label>
@@ -74,6 +74,7 @@ input {
   @include input-standard;
   background: transparent;
   margin: 0;
+  width: fit-content;
 }
 label {
   font-size: 12px;
@@ -101,10 +102,10 @@ label {
   margin-left: 3rem;
   margin-right: 3rem;
   gap: 2rem;
+  margin: 0 auto;
+  justify-content: center;
 }
 .register-form {
-  width: 100%;
   display: flex;
-  flex-direction: row-reverse;
 }
 </style>

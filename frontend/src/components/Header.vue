@@ -20,13 +20,18 @@
         </div>
         <Login v-if="!loggedIn" />
         <div v-else class="menu-item">
-          <button class="account-btn" @click="logout">
+          <button class="account-btn" @click="$store.dispatch('logout')">
             <i class="material-icons product-lock">account_circle</i>
           </button>
         </div>
         <div class="menu-item">
           <router-link to="/checkout">
             <button class="cart-btn">
+              <div v-if="cartItems.length > 0" class="cart-amount">
+                <p>
+                  {{ cartItems.length }}
+                </p>
+              </div>
               <i class="material-icons product-lock">shopping_bag</i>
             </button>
           </router-link>
@@ -45,7 +50,7 @@ export default {
     Login,
   },
   computed: {
-    ...mapGetters(["isAdmin"]),
+    ...mapGetters(["isAdmin", "cartItems"]),
     loggedIn() {
       return this.$store.state.isLoggedIn;
     },
@@ -58,10 +63,15 @@ export default {
         this.$router.push(`/`);
       }
     },
-    logout() {
-      this.$store.state.isLoggedIn = false;
-      this.$store.dispatch("logout");
-    },
+
+    // calculateCart() {
+    //   for (this.item in this.cartItems) {
+    //     for (let i = 0; i < this.amount; i++) {
+    //       this.count++;
+    //     }
+    //   }
+    // console.log(this.count);
+    // return this.count;
   },
 };
 </script>
@@ -125,6 +135,15 @@ export default {
   .account-btn {
     @include lock-button;
     background-color: silver;
+  }
+  .cart-amount {
+    background-color: orange;
+    border-radius: 50px;
+    p {
+      font-size: 10px;
+      line-height: 15px;
+      width: 10px;
+    }
   }
 }
 </style>

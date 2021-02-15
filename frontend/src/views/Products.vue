@@ -42,16 +42,16 @@ import ProductInfo from "@/components/ProductInfo";
 export default {
   data() {
     return {
-      showModal: false
+      showModal: false,
     };
   },
   props: {
-    product: Object
+    product: Object,
   },
 
   components: {
     Overlay,
-    ProductInfo
+    ProductInfo,
   },
   methods: {
     closeModal() {
@@ -66,18 +66,14 @@ export default {
     },
     isModalActive() {
       this.$store.state.activeModal;
-    }
+    },
   },
   computed: {
-    ...mapGetters([
-      "chosenProduct",
-      "productResponse"
-      // ...
-    ])
+    ...mapGetters(["productResponse", "chosenProduct"]),
   },
   created() {
     this.$store.dispatch("getProducts");
-  }
+  },
 };
 </script>
 

@@ -14,17 +14,16 @@ export default new Vuex.Store({
     cartItems: [],
     user: {},
     orderPending: null,
-    isAdmin: false
-
+    isAdmin: false,
+    orderResponse: []
 
   },
   getters: {
     cartItems: (state) => state.cartItems,
     chosenProduct: (state) => state.chosenProduct,
     productResponse: (state) => state.productResponse,
+    orderResponse: (state) => state.orderResponse,
     isAdmin: (state) => state.isAdmin
-
-
 
   },
   mutations: {
@@ -51,7 +50,6 @@ export default new Vuex.Store({
     },
 
     [Mutations.LOGIN](state, data) {
-
       if (data.token) {
         if (data.user.role == 'admin') {
           state.isAdmin = true;
@@ -82,7 +80,9 @@ export default new Vuex.Store({
       state.user = {};
       sessionStorage.clear()
     },
-
+    [Mutations.GET_ALL_ORDERS](state, data) {
+      state.orderResponse = data
+    },
   },
   actions: {
     async getProducts(context, payload) {
@@ -97,8 +97,8 @@ export default new Vuex.Store({
       let data = await API.login(payload)
       context.commit(Mutations.LOGIN, data)
     },
-    addItem(context, product) {
-      context.commit(Mutations.ADD_ITEM, product)
+    async addItem(context, product) {
+      await context.commit(Mutations.ADD_ITEM, product)
     },
     async removeItem(context, index) {
       await context.commit(Mutations.REMOVE_ITEM, index)

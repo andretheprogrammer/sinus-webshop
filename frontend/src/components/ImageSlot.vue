@@ -35,6 +35,6 @@ slot {
 
 .image-frame {
   height: 50vh;
-  width: 120vh;
+  width: 90%;
 }
 </style>

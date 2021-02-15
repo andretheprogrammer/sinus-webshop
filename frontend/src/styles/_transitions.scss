@@ -1,0 +1,19 @@
+$t-duration: 0.5ms;
+
+.login-anim-enter-active,
+  .login-anim-leave-active {
+    transition: opacity, transform;
+    transition-duration: $t-duration;
+    transition-timing-function: ease-in-out;
+  }
+
+  .login-anim-enter,
+  .login-anim-leave-to {
+    transform: translateX(-100px) rotateX(90deg);
+    opacity: 0;
+  }
+  .login-anim-enter-to,
+  .login-anim-leave {
+    transform: translateX(0px) rotateZ(0deg);
+    opacity: 1;
+  }

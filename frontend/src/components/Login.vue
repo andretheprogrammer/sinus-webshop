@@ -1,18 +1,20 @@
 <template>
   <div class="menu-item" v-click-outside-window="closeWindow">
     <button @click="show = !show">Login</button>
-    <div v-if="show" class="login-window">
-      <div class="login-form">
-        <input type="text" v-model="email" placeholder="Email" id="email" />
-        <input
-          type="password"
-          v-model="password"
-          placeholder="Password"
-          id="password"
-        />
-        <button @click="loginUser">Login</button>
+    <transition mode="out-in" name="login-anim">
+      <div v-show="show" class="animate login-window">
+        <div class="login-form">
+          <input type="text" v-model="email" placeholder="Email" id="email" />
+          <input
+            type="password"
+            v-model="password"
+            placeholder="Password"
+            id="password"
+          />
+          <button @click="loginUser">Login</button>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -92,6 +94,7 @@ export default {
   padding: 1rem 2rem;
   margin: auto;
   width: 100%;
+  transition: opacity 0.5s;
 
   input {
     @include input-standard;

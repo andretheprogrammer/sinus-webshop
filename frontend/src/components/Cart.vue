@@ -42,7 +42,7 @@
 <script>
 export default {
   computed: {
-    cartItems: function () {
+    cartItems() {
       return this.$store.state.cartItems;
     },
     totalSum() {
@@ -86,6 +86,7 @@ li {
   border: 1px solid transparent;
   width: 100%;
   cursor: pointer;
+  text-align: left;
 }
 li:hover {
   border: 1px solid black;
@@ -93,6 +94,11 @@ li:hover {
 .cart-img {
   height: 3rem;
   align-self: flex-end;
+}
+.cart-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .total-price {
