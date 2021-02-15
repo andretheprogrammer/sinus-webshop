@@ -37,6 +37,11 @@
             </div>
           </li>
         </ul>
+        <div class="order-info-wrapper">
+          <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
+            <OrderInfo :order="chosenOrder" @close="closeModal" />
+          </Overlay>
+        </div>
       </div>
     </section>
   </div>
@@ -45,13 +50,19 @@
 <script >
 import { mapGetters } from "vuex";
 export default {
+  created() {
+    let token = sessionStorage.getItem("jwt");
+    this.$store.dispatch("getAllOrders", token);
+  },
   computed: {
     ...mapGetters(["ordersResponse", "ordersInProgress", "ordersDone"]),
   },
 
-  created() {
-    let token = sessionStorage.getItem("jwt");
-    this.$store.dispatch("getAllOrders", token);
+  methods: {
+    openModal(order) {
+      this.$store.dispatch("setChosenOrder", order);
+      this.showModal = true;
+    },
   },
 };
 </script>
