@@ -5,12 +5,7 @@
       <div v-show="show" class="login-window">
         <div class="login-form">
           <input type="text" v-model="email" placeholder="Email" id="email" />
-          <input
-            type="password"
-            v-model="password"
-            placeholder="Password"
-            id="password"
-          />
+          <input type="password" v-model="password" placeholder="Password" id="password" />
           <button @click="loginUser">Login</button>
         </div>
       </div>
@@ -24,13 +19,13 @@ export default {
     return {
       show: false,
       email: "",
-      password: "",
+      password: ""
     };
   },
   directives: {
     "click-outside-window": {
-      bind: function (el, binding) {
-        const ourClickEventHandler = (event) => {
+      bind: function(el, binding) {
+        const ourClickEventHandler = event => {
           if (typeof binding.value !== "function") {
             console.warn(
               "[Vue-click-outside:] provided expression",
@@ -47,28 +42,28 @@ export default {
 
         document.addEventListener("click", ourClickEventHandler);
       },
-      unbind: function (el) {
+      unbind: function(el) {
         document.removeEventListener("click", el.__vueClickEventHandler__);
-      },
-    },
+      }
+    }
   },
-  computed: {
-    loggedIn() {
-      return this.$store.state.isLoggedIn;
-    },
-  },
+  // computed: {
+  //   loggedIn() {
+  //     return this.$store.state.isLoggedIn;
+  //   },
+  // },
   methods: {
     loginUser() {
       this.$store.dispatch("login", {
         email: this.email,
-        password: this.password,
+        password: this.password
       });
       this.show = false;
     },
     closeWindow() {
       this.show = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
