@@ -1,5 +1,5 @@
 <template>
-  <h1>hi from orderinfo</h1>
+  <h1>{{ chosenOrder }}</h1>
 </template>
 
 <script>
