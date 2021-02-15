@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import *as API from "@/API/";
 import *as Mutations from './mutationTypes'
 
@@ -7,6 +8,9 @@ import *as Mutations from './mutationTypes'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+  })],
   state: {
     isLoggedIn: null,
     chosenProduct: null,
@@ -14,7 +18,7 @@ export default new Vuex.Store({
     cartItems: [],
     user: {},
     orderPending: null,
-    isAdmin: false,
+    isAdmin: null,
     ordersResponse: []
 
   },
@@ -25,7 +29,26 @@ export default new Vuex.Store({
     ordersResponse: (state) => state.ordersResponse,
     ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
     ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
-    isAdmin: (state) => state.isAdmin,
+    user: (state) => {
+      if (state.user) {
+        console.log(true)
+      }
+      else {
+        console.log(false)
+      }
+      return state.user;
+    },
+    isAdmin: (state) => {
+      if (state.user.role == 'admin') {
+        console.log('true')
+        state.isAdmin = true;
+      }
+      else {
+        state.isAdmin = false;
+        console.log('false', state.user.role)
+      }
+      return state.isAdmin;
+    },
     isLoggedIn: (state) => {
       if (sessionStorage.getItem('jwt')) {
         state.isLoggedIn = true;
@@ -33,7 +56,6 @@ export default new Vuex.Store({
       else {
         state.isLoggedIn = false;
       }
-
       return state.isLoggedIn;
     }
 
@@ -93,12 +115,11 @@ export default new Vuex.Store({
     },
     [Mutations.GET_ALL_ORDERS](state, data) {
       state.ordersResponse = data
-    },
+    }
   },
   actions: {
     async getProducts(context, payload) {
       const result = await API.fetchProducts(payload)
-
       context.commit(Mutations.SHOW_API_PRODUCTS, result)
     },
     async registerUser(context, payload) {
@@ -109,17 +130,17 @@ export default new Vuex.Store({
       context.commit(Mutations.LOGIN, data)
     },
     async addItem(context, product) {
-      await context.commit(Mutations.ADD_ITEM, product)
+      context.commit(Mutations.ADD_ITEM, product)
     },
     async removeItem(context, index) {
-      await context.commit(Mutations.REMOVE_ITEM, index)
+      context.commit(Mutations.REMOVE_ITEM, index)
     },
 
     async setChosenProduct(context, product) {
-      await context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
+      context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
     },
     async getProductById(context, id) {
-      await context.commit(Mutations.GET_PRODUCT_BY_ID, id)
+      context.commit(Mutations.GET_PRODUCT_BY_ID, id)
     },
     async getAllOrders(context, jwt) {
       const result = await API.fetchOrders(jwt)
@@ -129,14 +150,12 @@ export default new Vuex.Store({
     },
     async makeOrder(context, order) {
       const res = await API.makeOrder(order, sessionStorage.getItem('jwt'))
-      await context.commit(Mutations.MAKE_ORDER, order)
+      context.commit(Mutations.MAKE_ORDER, order)
       console.log('make order ->', res)
       // sessionStorage.getItem('jwt')
     },
     async logout(context) {
-      await context.commit(Mutations.LOGOUT)
+      context.commit(Mutations.LOGOUT)
     }
-  },
-  modules: {
   }
 })

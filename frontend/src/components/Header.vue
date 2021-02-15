@@ -58,6 +58,15 @@ export default {
         this.$router.push(`/`);
       }
     }
+
+    // calculateCart() {
+    //   for (this.item in this.cartItems) {
+    //     for (let i = 0; i < this.amount; i++) {
+    //       this.count++;
+    //     }
+    //   }
+    // console.log(this.count);
+    // return this.count;
   }
 };
 </script>

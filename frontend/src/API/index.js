@@ -57,7 +57,6 @@ export async function fetchOrders(jwt) {
         });
     const data = await req.json()
     return data
-
 }
 
 export async function makeOrder(order, token = null) {

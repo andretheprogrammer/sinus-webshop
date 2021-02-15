@@ -47,11 +47,6 @@ export default {
       }
     }
   },
-  // computed: {
-  //   loggedIn() {
-  //     return this.$store.state.isLoggedIn;
-  //   },
-  // },
   methods: {
     loginUser() {
       this.$store.dispatch("login", {
