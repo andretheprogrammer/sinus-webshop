@@ -32,7 +32,7 @@ export default {
   right: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.25s;
+  transition: opacity 0.5s;
   pointer-events: none;
   opacity: 0;
 }
@@ -42,7 +42,7 @@ export default {
 }
 .content {
   padding: 2rem;
-  transition: opacity 0.25s;
+  transition: opacity 0.5s;
   opacity: 0;
   position: fixed;
   left: 50%;

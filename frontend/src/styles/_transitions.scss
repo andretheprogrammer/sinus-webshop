@@ -1,19 +1,42 @@
-$t-duration: 0.5ms;
+$t-duration: 0.5s;
+$t-duration-view: 0.2s;
+
 
 .login-anim-enter-active,
   .login-anim-leave-active {
-    transition: opacity, transform;
-    transition-duration: $t-duration;
-    transition-timing-function: ease-in-out;
+    transition: transform $t-duration ease, opacity $t-duration ease;
+   
   }
 
   .login-anim-enter,
   .login-anim-leave-to {
-    transform: translateX(-100px) rotateX(90deg);
+    transform: scale(0)translateY(-600px);
     opacity: 0;
   }
   .login-anim-enter-to,
   .login-anim-leave {
-    transform: translateX(0px) rotateZ(0deg);
+    transform: scale(1);
     opacity: 1;
   }
+//_____________________________________________________
+  .view-leave-active,
+.view-enter-active {
+  transition: opacity $t-duration-view ease-in-out, transform $t-duration-view ease;
+}
+
+.view-enter-active {
+  transition-delay: $t-duration-view;
+}
+
+.view-leave-to,
+.view-enter {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.view-leave,
+.view-enter-to {
+  opacity: 1;
+  transform: translateY(0px);
+}
+

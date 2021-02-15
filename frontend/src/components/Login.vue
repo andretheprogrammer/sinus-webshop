@@ -2,7 +2,7 @@
   <div class="menu-item" v-click-outside-window="closeWindow">
     <button @click="show = !show">Login</button>
     <transition mode="out-in" name="login-anim">
-      <div v-show="show" class="animate login-window">
+      <div v-show="show" class="login-window">
         <div class="login-form">
           <input type="text" v-model="email" placeholder="Email" id="email" />
           <input
@@ -83,9 +83,10 @@ export default {
   height: 10rem;
   background: whitesmoke;
   box-shadow: 0 0 11px 7px rgba(0, 0, 0, 0.1);
-  transform: translateX(-5%);
+  /* transform: translateX(-5%); */
   top: 6rem;
   z-index: 99;
+  margin-right: 3rem;
 }
 
 .login-form {
