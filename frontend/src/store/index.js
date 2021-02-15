@@ -118,7 +118,7 @@ export default new Vuex.Store({
 
     },
     async makeOrder(context, order) {
-      const res = await API.makeOrder(order)
+      const res = await API.makeOrder(order, sessionStorage.getItem('jwt'))
       await context.commit(Mutations.MAKE_ORDER, order)
       console.log('make order ->', res)
       // sessionStorage.getItem('jwt')
