@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import *as API from "@/API/";
 import *as Mutations from './mutationTypes'
+import router from '../router'
 
 
 Vue.use(Vuex)
@@ -34,12 +35,10 @@ export default new Vuex.Store({
         user: (state) => state.user,
         isAdmin: (state) => {
             if (state.user.role == 'admin') {
-                console.log('true')
                 state.isAdmin = true;
             }
             else {
                 state.isAdmin = false;
-                console.log('false', state.user.role)
             }
             return state.isAdmin;
         },
@@ -50,9 +49,9 @@ export default new Vuex.Store({
             else {
                 state.isLoggedIn = false;
             }
+            console.log('isLoggedIn -->', state.isLoggedIn)
             return state.isLoggedIn;
         }
-
     },
 
     mutations: {
@@ -128,6 +127,7 @@ export default new Vuex.Store({
         },
         async login(context, payload) {
             let data = await API.login(payload)
+            router.push("/")
             context.commit(Mutations.LOGIN, data)
         },
         async addItemToCart(context, product) {
@@ -169,6 +169,7 @@ export default new Vuex.Store({
             // sessionStorage.getItem('jwt')
         },
         async logout(context) {
+            router.push("/")
             await context.commit(Mutations.LOGOUT)
         }
     },
