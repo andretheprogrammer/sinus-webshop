@@ -39,10 +39,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Cart from "@/components/Cart";
 export default {
   components: {
-    Cart,
+    Cart
+  },
+  computed: {
+    ...mapGetters(["user"])
   },
   methods: {
     makeOrder() {
@@ -51,7 +55,7 @@ export default {
       if (cartItems.length < 1) {
         alert("no things in cart gringo");
       } else {
-        cartItems.forEach((product) => {
+        cartItems.forEach(product => {
           {
             for (let i = 0; i < product.amount; i++) {
               list.push(product.item._id);
@@ -61,12 +65,12 @@ export default {
 
         this.$store.dispatch("makeOrder", {
           items: list,
-          user: this.$store.state.user,
+          user: this.user
         });
         this.$router.push("/thanks");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

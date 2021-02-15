@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import *as API from "@/API/";
 import *as Mutations from './mutationTypes'
 
@@ -7,6 +8,9 @@ import *as Mutations from './mutationTypes'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+    plugins: [createPersistedState({
+        storage: window.sessionStorage,
+    })],
     state: {
         isLoggedIn: null,
         chosenProduct: null,
@@ -14,10 +18,9 @@ export default new Vuex.Store({
         cartItems: [],
         user: {},
         orderPending: null,
-        isAdmin: false,
+        isAdmin: null,
         ordersResponse: [],
-        chosenOrder: null,
-        // fileSubmitted: null
+        chosenOrder: null
 
     },
     getters: {
@@ -28,7 +31,26 @@ export default new Vuex.Store({
         ordersResponse: (state) => state.ordersResponse,
         ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
         ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
-        isAdmin: (state) => state.isAdmin,
+        user: (state) => {
+            if (state.user) {
+                console.log(true)
+            }
+            else {
+                console.log(false)
+            }
+            return state.user;
+        },
+        isAdmin: (state) => {
+            if (state.user.role == 'admin') {
+                console.log('true')
+                state.isAdmin = true;
+            }
+            else {
+                state.isAdmin = false;
+                console.log('false', state.user.role)
+            }
+            return state.isAdmin;
+        },
         isLoggedIn: (state) => {
             if (sessionStorage.getItem('jwt')) {
                 state.isLoggedIn = true;
@@ -36,7 +58,6 @@ export default new Vuex.Store({
             else {
                 state.isLoggedIn = false;
             }
-
             return state.isLoggedIn;
         }
 
@@ -48,9 +69,11 @@ export default new Vuex.Store({
         },
         [Mutations.SET_CHOSEN_PRODUCT](state, product) {
             state.chosenProduct = product
+            console.log('mutations -->', state.chosenProduct)
         },
         [Mutations.SET_CHOSEN_ORDER](state, order) {
             state.chosenOrder = order
+            console.log('mutations -->', state.chosenOrder)
         },
         [Mutations.ADD_ITEM_TO_CART](state, object) {
             let exists = state.cartItems.find(i => i.item._id == object._id);
@@ -100,10 +123,6 @@ export default new Vuex.Store({
         [Mutations.GET_ALL_ORDERS](state, data) {
             state.ordersResponse = data
         },
-        // [Mutations.SUBMIT_FILE](state, data) {
-        //     console.log(data)
-        //     state.fileSubmitted = data
-        // },
     },
     actions: {
         async getProducts(context, payload) {
@@ -125,6 +144,11 @@ export default new Vuex.Store({
             await context.commit(Mutations.REMOVE_ITEM, index)
         },
 
+
+
+        // async submitFile(context, payload) {
+        //     await context.commit(Mutations.SUBMIT_FILE, payload)
+        // }
         async setChosenProduct(context, product) {
             await context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
         },
@@ -148,10 +172,6 @@ export default new Vuex.Store({
         },
         async logout(context) {
             await context.commit(Mutations.LOGOUT)
-        },
-        // async submitFile(context, payload) {
-        //     await context.commit(Mutations.SUBMIT_FILE, payload)
-        // }
+        }
     },
-
 })
