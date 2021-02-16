@@ -37,6 +37,7 @@ export default {
 .order-complete-wrapper {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .order-completed-lorem {

@@ -13,5 +13,6 @@ export const LOGOUT = 'LOGOUT'
 export const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
 export const SET_CHOSEN_ORDER = 'SET_CHOSEN_ORDER'
 export const CREATE_NEW_PRODUCT = 'CREATE_NEW_PRODUCT'
+// export const DELETE_PRODUCT_BY_ID = 'DELETE_PRODUCT_BY_ID'
 
 

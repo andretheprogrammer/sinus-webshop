@@ -1,7 +1,7 @@
 <template>
   <div class="product-wrapper">
     <section>
-      <img class="skate-img" :src="getIcon(product)" />
+      <img class="edit-product-img" :src="getIcon(product)" />
     </section>
     <section class="right-side">
       <form @submit.prevent="editProduct()" class="product-content">
@@ -28,7 +28,7 @@
           <option value="clothes">Clothes</option>
           <option value="wheels">Wheels</option>
         </select>
-        <input type="submit" value="ändra" />
+        <input class="edit-btn" type="submit" value="ändra" />
       </form>
     </section>
   </div>
@@ -71,6 +71,10 @@ export default {
 
 .product-content {
   text-align: left;
+  padding: 0.5rem;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
   h2 {
     text-transform: uppercase;
   }
@@ -82,15 +86,20 @@ export default {
     margin-top: 5px;
     font-size: large;
   }
-  padding: 0.5rem;
-  min-width: 250px;
+}
+.edit-btn {
+  @include product-btn;
+}
+input {
+  @include input-standard;
+  margin: 0;
 }
 .product-lock {
   @include lock-button;
 }
-.skate-img {
+.edit-product-img {
   height: 100%;
-  width: 20rem;
+  width: 10rem;
   align-self: left;
   margin-top: 1rem;
 }

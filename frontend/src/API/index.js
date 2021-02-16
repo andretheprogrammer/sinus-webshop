@@ -111,7 +111,7 @@ export async function editProduct(product, token) {
     return data
 }
 
-export async function deleteProductsById(id, token) {
+export async function deleteProductById(id, token) {
     const req = await fetch(`http://localhost:5000/api/products/${id}`
         , {
             method: 'DELETE',

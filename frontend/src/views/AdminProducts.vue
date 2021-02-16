@@ -5,14 +5,16 @@
     <ul>
       <li
         v-for="product of productResponse"
-        :key="product.id"
+        :key="product._id"
         @click="openModal(product)"
         class="product"
       >
         <div class="product-item">
           <div class="product-header">
             <h3>{{ product.title }}</h3>
-            <i class="material-icons">shopping_bag</i>
+            <i @click.stop="deleteProduct(product)" class="material-icons"
+              >delete_outline</i
+            >
           </div>
           <p>{{ product.shortDesc }}</p>
           <div
@@ -23,7 +25,6 @@
               <h3>{{ product.price }}</h3>
               <p class="sek">SEK</p>
             </div>
-            <button @click="deleteProduct(product)">DELETE PRODUCT</button>
           </div>
         </div>
       </li>
@@ -68,10 +69,16 @@ export default {
       this.showModal = true;
     },
     deleteProduct(product) {
-      this.$store.dispatch("deleteProduct", product);
+      console.log(product);
+      this.$store.dispatch("deleteProduct", product._id);
+      this.refreshList();
     },
-    updated() {
+
+    refreshList() {
       this.$store.dispatch("getProducts");
+    },
+    created() {
+      this.refreshList();
     },
   },
 };

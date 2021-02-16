@@ -109,6 +109,7 @@ export default new Vuex.Store({
             state.user = {};
             sessionStorage.clear()
         },
+
     },
     actions: {
         async getProducts(context) {
@@ -120,7 +121,6 @@ export default new Vuex.Store({
         },
         async login(context, payload) {
             let data = await API.login(payload)
-            router.go()
             context.commit(Mutations.LOGIN, data)
         },
         async addItemToCart(context, product) {
@@ -166,6 +166,10 @@ export default new Vuex.Store({
                     : console.log(error)
             })
             context.commit(Mutations.LOGOUT)
+        },
+        async deleteProduct(context, id) {
+            await API.deleteProductById(id, sessionStorage.getItem('jwt'))
+            // context.commit(Mutations.DELETE_PRODUCT_BY_ID, id)
         }
     },
 })
