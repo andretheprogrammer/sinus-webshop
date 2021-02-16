@@ -109,7 +109,7 @@ export default new Vuex.Store({
         },
         async login(context, payload) {
             let data = await API.login(payload)
-            router.push("/")
+            router.go()
             context.commit(Mutations.LOGIN, data)
         },
         async addItemToCart(context, product) {
@@ -144,7 +144,11 @@ export default new Vuex.Store({
             context.commit(Mutations.MAKE_ORDER, order)
         },
         async logout(context) {
-            router.go()
+            router.push('/').catch((error) => {
+                error.name == 'NavigationDuplicated'
+                    ? console.log('NavigationDuplicated')
+                    : console.log(error)
+            })
             context.commit(Mutations.LOGOUT)
         }
     },

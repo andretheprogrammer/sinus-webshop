@@ -21,7 +21,7 @@
         <Login v-if="!isLoggedIn" />
         <div v-else class="menu-item">
           <button class="account-btn" @click="$store.dispatch('logout')">
-            <i class="material-icons product-lock">account_circle</i>
+            <i class="material-icons product-lock">exit_to_app</i>
           </button>
         </div>
         <div class="menu-item">
