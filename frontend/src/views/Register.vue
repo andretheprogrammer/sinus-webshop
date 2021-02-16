@@ -57,7 +57,7 @@ export default {
     ...mapGetters(["isLoggedIn"]),
   },
   methods: {
-    submitUser() {
+    async submitUser() {
       let user = {
         name: this.name,
         email: this.email,
@@ -65,8 +65,8 @@ export default {
         repeatPassword: this.password,
         adress: { street: "", city: "", zip: "" },
       };
-      this.$store.dispatch("registerUser", user);
-      this.$router.push("/");
+      await this.$store.dispatch("registerUser", user);
+      this.$router.go();
     },
   },
   components: {

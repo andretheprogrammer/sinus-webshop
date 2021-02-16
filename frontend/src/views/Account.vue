@@ -122,6 +122,7 @@ section {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-width: 12rem;
 
   h2 {
     text-align: center;
