@@ -76,25 +76,52 @@ export async function makeOrder(order, token = null) {
 }
 
 export async function postProduct(product, token) {
-    const res = await fetch('http://localhost:5000/api/product',
+    const res = await fetch('http://localhost:5000/api/products/',
         {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Authorization': token
             },
-            body: JSON.stringify({
-                title: product.title,
-                price: product.price,
-                shortDesc: product.shortDesc,
-                longDesc: product.longDesc,
-                imgFile: product.imgFile,
-                category: product.category,
-                serial: product.serial
-            }),
-        }).then((response) => response.json());
+            body: JSON.stringify(
+                product
+            ),
+        })
 
     const data = await res.json()
+    return data
+}
+
+export async function editProduct(product, token) {
+    const res = await fetch(`http://localhost:5000/api/products/${product._id}`,
+        {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            body: JSON.stringify(
+                product
+            ),
+        })
+
+    const data = await res.json()
+    return data
+}
+
+export async function deleteProductsById(id, token) {
+    const req = await fetch(`http://localhost:5000/api/products/${id}`
+        , {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+
+        })
+    const data = await req.json()
     return data
 }

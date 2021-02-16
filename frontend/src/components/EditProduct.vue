@@ -1,18 +1,23 @@
 <template>
-  <div class="product-factory">
-    <form @submit.prevent="createProduct()">
-      <div class="p-photo">
-        <label>Product Photo</label>
+  <div class="product-wrapper">
+    <section>
+      <img class="skate-img" :src="getIcon(product)" />
+    </section>
+    <section class="right-side">
+      <form @submit.prevent="editProduct()" class="product-content">
+        <input v-model="product.title" />
+        <input v-model="product.shortDesc" />
+        <input v-model="product.longDesc" />
+        <input v-model="product.price" />
 
-        <input v-model="product.imgFile" class="input-big" type="text" />
-      </div>
-      <div class="create-desc">
-        <label>Product title</label>
-        <input v-model="product.title" class="input" type="text" required />
-        <label>Product price</label>
-        <input v-model="product.price" class="input" type="text" required />
-        <label>Product short desc</label>
-        <input v-model="product.shortDesc" class="input" type="text" required />
+        <select v-model="product.imgFile" name="imgSelect" id="images">
+          <option value="skateboard-greta.png">Gretas fury</option>
+          <option value="wheel-rocket.png">wheel rocket</option>
+          <option value="hoodie-fire.png">hoodie fire</option>
+          <option value="wheel-rocket.png">Blue hoodie</option>
+          <option value="skateboard-generic.png">Generic skate</option>
+        </select>
+
         <select
           v-model="product.category"
           name="categories"
@@ -23,94 +28,84 @@
           <option value="clothes">Clothes</option>
           <option value="wheels">Wheels</option>
         </select>
-      </div>
-      <div class="p-desc">
-        <label>Product description</label>
-        <input
-          v-model="product.longDesc"
-          class="input-big"
-          type="text"
-          required
-        />
-      </div>
-
-      <input type="submit" />
-    </form>
+        <input type="submit" value="ändra" />
+      </form>
+    </section>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      product: {
-        title: "",
-        price: 0,
-        shortDesc: "",
-        longDesc: "",
-        imgFile: "",
-        category: "",
-      },
-    };
+  name: "ProductInfo",
+  computed: {
+    ...mapGetters(["chosenProduct", "productResponse"]),
+  },
+  props: {
+    product: Object,
   },
   methods: {
-    createProduct() {
-      console.log(this.product);
-      this.$store.dispatch("createNewProduct", this.product);
+    getIcon(product) {
+      return require(`@/assets/${product.imgFile}`);
     },
-    // handleFileUpload() {
-    //   this.file = this.$refs.file.files[0];
-    // },
-    // submitFile() {
-    //   let formData = new FormData();
-    //   formData.append("file", this.file);
-    //   this.$store.dispatch("submitFile", formData);
-    // },
+    editProduct() {
+      console.log("product -->", this.product);
+      this.$store.dispatch("editNewProduct", this.product);
+      this.$store.dispatch("getProducts");
+      this.$router.go();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/_global.scss";
-
-.product-factory {
-  display: flex;
-  flex-direction: row;
-  background-color: grey;
+.product-wrapper {
+  background-color: white;
+  border: 2px solid black;
   width: 100%;
-  justify-content: center;
-}
-form {
+  text-align: center;
+  padding: 1rem;
   display: flex;
 }
-.create-desc {
-  display: flex;
-  flex-direction: column;
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-.input {
-  @include input-standard;
-  height: 2rem;
-  background-color: transparent;
-  border: 1px solid white;
-  cursor: pointer;
-}
-.input-big {
-  @include input-standard;
-  background-color: transparent;
 
-  border: 1px solid white;
-  cursor: pointer;
+.product-content {
+  text-align: left;
+  h2 {
+    text-transform: uppercase;
+  }
+  h2,
+  h3 {
+    padding-bottom: 0.5rem;
+  }
+  h5 {
+    margin-top: 5px;
+    font-size: large;
+  }
+  padding: 0.5rem;
+  min-width: 250px;
+}
+.product-lock {
+  @include lock-button;
+}
+.skate-img {
+  height: 100%;
+  width: 20rem;
+  align-self: left;
+  margin-top: 1rem;
+}
 
-  height: 14rem;
-}
-.p-desc {
+.right-side {
   display: flex;
+  align-self: center;
   flex-direction: column;
 }
-.p-photo {
+.product-button {
+  @include product-btn;
   display: flex;
-  flex-direction: column;
+  :active,
+  :visited {
+    text-decoration: none;
+  }
 }
 </style>

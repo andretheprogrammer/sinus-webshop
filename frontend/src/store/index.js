@@ -49,6 +49,7 @@ export default new Vuex.Store({
     mutations: {
         [Mutations.SHOW_API_PRODUCTS](state, data) {
             console.log('data ->', data)
+            state.productResponse = []
             state.productResponse = data
         },
         [Mutations.SET_CHOSEN_PRODUCT](state, product) {
@@ -135,10 +136,10 @@ export default new Vuex.Store({
             // await context.commit(Mutations.CREATE_NEW_PRODUCT, data)
         },
 
-
-        // async submitFile(context, payload) {
-        //     await context.commit(Mutations.SUBMIT_FILE, payload)
-        // }
+        async editNewProduct(context, product) {
+            let data = await API.editProduct(product, sessionStorage.getItem('jwt'))
+            console.log(data, context)
+        },
         async setChosenProduct(context, product) {
             await context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
         },
