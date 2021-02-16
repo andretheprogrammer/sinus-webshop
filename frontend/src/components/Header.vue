@@ -31,12 +31,14 @@
         </div>
         <div class="menu-item">
           <router-link to="/checkout">
-            <button class="cart-btn">
+            <div class="cart-btn">
               <div v-if="cartItems.length > 0" class="cart-amount">
-                <p>{{ cartItems.length }}</p>
+                <div class="calc-cart">
+                  <p>{{ calculateCart }}</p>
+                </div>
               </div>
               <i class="material-icons product-lock">shopping_bag</i>
-            </button>
+            </div>
           </router-link>
         </div>
       </div>
@@ -49,12 +51,26 @@ import { mapGetters } from "vuex";
 import Login from "@/components/Login";
 
 export default {
+  data() {
+    return {
+      result: 0,
+    };
+  },
   components: {
-    Login
+    Login,
   },
   computed: {
-    ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"])
+    ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"]),
+    calculateCart: function () {
+      let result = 0;
+      for (this.item of this.cartItems) {
+        result += this.item.amount;
+        console.log(result);
+      }
+      return result;
+    },
   },
+
   methods: {
     routeToStart() {
       if (this.$route.path == `/`) {
@@ -62,17 +78,8 @@ export default {
       } else {
         this.$router.push(`/`);
       }
-    }
-
-    // calculateCart() {
-    //   for (this.item in this.cartItems) {
-    //     for (let i = 0; i < this.amount; i++) {
-    //       this.count++;
-    //     }
-    //   }
-    // console.log(this.count);
-    // return this.count;
-  }
+    },
+  },
 };
 </script>
 
@@ -130,6 +137,10 @@ export default {
   .cart-btn {
     @include lock-button;
     background-color: whitesmoke;
+    color: black;
+    :hover {
+      color: black;
+    }
   }
 
   .account-btn {
@@ -137,6 +148,8 @@ export default {
     background-color: silver;
   }
   .cart-amount {
+    position: absolute;
+    transform: translate(-10px, -10px);
     background-color: orange;
     border-radius: 50px;
     p {
