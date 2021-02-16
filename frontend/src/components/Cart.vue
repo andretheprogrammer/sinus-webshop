@@ -6,27 +6,19 @@
     <ul v-else>
       <li v-for="(product, index) of cartItems" :key="index">
         <section>
-          <img
-            class="cart-img"
-            :src="require(`@/assets/${product.item.imgFile}`)"
-            alt
-          />
+          <img class="cart-img" :src="require(`@/assets/${product.item.imgFile}`)" alt />
         </section>
         <section>
           <h1>{{ product.item.title }}</h1>
-          <p>{{ product.item.shortDesc }}</p>
+          <p class="small-text">{{ product.item.shortDesc }}</p>
 
-          <p>{{ product.item.serial }}</p>
+          <p class="small-text">{{ product.item.serial }}</p>
         </section>
         <section class="upxdown">
           <div class="cart-container">
-            <span class="material-icons" @click="incrementAmount(product)">
-              arrow_upward
-            </span>
+            <span class="material-icons" @click="incrementAmount(product)">arrow_upward</span>
             <p>{{ product.amount }}</p>
-            <span class="material-icons" @click="decrementAmount(product)">
-              arrow_downward
-            </span>
+            <span class="material-icons" @click="decrementAmount(product)">arrow_downward</span>
           </div>
           <i @click="removeItem(index)" class="material-icons">highlight_off</i>
         </section>
@@ -51,7 +43,7 @@ export default {
         total += s.item.price * s.amount;
       }
       return total;
-    },
+    }
   },
   methods: {
     decrementAmount(product) {
@@ -66,8 +58,8 @@ export default {
     },
     removeItem(index) {
       this.$store.dispatch("removeItem", index);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -78,16 +70,20 @@ li {
   background-color: whitesmoke;
   margin: 5px;
   border-radius: 15px;
-  padding: 0.5rem;
-  padding-bottom: 0;
+  padding: 0.1rem 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 1px solid transparent;
-  width: 100%;
   text-align: left;
   p {
     align-self: center;
+  }
+  .small-text {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    margin: 3px 0;
+    width: 7rem;
   }
   span {
     margin-top: 5px;

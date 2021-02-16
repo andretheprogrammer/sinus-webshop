@@ -9,21 +9,21 @@
       </section>
 
       <form class="submit-form" @submit.prevent="makeOrder">
-        <section class="name-city">
-          <p>Delivery</p>
+        <section class="form-section">
+          <p>DELIVERY</p>
           <hr />
           <label>Name</label>
-          <input type="text" v-model="customer.name" readonly />
+          <input type="text" v-model="customer.name" required />
           <label>Street Adress</label>
-          <input type="text" v-model="customer.adress.street" readonly />
+          <input type="text" v-model="customer.adress.street" required />
           <label>City</label>
-          <input type="text" v-model="customer.adress.city" readonly />
+          <input type="text" v-model="customer.adress.city" required />
           <label>Zipcode</label>
-          <input type="text" v-model="customer.adress.zip" readonly />
+          <input type="text" v-model="customer.adress.zip" required />
         </section>
 
-        <section class="card-city">
-          <p>Payment</p>
+        <section class="form-section">
+          <p>PAYMENT</p>
           <hr />
           <label>Card Owner</label>
           <input type="text" />
@@ -101,18 +101,21 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/_global.scss";
+
 .wrapper {
   text-align: center;
 }
+
 .section-wrapper {
   display: flex;
   justify-content: center;
-  width: 100vw;
 }
+
 section {
   margin: 1.5rem;
   width: 14rem;
 }
+
 input {
   @include input-standard;
 }
@@ -130,11 +133,7 @@ input {
 .submit-form {
   display: flex;
 
-  .name-city {
-    display: flex;
-    flex-direction: column;
-  }
-  .card-city {
+  .form-section {
     display: flex;
     flex-direction: column;
   }
