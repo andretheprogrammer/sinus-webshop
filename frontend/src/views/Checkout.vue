@@ -11,6 +11,7 @@
       <form class="submit-form" @submit.prevent="makeOrder">
         <section class="name-city">
           <p>Delivery</p>
+          <hr />
           <label>Name</label>
           <input type="text" v-model="customer.name" readonly />
           <label>Street Adress</label>
@@ -23,6 +24,7 @@
 
         <section class="card-city">
           <p>Payment</p>
+          <hr />
           <label>Card Owner</label>
           <input type="text" />
           <label>Card Number</label>
@@ -31,8 +33,8 @@
           <input type="text" />
           <label>CCV</label>
           <input type="text" />
+          <input class="submit-btn" type="submit" value="Make order" />
         </section>
-        <input type="submit" placeholder="Press to make an order" />
       </form>
     </div>
   </div>
@@ -109,9 +111,20 @@ export default {
 }
 section {
   margin: 1.5rem;
+  width: 14rem;
 }
 input {
   @include input-standard;
+}
+
+.submit-btn {
+  margin: 0.2rem 0 0 auto;
+  padding: 0.3rem 1.2rem;
+  font-weight: 0;
+  font-size: 14px;
+  color: white;
+  background: black;
+  border-radius: 20px;
 }
 
 .submit-form {
