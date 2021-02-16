@@ -2,9 +2,19 @@
   <div class="product-factory">
     <form @submit.prevent="createProduct()">
       <div class="p-photo">
-        <label>Product Photo</label>
-
-        <input v-model="product.imgFile" class="input-big" type="text" />
+        <select v-model="product.imgFile" name="input-big" id="images">
+          <option value="skateboard-greta.png">Gretas fury</option>
+          <option value="wheel-rocket.png">wheel rocket</option>
+          <option value="hoodie-fire.png">hoodie fire</option>
+          <option value="wheel-rocket.png">Blue hoodie</option>
+          <option value="skateboard-generic.png">Generic skate</option>
+        </select>
+        <img
+          class="create-product-img"
+          v-if="getIcon(product)"
+          :src="getIcon(product)"
+          alt
+        />
       </div>
       <div class="create-desc">
         <label>Product title</label>
@@ -58,7 +68,11 @@ export default {
       this.$store.dispatch("createNewProduct", this.product);
       this.$store.dispatch("getProducts");
     },
-
+    getIcon(product) {
+      if (product.imgFile) {
+        return require(`@/assets/${product.imgFile}`);
+      }
+    },
     // handleFileUpload() {
     //   this.file = this.$refs.file.files[0];
     // },
@@ -77,12 +91,14 @@ export default {
 .product-factory {
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: #404040;
+  color: white;
   width: 100%;
   justify-content: center;
 }
 form {
   display: flex;
+  margin: 1rem;
 }
 .create-desc {
   display: flex;
@@ -113,5 +129,10 @@ form {
 .p-photo {
   display: flex;
   flex-direction: column;
+}
+.create-product-img {
+  margin-top: 1rem;
+  height: 10rem;
+  width: 10rem;
 }
 </style>
