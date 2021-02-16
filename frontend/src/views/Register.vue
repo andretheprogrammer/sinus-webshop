@@ -2,7 +2,8 @@
   <div class="register-wrapper">
     <!-- <img id="imgHero" src="@/assets/skate-hero-1.jpg" alt="" /> -->
     <ImageSlot>
-      <h1 class="image-text">Join the rolling family</h1>
+      <h1 v-if="!isLoggedIn" class="image-text">Join the rolling family</h1>
+      <h1 v-else class="image-text">Welcome!</h1>
     </ImageSlot>
     <div class="bottom-regwrapper">
       <div class="register-intro">
@@ -18,7 +19,12 @@
         </p>
       </div>
 
-      <form class="register-form" @submit.prevent="submitUser">
+      <form
+        v-if="!isLoggedIn"
+        class="register-form"
+        @submit.prevent="submitUser"
+        autocomplete="off"
+      >
         <div class="register-input">
           <h4>Register</h4>
           <label>Name</label>
@@ -35,15 +41,20 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ImageSlot from "@/components/ImageSlot";
+
 export default {
   data() {
     return {
       name: "",
       email: "",
       password: "",
-      repeatPassword: "",
+      repeatPassword: ""
     };
+  },
+  computed: {
+    ...mapGetters(["isLoggedIn"])
   },
   methods: {
     submitUser() {
@@ -51,14 +62,14 @@ export default {
         name: this.name,
         email: this.email,
         password: this.password,
-        repeatPassword: this.password,
+        repeatPassword: this.password
       };
       this.$store.dispatch("registerUser", user);
-    },
+    }
   },
   components: {
-    ImageSlot,
-  },
+    ImageSlot
+  }
 };
 </script>
 

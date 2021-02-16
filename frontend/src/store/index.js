@@ -33,15 +33,7 @@ export default new Vuex.Store({
         ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
         ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
         user: (state) => state.user,
-        isAdmin: (state) => {
-            if (state.user.role == 'admin') {
-                state.isAdmin = true;
-            }
-            else {
-                state.isAdmin = false;
-            }
-            return state.isAdmin;
-        },
+        isAdmin: (state) => state.isAdmin = (state.user.role == 'admin'),
         isLoggedIn: (state) => {
             if (sessionStorage.getItem('jwt')) {
                 state.isLoggedIn = true;
