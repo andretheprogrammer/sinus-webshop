@@ -62,9 +62,11 @@ export default {
         name: this.name,
         email: this.email,
         password: this.password,
-        repeatPassword: this.password
+        repeatPassword: this.password,
+        adress: { street: "", city: "", zip: "" }
       };
       this.$store.dispatch("registerUser", user);
+      this.$route.push("/");
     }
   },
   components: {
