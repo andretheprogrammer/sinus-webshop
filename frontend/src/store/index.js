@@ -5,7 +5,6 @@ import *as API from "@/API/";
 import *as Mutations from './mutationTypes'
 import router from '../router'
 
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,7 +21,6 @@ export default new Vuex.Store({
         isAdmin: null,
         ordersResponse: [],
         chosenOrder: null
-
     },
     getters: {
         cartItems: (state) => state.cartItems,
@@ -45,20 +43,13 @@ export default new Vuex.Store({
             return state.isLoggedIn;
         }
     },
-
     mutations: {
-        [Mutations.SHOW_API_PRODUCTS](state, data) {
-            console.log('data ->', data)
-            state.productResponse = data
-        },
-        [Mutations.SET_CHOSEN_PRODUCT](state, product) {
-            state.chosenProduct = product
-            console.log('mutations -->', state.chosenProduct)
-        },
-        [Mutations.SET_CHOSEN_ORDER](state, order) {
-            state.chosenOrder = order
-            console.log('mutations -->', state.chosenOrder)
-        },
+        [Mutations.SHOW_API_PRODUCTS]: (state, data) => state.productResponse = data,
+
+        [Mutations.GET_PRODUCT_BY_ID]: (state, id) => state.productResponse.find(e => e.id == id),
+
+        [Mutations.REMOVE_ITEM]: (state, index) => state.cartItems.splice(index, 1),
+
         [Mutations.ADD_ITEM_TO_CART](state, object) {
             let exists = state.cartItems.find(i => i.item._id == object._id);
             if (exists) {
@@ -68,12 +59,23 @@ export default new Vuex.Store({
 
             }
             console.log(state.cartItems)
-
-        },
-        [Mutations.REMOVE_ITEM](state, index) {
-            state.cartItems.splice(index, 1)
         },
 
+        [Mutations.MAKE_ORDER](state, order) {
+            state.cartItems = []
+            state.orderPending = order;
+        },
+        [Mutations.GET_ALL_ORDERS](state, data) {
+            state.ordersResponse = data
+        },
+        [Mutations.SET_CHOSEN_PRODUCT](state, product) {
+            state.chosenProduct = product
+            console.log('mutations -->', state.chosenProduct)
+        },
+        [Mutations.SET_CHOSEN_ORDER](state, order) {
+            state.chosenOrder = order
+            console.log('mutations -->', state.chosenOrder)
+        },
         [Mutations.LOGIN](state, data) {
             if (data.token) {
                 if (data.user.role == 'admin') {
@@ -86,14 +88,6 @@ export default new Vuex.Store({
                 state.isLoggedIn = false;
             }
         },
-        [Mutations.GET_PRODUCT_BY_ID](state, id) {
-            let productByID = state.productResponse.find(e => e.id == id)
-            return productByID
-        },
-        [Mutations.MAKE_ORDER](state, order) {
-            state.cartItems = []
-            state.orderPending = order;
-        },
         [Mutations.LOGOUT](state) {
             state.isLoggedIn = false,
                 state.chosenProduct = null,
@@ -104,14 +98,10 @@ export default new Vuex.Store({
             state.user = {};
             sessionStorage.clear()
         },
-        [Mutations.GET_ALL_ORDERS](state, data) {
-            state.ordersResponse = data
-        },
-
     },
     actions: {
         async getProducts(context) {
-            const result = await API.fetchProducts()
+            let result = await API.fetchProducts()
             context.commit(Mutations.SHOW_API_PRODUCTS, result)
         },
         async registerUser(context, payload) {
@@ -123,10 +113,10 @@ export default new Vuex.Store({
             context.commit(Mutations.LOGIN, data)
         },
         async addItemToCart(context, product) {
-            await context.commit(Mutations.ADD_ITEM_TO_CART, product)
+            context.commit(Mutations.ADD_ITEM_TO_CART, product)
         },
         async removeItem(context, index) {
-            await context.commit(Mutations.REMOVE_ITEM, index)
+            context.commit(Mutations.REMOVE_ITEM, index)
         },
         async createNewProduct(context, product) {
             console.log(product)
@@ -134,35 +124,28 @@ export default new Vuex.Store({
             console.log(data, context)
             // await context.commit(Mutations.CREATE_NEW_PRODUCT, data)
         },
-
-
-        // async submitFile(context, payload) {
-        //     await context.commit(Mutations.SUBMIT_FILE, payload)
-        // }
         async setChosenProduct(context, product) {
-            await context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
+            context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
         },
         async setChosenOrder(context, order) {
-            await context.commit(Mutations.SET_CHOSEN_ORDER, order)
+            context.commit(Mutations.SET_CHOSEN_ORDER, order)
         },
         async getProductById(context, id) {
-            await context.commit(Mutations.GET_PRODUCT_BY_ID, id)
+            context.commit(Mutations.GET_PRODUCT_BY_ID, id)
         },
         async getAllOrders(context, jwt) {
-            const result = await API.fetchOrders(jwt)
+            let result = await API.fetchOrders(jwt)
             console.log('fetchOrders -->', result)
             context.commit(Mutations.GET_ALL_ORDERS, result)
-
         },
         async makeOrder(context, order) {
-            const res = await API.makeOrder(order, sessionStorage.getItem('jwt'))
+            let res = await API.makeOrder(order, sessionStorage.getItem('jwt'))
             console.log('make order ->', res)
-            await context.commit(Mutations.MAKE_ORDER, order)
-            // sessionStorage.getItem('jwt')
+            context.commit(Mutations.MAKE_ORDER, order)
         },
         async logout(context) {
-            router.push("/")
-            await context.commit(Mutations.LOGOUT)
+            router.go()
+            context.commit(Mutations.LOGOUT)
         }
     },
 })
