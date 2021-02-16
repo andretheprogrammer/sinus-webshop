@@ -70,6 +70,7 @@ export default {
     createProduct() {
       this.$store.dispatch("createNewProduct", this.product);
       this.$store.dispatch("getProducts");
+      this.$router.go();
     },
     getIcon(product) {
       if (product.imgFile) {
@@ -124,6 +125,7 @@ form {
   height: 2rem;
   background-color: transparent;
   border: 1px solid white;
+  color: white;
   cursor: pointer;
 }
 .input-big {
@@ -132,6 +134,7 @@ form {
 
   border: 1px solid white;
   cursor: pointer;
+  color: white;
 
   height: 14rem;
 }
@@ -150,10 +153,14 @@ form {
 }
 .create-product-btn {
   @include product-btn;
+  outline: none;
 }
 select {
+  color: black;
   appearance: none;
-  background-color: transparent;
+  background-image: url("../assets/arrow_down.png");
+  background-repeat: no-repeat;
+  background-position: right;
   border: 1px solid white;
   padding: 0.5em;
   margin: 0;

@@ -119,10 +119,11 @@ export default {
       this.showModal = false;
     },
   },
-  beforeCreate() {
-    if (!this.isLoggedIn) {
-      console.log(this.isLoggedIn);
-      this.$route.push("/");
+  create() {
+    if (!this.isLoggedIn && !this.isAdmin) {
+      console.log(this.isLoggedIn, this.isAdmin);
+      alert("something is fucked up, pls log out and in again");
+      this.$router.push("/");
     } else {
       alert("cool beans");
     }

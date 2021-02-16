@@ -7,7 +7,7 @@
       <div class="product-price"></div>
 
       <div class="product-content">
-        <h2>{{ product.title }}</h2>
+        <h2 class="product-title">{{ product.title }}</h2>
         <h3>{{ product.shortDesc }}</h3>
         <p>
           {{ product.longDesc }}
@@ -15,10 +15,10 @@
 
         <h5>{{ product.price }} SEK</h5>
       </div>
-      <button class="product-button" @click="addCart(product)">
+      <div class="product-button" @click="addCart(product)">
         Take my money!
         <span class="material-icons"> skateboarding </span>
-      </button>
+      </div>
     </section>
   </div>
 </template>
@@ -99,5 +99,18 @@ export default {
   :visited {
     text-decoration: none;
   }
+  border: 2px solid transparent;
+}
+
+.product-button:hover {
+  border: 2px solid yellowgreen;
+  /* transform: scale(1.5); */
+  .material-icons {
+    transform: rotate(-20deg);
+  }
+}
+
+.material-icons {
+  align-self: center;
 }
 </style>

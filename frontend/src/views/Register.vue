@@ -50,11 +50,11 @@ export default {
       name: "",
       email: "",
       password: "",
-      repeatPassword: ""
+      repeatPassword: "",
     };
   },
   computed: {
-    ...mapGetters(["isLoggedIn"])
+    ...mapGetters(["isLoggedIn"]),
   },
   methods: {
     submitUser() {
@@ -63,15 +63,15 @@ export default {
         email: this.email,
         password: this.password,
         repeatPassword: this.password,
-        adress: { street: "", city: "", zip: "" }
+        adress: { street: "", city: "", zip: "" },
       };
       this.$store.dispatch("registerUser", user);
-      this.$route.push("/");
-    }
+      this.$router.push("/");
+    },
   },
   components: {
-    ImageSlot
-  }
+    ImageSlot,
+  },
 };
 </script>
 
