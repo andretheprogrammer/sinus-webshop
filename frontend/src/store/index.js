@@ -149,8 +149,8 @@ export default new Vuex.Store({
         async getProductById(context, id) {
             context.commit(Mutations.GET_PRODUCT_BY_ID, id)
         },
-        async getAllOrders(context, jwt) {
-            let result = await API.fetchOrders(jwt)
+        async getAllOrders(context) {
+            let result = await API.fetchOrders(sessionStorage.getItem("jwt"))
             console.log('fetchOrders -->', result)
             context.commit(Mutations.GET_ALL_ORDERS, result)
         },

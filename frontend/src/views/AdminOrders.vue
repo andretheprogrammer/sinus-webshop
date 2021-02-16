@@ -37,11 +37,14 @@
             :key="index"
             @click="openModal(item)"
           >
-            <div class="item-item">
-              <h3>Order ID: {{ item._id }}</h3>
-              <h4>Ordered Items: {{ item.items }}</h4>
-              <p>TimeStamp: {{ item.timeStamp }}</p>
-              <p>Ordervalue: {{ item.orderValue }}</p>
+            <div class="infobox-item">
+              <div class="infobox">
+                <h3>Order ID: {{ item._id }}</h3>
+                <h4>Ordered Items: {{ item.items }}</h4>
+
+                <p>TimeStamp: {{ item.timeStamp }}</p>
+                <p>Ordervalue: {{ item.orderValue }}</p>
+              </div>
             </div>
           </li>
         </ul>
@@ -61,12 +64,12 @@ import Overlay from "@/components/Overlay";
 import OrderInfo from "@/components/OrderInfo";
 export default {
   created() {
-    let token = sessionStorage.getItem("jwt");
-    this.$store.dispatch("getAllOrders", token);
+    this.$store.dispatch("getAllOrders");
   },
   data() {
     return {
       showModal: false,
+      orderList: [],
     };
   },
   computed: {
@@ -76,13 +79,30 @@ export default {
       "ordersDone",
       "chosenOrder",
       "isAdmin",
+      "productResponse",
     ]),
   },
 
   methods: {
     openModal(order) {
       this.$store.dispatch("setChosenOrder", order);
+      this.filteredEntrys();
       this.showModal = true;
+    },
+    filteredEntrys() {
+      this.chosenOrder.items.forEach((entry) => {
+        console.log(entry);
+        this.orderList.push(this.productResponse.find((e) => e._id == entry));
+      });
+      console.log("hej", this.chosenOrder, this.orderList);
+
+      //   let entries = this.chosenOrder.items.filter((otherProduct) => {
+      //     return this.productResponse
+      //       .map((product) => {
+      //         return product._id;
+      //       })
+      //       .includes(otherProduct._id);
+      //   });
     },
     closeModal() {
       this.showModal = false;
@@ -98,6 +118,15 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/_global.scss";
 .order-item {
-  margin: 5px;
+  margin: 0.3rem;
+  background-color: white;
+  border-radius: 15px;
+  padding: 0.5rem;
+}
+.infobox-item {
+  margin: 0.3rem;
+  background-color: white;
+  border-radius: 15px;
+  padding: 0.5rem;
 }
 </style>

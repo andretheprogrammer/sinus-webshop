@@ -12,10 +12,15 @@
         <div class="product-item">
           <div class="product-header">
             <h3>{{ product.title }}</h3>
-            <i @click.stop="deleteProduct(product)" class="material-icons">delete_outline</i>
+            <i @click.stop="deleteProduct(product)" class="material-icons"
+              >delete_outline</i
+            >
           </div>
           <p>{{ product.shortDesc }}</p>
-          <div class="img-product" :style="{ 'background-image': 'url(' + getIcon(product) + ')' }">
+          <div
+            class="img-product"
+            :style="{ 'background-image': 'url(' + getIcon(product) + ')' }"
+          >
             <div class="price-container">
               <h3>{{ product.price }}</h3>
               <p class="sek">SEK</p>
@@ -42,15 +47,15 @@ export default {
 
   data() {
     return {
-      showModal: false
+      showModal: false,
     };
   },
   props: {
-    product: Object
+    product: Object,
   },
 
   computed: {
-    ...mapGetters(["productResponse", "chosenProduct"])
+    ...mapGetters(["productResponse", "chosenProduct"]),
   },
   methods: {
     getIcon(product) {
@@ -71,10 +76,10 @@ export default {
     getProducts() {
       this.$store.dispatch("getProducts");
     },
-    created() {
-      this.getProducts();
-    }
-  }
+  },
+  created() {
+    this.getProducts();
+  },
 };
 </script>
 

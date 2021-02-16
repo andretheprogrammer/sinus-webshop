@@ -46,7 +46,7 @@ import Cart from "@/components/Cart";
 export default {
   data() {
     return {
-      customer: {}
+      customer: {},
     };
   },
   created() {
@@ -62,15 +62,15 @@ export default {
         payment: { cardOwner: "", cardNumber: "", validUntil: "", cvv: "" },
         orderHistory: [],
         password: "",
-        _id: ""
+        _id: "",
       };
     }
   },
   components: {
-    Cart
+    Cart,
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(["user"]),
   },
   methods: {
     makeOrder() {
@@ -79,7 +79,7 @@ export default {
       if (cartItems.length < 1) {
         alert("no things in cart gringo");
       } else {
-        cartItems.forEach(product => {
+        cartItems.forEach((product) => {
           {
             for (let i = 0; i < product.amount; i++) {
               list.push(product.item._id);
@@ -89,17 +89,26 @@ export default {
 
         this.$store.dispatch("makeOrder", {
           items: list,
-          user: this.customer
+          user: this.customer,
         });
         this.$router.push("/thanks");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/_global.scss";
+@media (max-width: 1050px) {
+  .submit-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+input {
+  @include input-standard;
+}
 
 .wrapper {
   text-align: center;
@@ -109,14 +118,9 @@ export default {
   display: flex;
   justify-content: center;
 }
-
 section {
   margin: 1.5rem;
   width: 14rem;
-}
-
-input {
-  @include input-standard;
 }
 
 .submit-btn {
