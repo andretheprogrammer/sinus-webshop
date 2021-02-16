@@ -9,12 +9,16 @@
         <h1>No orders in progress!</h1>
       </div>
       <ul v-else>
-        <li v-for="(order, index) in ordersInProgress" :key="index" @click="openModal(order)">
+        <li
+          v-for="(order, index) in ordersInProgress"
+          :key="index"
+          @click="openModal(order)"
+        >
           <div class="order-item">
-            <h4>Ordered Items: {{ order.items }}</h4>
+            <h3>Order ID: {{ order._id }}</h3>
+            <h4>Ordered products ID: {{ order.items }}</h4>
             <p>TimeStamp: {{ order.timeStamp }}</p>
             <p>Ordervalue: {{ order.orderValue }}</p>
-            <p>ID: {{ order._id }}</p>
           </div>
         </li>
       </ul>
@@ -28,11 +32,15 @@
         <h1>Orders finished</h1>
         <hr />
         <ul>
-          <li v-for="(item, index) in ordersDone" :key="index" @click="openModal(item)">
+          <li
+            v-for="(item, index) in ordersDone"
+            :key="index"
+            @click="openModal(item)"
+          >
             <div class="infobox-item">
               <div class="infobox">
                 <h3>Order ID: {{ item._id }}</h3>
-                <h4>Ordered Items: {{ item.items }}</h4>
+                <h4>Ordered products ID: {{ item.items }}</h4>
 
                 <p>TimeStamp: {{ item.timeStamp }}</p>
                 <p>Ordervalue: {{ item.orderValue }}</p>
@@ -60,7 +68,7 @@ export default {
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
@@ -71,8 +79,10 @@ export default {
       "chosenOrder",
       "isAdmin",
       "productResponse",
-      "orderItems"
-    ])
+      "orderItems",
+      "user",
+      "isLoggedIn",
+    ]),
     // checkOrderItems: function() {
     //   console.log(this.orderItems);
     //   return this.orderItems.some(function(el) {
@@ -107,12 +117,20 @@ export default {
 
     closeModal() {
       this.showModal = false;
+    },
+  },
+  beforeCreate() {
+    if (!this.isLoggedIn) {
+      console.log(this.isLoggedIn);
+      this.$route.push("/");
+    } else {
+      alert("cool beans");
     }
   },
   components: {
     Overlay,
-    OrderInfo
-  }
+    OrderInfo,
+  },
 };
 </script>
 
@@ -123,11 +141,13 @@ export default {
   background-color: white;
   border-radius: 15px;
   padding: 0.5rem;
+  width: fit-content;
 }
 .infobox-item {
   margin: 0.3rem;
   background-color: white;
   border-radius: 15px;
   padding: 0.5rem;
+  width: fit-content;
 }
 </style>

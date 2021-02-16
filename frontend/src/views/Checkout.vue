@@ -106,12 +106,19 @@ export default {
     flex-wrap: wrap;
   }
 }
+@media (max-width: 800px) {
+  .section-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
 input {
   @include input-standard;
 }
 
 .wrapper {
-  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .section-wrapper {
@@ -120,7 +127,6 @@ input {
 }
 section {
   margin: 1.5rem;
-  width: 14rem;
 }
 
 .submit-btn {
