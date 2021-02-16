@@ -20,7 +20,8 @@ export default new Vuex.Store({
         orderPending: null,
         isAdmin: null,
         ordersResponse: [],
-        chosenOrder: {}
+        chosenOrder: {},
+        orderItems: []
     },
     getters: {
         cartItems: (state) => state.cartItems,
@@ -42,6 +43,20 @@ export default new Vuex.Store({
             }
             console.log('isLoggedIn -->', state.isLoggedIn)
             return state.isLoggedIn;
+        },
+        orderItems: (state) => {
+            let products = [];
+
+            for (let item of state.chosenOrder.items) {
+                let product = state.productResponse.find(e => item == e._id);
+                if (product) products.push(product);
+                else {
+                    products = []
+                    break;
+                }
+            }
+
+            return products;
         }
     },
     mutations: {
@@ -81,11 +96,9 @@ export default new Vuex.Store({
         },
         [Mutations.SET_CHOSEN_PRODUCT](state, product) {
             state.chosenProduct = product
-            console.log('mutations -->', state.chosenProduct)
         },
         [Mutations.SET_CHOSEN_ORDER](state, order) {
             state.chosenOrder = order
-            console.log('mutations -->', state.chosenOrder)
         },
         [Mutations.LOGIN](state, data) {
             if (data.token) {
@@ -144,10 +157,10 @@ export default new Vuex.Store({
         async setChosenOrder(context, order) {
             context.commit(Mutations.SET_CHOSEN_ORDER, order)
         },
-        getProductById(context, id) {
-            console.log(id)
-            return context.state.productResponse.find((e) => id == e._id);
-        },
+        // getProductById(context, id) {
+        //     console.log(id)
+        //     return context.state.productResponse.find((e) => id == e._id);
+        // },
         async getAllOrders(context) {
             let result = await API.fetchOrders(sessionStorage.getItem("jwt"))
             console.log('fetchOrders -->', result)

@@ -9,11 +9,7 @@
         <h1>No orders in progress!</h1>
       </div>
       <ul v-else>
-        <li
-          v-for="(order, index) in ordersInProgress"
-          :key="index"
-          @click="openModal(order)"
-        >
+        <li v-for="(order, index) in ordersInProgress" :key="index" @click="openModal(order)">
           <div class="order-item">
             <h4>Ordered Items: {{ order.items }}</h4>
             <p>TimeStamp: {{ order.timeStamp }}</p>
@@ -32,11 +28,7 @@
         <h1>Orders finished</h1>
         <hr />
         <ul>
-          <li
-            v-for="(item, index) in ordersDone"
-            :key="index"
-            @click="openModal(item)"
-          >
+          <li v-for="(item, index) in ordersDone" :key="index" @click="openModal(item)">
             <div class="infobox-item">
               <div class="infobox">
                 <h3>Order ID: {{ item._id }}</h3>
@@ -68,8 +60,7 @@ export default {
   },
   data() {
     return {
-      showModal: false,
-      orderList: [],
+      showModal: false
     };
   },
   computed: {
@@ -80,35 +71,48 @@ export default {
       "chosenOrder",
       "isAdmin",
       "productResponse",
-    ]),
+      "orderItems"
+    ])
+    // checkOrderItems: function() {
+    //   console.log(this.orderItems);
+    //   return this.orderItems.some(function(el) {
+    //     console.log(el);
+    //     let b = el !== null && typeof el !== "undefined";
+    //     console.log(b);
+    //     return b;
+    //   });
+    // }
   },
 
   methods: {
     openModal(order) {
       this.$store.dispatch("setChosenOrder", order);
-      this.fillOrderItems();
-      this.showModal = true;
+      if (this.orderItems.length > 0) {
+        this.showModal = true;
+      } else {
+        alert("Contains discontinued items");
+      }
     },
 
-    async fillOrderItems() {
-      console.log(this.chosenOrder.items[0]);
-      let id = this.chosenOrder.items[0];
+    // async fillOrderItems() {
+    //   console.log(this.chosenOrder.items[0]);
+    //   let id = this.chosenOrder.items[0];
 
-      let response = await this.$store.dispatch("getProductById", id);
-      console.log(
-        "hello",
-        response.find((e) => id == e._id)
-      );
-    },
+    //   let response = await this.$store.dispatch("getProductById", id);
+    //   console.log(
+    //     "hello",
+    //     response.find(e => id == e._id)
+    //   );
+    // },
 
     closeModal() {
       this.showModal = false;
-    },
+    }
   },
   components: {
     Overlay,
-    OrderInfo,
-  },
+    OrderInfo
+  }
 };
 </script>
 
