@@ -1,7 +1,7 @@
 <template>
   <div class="admin-wrapper">
     <h1>ADMIN PRODUCTS</h1>
-    <EditProduct />
+    <CreateProduct />
     <ul>
       <li
         v-for="product of productResponse"
@@ -23,13 +23,14 @@
               <h3>{{ product.price }}</h3>
               <p class="sek">SEK</p>
             </div>
+            <button @click="deleteProduct(product)">DELETE PRODUCT</button>
           </div>
         </div>
       </li>
     </ul>
     <div class="product-info-wrapper">
       <Overlay v-if="chosenProduct" :show="showModal" @close="closeModal">
-        <ProductInfo :product="chosenProduct" @close="closeModal" />
+        <EditProduct :product="chosenProduct" @close="closeModal" />
       </Overlay>
     </div>
   </div>
@@ -37,16 +38,19 @@
 
 <script>
 import { mapGetters } from "vuex";
+import CreateProduct from "../components/CreateProduct.vue";
 import EditProduct from "../components/EditProduct.vue";
 import Overlay from "../components/Overlay.vue";
-import ProductInfo from "../components/ProductInfo.vue";
 export default {
-  components: { ProductInfo, EditProduct, Overlay },
+  components: { EditProduct, CreateProduct, Overlay },
 
   data() {
     return {
       showModal: false,
     };
+  },
+  props: {
+    product: Object,
   },
 
   computed: {
@@ -62,6 +66,12 @@ export default {
     openModal(product) {
       this.$store.dispatch("setChosenProduct", product);
       this.showModal = true;
+    },
+    deleteProduct(product) {
+      this.$store.dispatch("deleteProduct", product);
+    },
+    updated() {
+      this.$store.dispatch("getProducts");
     },
   },
 };

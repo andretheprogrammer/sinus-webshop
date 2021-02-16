@@ -44,7 +44,18 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        [Mutations.SHOW_API_PRODUCTS]: (state, data) => state.productResponse = data,
+        [Mutations.SHOW_API_PRODUCTS](state, data) {
+            state.productResponse = []
+            state.productResponse = data
+        },
+        [Mutations.SET_CHOSEN_PRODUCT](state, product) {
+            state.chosenProduct = product
+            console.log('mutations -->', state.chosenProduct)
+        },
+        [Mutations.SET_CHOSEN_ORDER](state, order) {
+            state.chosenOrder = order
+            console.log('mutations -->', state.chosenOrder)
+        },
 
         [Mutations.GET_PRODUCT_BY_ID]: (state, id) => state.productResponse.find(e => e.id == id),
 
@@ -123,6 +134,11 @@ export default new Vuex.Store({
             let data = await API.postProduct(product, sessionStorage.getItem('jwt'))
             console.log(data, context)
             // await context.commit(Mutations.CREATE_NEW_PRODUCT, data)
+        },
+
+        async editNewProduct(context, product) {
+            let data = await API.editProduct(product, sessionStorage.getItem('jwt'))
+            console.log(data, context)
         },
         async setChosenProduct(context, product) {
             context.commit(Mutations.SET_CHOSEN_PRODUCT, product)
