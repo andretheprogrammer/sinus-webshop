@@ -50,7 +50,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["productResponse", "chosenProduct"])
+    ...mapGetters(["productResponse", "chosenProduct", "isLoggedIn"])
   },
   methods: {
     getIcon(product) {
