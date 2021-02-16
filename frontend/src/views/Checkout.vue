@@ -46,7 +46,15 @@ import Cart from "@/components/Cart";
 export default {
   data() {
     return {
-      customer: {
+      customer: {}
+    };
+  },
+  created() {
+    if (this.user.email) {
+      this.customer = this.user;
+      console.log("logged in user", this.customer);
+    } else {
+      this.customer = {
         email: "",
         name: "",
         role: "",
@@ -55,16 +63,7 @@ export default {
         orderHistory: [],
         password: "",
         _id: ""
-      }
-    };
-  },
-  mounted() {
-    if (this.user.email) {
-      this.customer = this.user;
-      console.log("user", this.customer);
-    } else {
-      for (var param in this.customer) delete this.customer[param];
-      console.log("no user", this.user);
+      };
     }
   },
   components: {
