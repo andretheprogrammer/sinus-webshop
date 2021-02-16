@@ -20,7 +20,7 @@ export default new Vuex.Store({
         orderPending: null,
         isAdmin: null,
         ordersResponse: [],
-        chosenOrder: null
+        chosenOrder: {}
     },
     getters: {
         cartItems: (state) => state.cartItems,
@@ -58,7 +58,7 @@ export default new Vuex.Store({
             console.log('mutations -->', state.chosenOrder)
         },
 
-        [Mutations.GET_PRODUCT_BY_ID]: (state, id) => state.productResponse.find(e => e.id == id),
+        // [Mutations.GET_PRODUCT_BY_ID]: (state, id) => state.productResponse.find(e => e._id == id),
 
         [Mutations.REMOVE_ITEM]: (state, index) => state.cartItems.splice(index, 1),
 
@@ -144,8 +144,9 @@ export default new Vuex.Store({
         async setChosenOrder(context, order) {
             context.commit(Mutations.SET_CHOSEN_ORDER, order)
         },
-        async getProductById(context, id) {
-            context.commit(Mutations.GET_PRODUCT_BY_ID, id)
+        getProductById(context, id) {
+            console.log(id)
+            return context.state.productResponse.find((e) => id == e._id);
         },
         async getAllOrders(context) {
             let result = await API.fetchOrders(sessionStorage.getItem("jwt"))

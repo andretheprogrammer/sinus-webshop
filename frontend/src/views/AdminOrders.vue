@@ -86,24 +86,21 @@ export default {
   methods: {
     openModal(order) {
       this.$store.dispatch("setChosenOrder", order);
-      this.filteredEntrys();
+      this.fillOrderItems();
       this.showModal = true;
     },
-    filteredEntrys() {
-      this.chosenOrder.items.forEach((entry) => {
-        console.log(entry);
-        this.orderList.push(this.productResponse.find((e) => e._id == entry));
-      });
-      console.log("hej", this.chosenOrder, this.orderList);
 
-      //   let entries = this.chosenOrder.items.filter((otherProduct) => {
-      //     return this.productResponse
-      //       .map((product) => {
-      //         return product._id;
-      //       })
-      //       .includes(otherProduct._id);
-      //   });
+    async fillOrderItems() {
+      console.log(this.chosenOrder.items[0]);
+      let id = this.chosenOrder.items[0];
+
+      let response = await this.$store.dispatch("getProductById", id);
+      console.log(
+        "hello",
+        response.find((e) => id == e._id)
+      );
     },
+
     closeModal() {
       this.showModal = false;
     },

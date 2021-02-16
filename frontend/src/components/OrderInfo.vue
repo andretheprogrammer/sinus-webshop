@@ -14,14 +14,9 @@ export default {
   },
   computed: {
     ...mapGetters(["chosenOrder", "orderResponse", "productResponse"]),
-    fillOrderItems() {
-      return this.productResponse.filter((item) => {
-        return this.chosenOrder.items.includes(item._id);
-      });
-    },
   },
   mounted() {
-    this.orderItems = this.filteredEntrys;
+    this.orderItems = this.fillOrderItems;
   },
 };
 </script>
