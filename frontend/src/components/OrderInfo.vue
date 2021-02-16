@@ -1,23 +1,18 @@
 <template>
   <div class="wrapper">
-    <h1>{{ orderItems.title }}</h1>
+    <h1>{{ orderItems }}</h1>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      orderItems: [],
-    };
-  },
   computed: {
-    ...mapGetters(["chosenOrder", "orderResponse", "productResponse"]),
+    ...mapGetters(["orderItems", "orderResponse", "productResponse"])
   },
   mounted() {
-    this.orderItems = this.fillOrderItems;
-  },
+    console.log("orderinfo");
+  }
 };
 </script>
 
