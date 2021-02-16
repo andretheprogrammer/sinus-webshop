@@ -6,6 +6,7 @@ import Checkout from '../views/Checkout.vue'
 import AdminOrders from '../views/AdminOrders.vue'
 import AdminProducts from '../views/AdminProducts.vue'
 import OrderComplete from '../views/OrderComplete.vue'
+import Account from '../views/Account.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/thanks',
     name: 'OrderComplete',
     component: OrderComplete
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: Account
   },
 ]
 

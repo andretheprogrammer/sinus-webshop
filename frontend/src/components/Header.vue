@@ -5,17 +5,22 @@
       <div class="header-links">
         <div class="menu-item">
           <router-link v-if="isAdmin" to="/adminproducts">
-            <button>Admin view</button>
+            <button>Admin</button>
           </router-link>
         </div>
         <div class="menu-item">
           <router-link v-if="isAdmin" to="/orders">
-            <button>Admin order view</button>
+            <button>Orders</button>
           </router-link>
         </div>
         <div class="menu-item">
           <router-link to="/products">
             <button>Products</button>
+          </router-link>
+        </div>
+        <div v-if="isLoggedIn" class="menu-item">
+          <router-link to="/account">
+            <button>My Account</button>
           </router-link>
         </div>
         <Login v-if="!isLoggedIn" />

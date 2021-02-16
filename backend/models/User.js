@@ -64,8 +64,8 @@ module.exports = {
                 exp: Math.floor(Date.now() / 1000) + (60 * 60)
             }, 'secret')
 
-            const { email, name, role, adress } = user
-            const userData = { email, name, role, adress }
+            const { email, name, role, adress, orderHistory } = user
+            const userData = { email, name, role, adress, orderHistory }
 
             return { error: false, token, userData }
         } else {
