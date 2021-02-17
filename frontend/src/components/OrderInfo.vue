@@ -3,39 +3,41 @@
     <ul>
       <li
         class="order-item"
-        v-for="orderItem in orderItems"
+        v-for="orderItem in parseOrderItems"
         :key="orderItem._id"
       >
         <div class="order-item-info">
           <div class="upper">
+            <h3>Quantity: {{ orderItem.qty }}</h3>
+
             <div class="order-item-section">
               <i class="material-icons">title</i>
               <h3>Title:</h3>
-              <p>{{ orderItem.title }}</p>
+              <p>{{ orderItem.item.title }}</p>
             </div>
             <div class="order-item-section">
               <i class="material-icons">sell</i>
 
               <h3>Price:</h3>
-              <p>{{ orderItem.price }}</p>
+              <p>{{ orderItem.item.price }}</p>
             </div>
             <div class="order-item-section">
               <i class="material-icons">category</i>
 
               <h3>Category:</h3>
-              <p>{{ orderItem.category }}</p>
+              <p>{{ orderItem.item.category }}</p>
             </div>
             <div class="order-item-section"></div>
             <div class="lower">
               <i class="material-icons">dialpad</i>
               <h3>Serial:</h3>
-              <p>{{ orderItem.serial }}</p>
+              <p>{{ orderItem.item.serial }}</p>
             </div>
             <div class="order-item-section">
               <i class="material-icons">tag</i>
 
               <h3>ID:</h3>
-              <p>{{ orderItem._id }}</p>
+              <p>{{ orderItem.item._id }}</p>
             </div>
           </div>
         </div>
@@ -54,6 +56,18 @@ export default {
       "orderResponse",
       "productResponse",
     ]),
+    parseOrderItems() {
+      let parsedItems = [];
+      this.orderItems.forEach((element) => {
+        let find = parsedItems.find((e) => e.item._id == element._id);
+        if (!find) {
+          parsedItems.push({ item: element, qty: 1 });
+        } else {
+          find.qty++;
+        }
+      });
+      return parsedItems;
+    },
   },
 
   mounted() {
@@ -77,7 +91,8 @@ export default {
   display: flex;
   max-width: 60rem;
 }
-h1 {
+h1,
+h3 {
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -90,5 +105,14 @@ h1 {
 }
 .lower {
   display: flex;
+}
+ul {
+  padding: 1rem;
+  line-height: 3rem;
+  display: flex;
+  gap: 1rem;
+}
+.material-icons {
+  align-self: center;
 }
 </style>

@@ -131,7 +131,6 @@ form {
 .input-big {
   @include input-standard;
   background-color: transparent;
-
   border: 1px solid white;
   cursor: pointer;
   color: white;
