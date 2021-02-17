@@ -40,3 +40,24 @@ $t-duration-view: 0.2s;
   transform: translateY(0px);
 }
 
+.show-order-leave-active,
+.show-order-enter-active{
+    transition: transform 0.4s ease-in-out, opacity 0.5s ease-in;
+    
+}
+.show-order-enter-active{
+    transition-delay: 0.5s;
+}
+
+.show-order-leave-to,
+.show-order-enter-active{
+    transform: scale(2);
+    opacity: 0;
+}
+.show-order-leave,
+.show-order-enter-to{
+    transform: scale(1);
+    opacity: 1;
+
+
+}

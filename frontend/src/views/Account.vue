@@ -4,8 +4,8 @@
       <form class="user-form" @submit.prevent>
         <section class="form-section">
           <div class="name-header">
-            <h2 class="user-name">{{user.name}}</h2>
-            <button class="arrow-btn" @click="showOrders=!showOrders">
+            <h2 class="user-name">{{ user.name }}</h2>
+            <button class="arrow-btn" @click="showOrders = !showOrders">
               <p v-if="!showOrders">Show</p>
               <p v-if="showOrders">Hide</p>
             </button>
@@ -17,20 +17,26 @@
           <label class="small-title">Zipcode</label>
           <input type="text" v-model="user.adress.zip" readonly />
         </section>
-        <section v-if="showOrders" class="form-section">
-          <div class="order-container">
-            <h2 class="small-title">Orderhistory</h2>
+        <transition mode="in-out" name="show-order">
+          <section v-if="showOrders" class="form-section">
+            <div class="order-container">
+              <h2 class="small-title">Orderhistory</h2>
 
-            <ul class="order-items">
-              <li v-for="order of user.orderHistory" :key="order._id" class="order">
-                <p>
-                  <span>id:</span>
-                  {{ order }}
-                </p>
-              </li>
-            </ul>
-          </div>
-        </section>
+              <ul class="order-items">
+                <li
+                  v-for="order of user.orderHistory"
+                  :key="order._id"
+                  class="order"
+                >
+                  <p>
+                    <span>id:</span>
+                    {{ order }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </transition>
       </form>
     </div>
   </div>
@@ -42,14 +48,14 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      showOrders: false
+      showOrders: false,
     };
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(["user"]),
   },
   methods: {},
-  components: {}
+  components: {},
 };
 </script>
 
