@@ -138,6 +138,12 @@ section {
   background: black;
   border-radius: 20px;
 }
+.submit-btn :visited {
+  outline: none;
+}
+.submit-btn :focus {
+  outline: none;
+}
 
 .submit-form {
   display: flex;

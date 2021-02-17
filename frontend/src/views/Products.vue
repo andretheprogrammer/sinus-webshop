@@ -11,7 +11,9 @@
           <div class="product-item">
             <div class="product-header">
               <h3>{{ product.title }}</h3>
-              <i class="material-icons">shopping_bag</i>
+              <i @click.stop="addToCart(product)" class="material-icons"
+                >shopping_bag</i
+              >
             </div>
             <p>{{ product.shortDesc }}</p>
             <div
@@ -73,6 +75,9 @@ export default {
     },
     isModalActive() {
       this.$store.state.activeModal;
+    },
+    addToCart(product) {
+      this.$store.dispatch("addItemToCart", product);
     },
   },
 };
@@ -186,7 +191,7 @@ p {
   line-height: 5px;
 }
 
-/* .product-trans-enter-active,
+.product-trans-enter-active,
 .product-trans-leave-active {
   transition: transform 1s ease, opacity 1s ease;
 }
@@ -201,5 +206,5 @@ p {
 .product-trans-leave {
   transform: scale(1);
   opacity: 1;
-} */
+}
 </style>
