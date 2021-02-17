@@ -1,7 +1,7 @@
 <template>
   <div class="order-complete-wrapper">
     <ImageSlot class="imgslot">
-      <h1>Your order has been completed!</h1>
+      <h1 id="ordertext">Your order has been completed!</h1>
     </ImageSlot>
 
     <div class="order-completed-lorem">
@@ -20,9 +20,10 @@
       </p>
     </div>
     <lottie
+      id="lottie-anim"
       :options="defaultOptions"
-      :height="220"
-      :width="180"
+      :height="400"
+      :width="300"
       v-on:animCreated="handleAnimation"
     />
   </div>
@@ -30,7 +31,7 @@
 
 <script>
 import Lottie from "vue-lottie";
-import * as animationData from "@/assets/haloween.json";
+import * as animationData from "@/assets/animation.json";
 import ImageSlot from "@/components/ImageSlot";
 export default {
   data() {
@@ -85,5 +86,11 @@ export default {
 }
 .imgslot {
   align-self: center;
+}
+#lottie-anim {
+  transform: translate3d(-30px, -500px, 0px);
+}
+#ordertext {
+  position: absolute;
 }
 </style>
