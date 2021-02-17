@@ -8,7 +8,7 @@
       <div v-if="!ordersInProgress.length" class="no-orders">
         <h1>No orders in progress!</h1>
       </div>
-      <ul v-else>
+      <ul>
         <li
           v-for="(order, index) in ordersInProgress"
           :key="index"
@@ -28,7 +28,7 @@
       <div v-if="!ordersDone.length" class="no-orders">
         <h1>No orders finished</h1>
       </div>
-      <div v-else class="finished-orders">
+      <div class="finished-orders">
         <h1>Orders finished</h1>
         <hr />
         <ul>
