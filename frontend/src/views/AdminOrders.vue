@@ -124,8 +124,6 @@ export default {
       console.log(this.isLoggedIn, this.isAdmin);
       alert("something is fucked up, pls log out and in again");
       this.$router.push("/");
-    } else {
-      alert("cool beans");
     }
   },
   components: {

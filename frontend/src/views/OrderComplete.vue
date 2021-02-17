@@ -19,14 +19,50 @@
         grab
       </p>
     </div>
+    <lottie
+      :options="defaultOptions"
+      :height="220"
+      :width="180"
+      v-on:animCreated="handleAnimation"
+    />
   </div>
 </template>
 
 <script>
+import Lottie from "vue-lottie";
+import * as animationData from "@/assets/haloween.json";
 import ImageSlot from "@/components/ImageSlot";
 export default {
+  data() {
+    return {
+      defaultOptions: { animationData: animationData.default },
+      animationSpeed: 1,
+    };
+  },
   components: {
     ImageSlot,
+    Lottie,
+  },
+  methods: {
+    handleAnimation: function (anim) {
+      this.anim = anim;
+    },
+
+    stop: function () {
+      this.anim.stop();
+    },
+
+    play: function () {
+      this.anim.play();
+    },
+
+    pause: function () {
+      this.anim.pause();
+    },
+
+    onSpeedChange: function () {
+      this.anim.setSpeed(this.animationSpeed);
+    },
   },
 };
 </script>

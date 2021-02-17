@@ -24,13 +24,14 @@
 
               <ul class="order-items">
                 <li
-                  v-for="order of user.orderHistory"
+                  @click="openModal(order)"
+                  v-for="order of userOrders"
                   :key="order._id"
                   class="order"
                 >
+                  <h3>{{ order.status }}</h3>
                   <p>
-                    <span>id:</span>
-                    {{ order }}
+                    {{ order.timeStamp }}
                   </p>
                 </li>
               </ul>
@@ -39,23 +40,50 @@
         </transition>
       </form>
     </div>
+    <div class="order-info-wrapper">
+      <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
+        <OrderInfo :order="chosenOrder" @close="closeModal" />
+      </Overlay>
+    </div>
   </div>
 </template>
 
 <script >
 import { mapGetters } from "vuex";
-
+import OrderInfo from "@/components/OrderInfo";
+import Overlay from "@/components/Overlay";
 export default {
   data() {
     return {
       showOrders: false,
+      userOrders: [],
+      showModal: false,
     };
   },
-  computed: {
-    ...mapGetters(["user"]),
+  async created() {
+    let res = await this.$store.dispatch("getAllOrders");
+    this.userOrders = res;
   },
-  methods: {},
-  components: {},
+  computed: {
+    ...mapGetters(["userHistory", "user", "chosenOrder"]),
+    // getUserHistory() {
+    //   return this.$store.state.user.userHistory;
+    // },
+  },
+  methods: {
+    openModal(order) {
+      this.$store.dispatch("setChosenOrder", order);
+      if (this.userOrders.length > 0) {
+        this.showModal = true;
+      } else {
+        alert("No orders made");
+      }
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+  },
+  components: { OrderInfo, Overlay },
 };
 </script>
 
