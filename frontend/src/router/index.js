@@ -7,6 +7,7 @@ import AdminOrders from '../views/AdminOrders.vue'
 import AdminProducts from '../views/AdminProducts.vue'
 import OrderComplete from '../views/OrderComplete.vue'
 import Account from '../views/Account.vue'
+import store from '../store/index.js'
 
 Vue.use(VueRouter)
 
@@ -29,12 +30,28 @@ const routes = [
   {
     path: '/orders',
     name: 'AdminOrders',
-    component: AdminOrders
+    component: AdminOrders,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAdmin) {
+        next();
+      }
+      else {
+        next('/');
+      }
+    }
   },
   {
     path: '/adminproducts',
     name: 'AdminProducts',
-    component: AdminProducts
+    component: AdminProducts,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAdmin) {
+        next();
+      }
+      else {
+        next('/');
+      }
+    }
   },
   {
     path: '/thanks',
@@ -44,7 +61,15 @@ const routes = [
   {
     path: '/account',
     name: 'Account',
-    component: Account
+    component: Account,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isLoggedIn) {
+        next();
+      }
+      else {
+        next('/');
+      }
+    }
   },
 ]
 
