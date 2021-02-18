@@ -3,26 +3,22 @@
     <div class="navbar">
       <img id="logo" src="@/assets/sinus-logo.svg" alt @click="routeToStart" />
       <div class="header-links">
-        <div class="menu-item">
+        <div class="menu-item hide-items">
           <router-link v-if="isAdmin" to="/adminproducts">
             <button>Admin</button>
           </router-link>
-        </div>
-        <div class="menu-item">
           <router-link v-if="isAdmin" to="/orders">
             <button>Orders</button>
           </router-link>
-        </div>
-        <div class="menu-item">
           <router-link to="/products">
             <button>Products</button>
           </router-link>
-        </div>
-        <div v-if="isLoggedIn" class="menu-item">
-          <router-link to="/account">
+          <router-link v-if="isLoggedIn" to="/account">
             <button>My Account</button>
           </router-link>
         </div>
+        <Hamburger />
+
         <Login v-if="!isLoggedIn" />
         <div v-else class="menu-item">
           <button class="account-btn" @click="$store.dispatch('logout')">
@@ -49,26 +45,28 @@
 <script>
 import { mapGetters } from "vuex";
 import Login from "@/components/Login";
+import Hamburger from "@/components/Hamburger";
 
 export default {
   data() {
     return {
-      result: 0,
+      result: 0
     };
   },
   components: {
     Login,
+    Hamburger
   },
   computed: {
     ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"]),
-    calculateCart: function () {
+    calculateCart: function() {
       let result = 0;
       for (this.item of this.cartItems) {
         result += this.item.amount;
         console.log(result);
       }
       return result;
-    },
+    }
   },
 
   methods: {
@@ -78,8 +76,8 @@ export default {
       } else {
         this.$router.push(`/`);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

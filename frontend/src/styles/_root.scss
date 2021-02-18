@@ -1,3 +1,31 @@
+@media (max-width: 1050px) {
+  .submit-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 720px) {
+  .section-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hide-items {
+    display: none !important;
+  }
+
+  .burger-menu {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 720px) {
+  .burger-menu {
+    display: none !important;
+    cursor: pointer;
+  }
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
