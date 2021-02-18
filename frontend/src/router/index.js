@@ -7,7 +7,7 @@ import AdminOrders from '../views/AdminOrders.vue'
 import AdminProducts from '../views/AdminProducts.vue'
 import OrderComplete from '../views/OrderComplete.vue'
 import Account from '../views/Account.vue'
-import store from '../store/index.js'
+import store from '../store'
 
 Vue.use(VueRouter)
 

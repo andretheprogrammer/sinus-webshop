@@ -22,7 +22,7 @@
         <Login v-if="!isLoggedIn" />
         <div v-else class="menu-item">
           <button class="account-btn" @click="$store.dispatch('logout')">
-            <i class="material-icons product-lock">exit_to_app</i>
+            <i class="material-icons">exit_to_app</i>
           </button>
         </div>
         <div class="menu-item">
@@ -33,7 +33,7 @@
                   <p>{{ calculateCart }}</p>
                 </div>
               </div>
-              <i class="material-icons product-lock">shopping_bag</i>
+              <i class="material-icons">shopping_bag</i>
             </div>
           </router-link>
         </div>

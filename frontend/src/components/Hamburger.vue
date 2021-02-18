@@ -1,34 +1,42 @@
 <template>
   <div class="menu-item burger-menu" v-click-outside-window="closeWindow">
-    <button @click="show=!show">Burger</button>
-    <div v-if="show" class="dropdown">
-      <div class="menu">
-        <ul>
-          <li v-if="isAdmin">
-            <router-link to="/adminproducts">Admin</router-link>
-          </li>
-          <li v-if="isAdmin">
-            <router-link to="/orders">Orders</router-link>
-          </li>
-          <li>
-            <router-link to="/products">Products</router-link>
-          </li>
-          <li v-if="isLoggedIn">
-            <router-link to="/account">My Account</router-link>
-          </li>
-        </ul>
+    <div v-if="isLoggedIn">
+      <button @click="show=!show">
+        <i class="material-icons">menu</i>
+      </button>
+      <div v-if="show" class="dropdown">
+        <div class="menu">
+          <ul>
+            <li v-if="isAdmin" @click="closeWindow">
+              <router-link class="menu-link" to="/adminproducts">Admin</router-link>
+            </li>
+            <li v-if="isAdmin" @click="closeWindow">
+              <router-link class="menu-link" to="/orders">Orders</router-link>
+            </li>
+            <li @click="closeWindow">
+              <router-link class="menu-link" to="/products">Products</router-link>
+            </li>
+            <li v-if="isLoggedIn" @click="closeWindow">
+              <router-link class="menu-link" to="/account">My Account</router-link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+    <router-link v-else to="/products">
+      <button>Products</button>
+    </router-link>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
       show: false,
-      isAdmin: true,
-      isLoggedIn: true
+      windowWidth: 0
     };
   },
   directives: {
@@ -56,10 +64,28 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"])
+  },
   methods: {
     closeWindow() {
       this.show = false;
+    },
+    getWindowWidth() {
+      this.windowWidth = document.documentElement.clientWidth;
+      if (this.windowWidth > 720) this.closeWindow();
     }
+  },
+  mounted() {
+    this.$nextTick(function() {
+      window.addEventListener("resize", this.getWindowWidth);
+
+      //Init
+      this.getWindowWidth();
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.getWindowWidth);
   }
 };
 </script>
@@ -88,5 +114,17 @@ export default {
   margin: auto;
   width: 100%;
   transition: opacity 0.5s;
+  text-align: center;
+
+  li {
+    margin: 14px auto;
+
+    .menu-link {
+      padding: 10px 20px;
+      font-family: inherit;
+      font-weight: bold;
+      color: black;
+    }
+  }
 }
 </style>
