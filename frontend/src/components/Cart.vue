@@ -6,7 +6,11 @@
     <ul v-else>
       <li v-for="(product, index) of cartItems" :key="index">
         <section>
-          <img class="cart-img" :src="require(`@/assets/${product.item.imgFile}`)" alt />
+          <img
+            class="cart-img"
+            :src="require(`@/assets/${product.item.imgFile}`)"
+            alt
+          />
         </section>
         <section>
           <h1>{{ product.item.title }}</h1>
@@ -16,9 +20,13 @@
         </section>
         <section class="upxdown">
           <div class="cart-container">
-            <span class="material-icons" @click="incrementAmount(product)">arrow_upward</span>
+            <span class="material-icons" @click="incrementAmount(product)"
+              >arrow_upward</span
+            >
             <p>{{ product.amount }}</p>
-            <span class="material-icons" @click="decrementAmount(product)">arrow_downward</span>
+            <span class="material-icons" @click="decrementAmount(product)"
+              >arrow_downward</span
+            >
           </div>
           <i @click="removeItem(index)" class="material-icons">highlight_off</i>
         </section>
@@ -43,7 +51,7 @@ export default {
         total += s.item.price * s.amount;
       }
       return total;
-    }
+    },
   },
   methods: {
     decrementAmount(product) {
@@ -58,8 +66,8 @@ export default {
     },
     removeItem(index) {
       this.$store.dispatch("removeItem", index);
-    }
-  }
+    },
+  },
 };
 </script>
 

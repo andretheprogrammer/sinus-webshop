@@ -61,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/_global.scss";
 .product-wrapper {
-  background-color: white;
+  background-color: whitesmoke;
   border: 2px solid black;
   width: 100%;
   text-align: center;
@@ -90,7 +90,12 @@ export default {
 .edit-btn {
   @include product-btn;
 }
+
+select {
+  background-color: transparent;
+}
 input {
+  background-color: transparent;
   @include input-standard;
   margin: 0;
 }
@@ -112,6 +117,7 @@ input {
 .product-button {
   @include product-btn;
   display: flex;
+
   :active,
   :visited {
     text-decoration: none;

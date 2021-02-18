@@ -38,6 +38,7 @@ export default {
     return {
       defaultOptions: { animationData: animationData.default },
       animationSpeed: 1,
+      autoPlay: 1,
     };
   },
   components: {
@@ -88,7 +89,7 @@ export default {
   align-self: center;
 }
 #lottie-anim {
-  transform: translate3d(-30px, -500px, 0px);
+  transform: translate3d(-370px, -500px, 0px);
 }
 #ordertext {
   position: absolute;

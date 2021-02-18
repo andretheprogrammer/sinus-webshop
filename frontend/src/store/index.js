@@ -30,6 +30,9 @@ export default new Vuex.Store({
         productResponse: (state) => state.productResponse,
         ordersResponse: (state) => state.ordersResponse,
         userHistory: (state) => state.user.userHistory,
+        // ordersInProgress: (state) => Methods.getOrdersWithStatus(state.ordersResponse, 'inProcess'),
+        // ordersDone: (state) => Methods.getOrdersWithStatus(state.ordersResponse, 'done'),
+
         ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
         ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
         user: (state) => state.user,
@@ -47,9 +50,9 @@ export default new Vuex.Store({
         },
         orderItems: (state) => {
             let products = [];
-
-            for (let item of state.chosenOrder.items) {
-                let product = state.productResponse.find(e => item == e._id);
+            console.log(state.chosenOrder.items)
+            for (let orderID of state.chosenOrder.items) {
+                let product = state.productResponse.find(e => orderID == e._id);
                 if (product) products.push(product);
                 else {
                     products = []
@@ -96,7 +99,6 @@ export default new Vuex.Store({
                 exists.amount++
             } else {
                 state.cartItems.push({ item: object, amount: 1 })
-
             }
             console.log(state.cartItems)
         },
@@ -144,6 +146,7 @@ export default new Vuex.Store({
         },
         async registerUser(context, payload) {
             await API.registerUser(payload)
+            console.log(context)
         },
         async login(context, payload) {
             let data = await API.login(payload)
@@ -176,12 +179,12 @@ export default new Vuex.Store({
         //     return context.state.productResponse.find((e) => id == e._id);
         // },
         async getAllOrders(context) {
-            let result = await API.fetchOrders(sessionStorage.getItem("jwt"))
+            let jwt = sessionStorage.getItem("jwt")
+            if (!jwt) return;
 
+            let result = await API.fetchOrders(jwt)
             context.commit(Mutations.GET_ALL_ORDERS, result)
-            return result
-
-
+            return result;
         },
         async makeOrder(context, order) {
             let res = await API.makeOrder(order, sessionStorage.getItem('jwt'))

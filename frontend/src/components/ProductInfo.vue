@@ -53,9 +53,9 @@ export default {
 @import "@/styles/_global.scss";
 
 .product-wrapper {
-  background-color: white;
+  background-color: gainsboro;
   border: 2px solid black;
-  width: 100%;
+  min-width: 20rem;
   text-align: center;
   padding: 1rem;
   display: flex;
@@ -82,7 +82,7 @@ export default {
 }
 .skate-img {
   height: 100%;
-  width: 20rem;
+  width: 25rem;
   align-self: left;
   margin-top: 1rem;
 }

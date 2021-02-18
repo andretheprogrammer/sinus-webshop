@@ -65,7 +65,6 @@ export default {
       let result = 0;
       for (this.item of this.cartItems) {
         result += this.item.amount;
-        console.log(result);
       }
       return result;
     },
