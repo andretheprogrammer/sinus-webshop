@@ -48,7 +48,17 @@
   </div>
 </template>
 
+    <!-- <lottie
+      id="route-anim"
+      :options="defaultOptions"
+      :height="1080"
+      :width="1920"
+      v-on:animCreated="handleAnimation"
+    >
+    </lottie> -->
 <script >
+// import Lottie from "vue-lottie";
+// import * as animationData from "@/assets/page-animation.json";
 import { mapGetters } from "vuex";
 import OrderInfo from "@/components/OrderInfo";
 import Overlay from "@/components/Overlay";
@@ -58,11 +68,15 @@ export default {
       showOrders: false,
       userOrders: [],
       showModal: false,
+
+      //   defaultOptions: { animationData: animationData.default },
+      //   animationSpeed: 1,
     };
   },
   async created() {
     let res = await this.$store.dispatch("getAllOrders");
     this.userOrders = res;
+    stop();
   },
   computed: {
     ...mapGetters(["userHistory", "user", "chosenOrder"]),
@@ -82,7 +96,27 @@ export default {
     closeModal() {
       this.showModal = false;
     },
+    handleAnimation: function (anim) {
+      this.anim = anim;
+    },
+
+    // stop: function () {
+    //   this.anim.stop();
+    // },
+
+    // play: function () {
+    //   this.anim.play();
+    // },
+
+    // pause: function () {
+    //   this.anim.pause();
+    // },
+
+    // onSpeedChange: function () {
+    //   this.anim.setSpeed(this.animationSpeed);
+    // },
   },
+
   components: { OrderInfo, Overlay },
 };
 </script>
@@ -151,11 +185,9 @@ section {
 .order-container {
   height: 100%;
   margin: auto auto;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.4);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   min-width: 12rem;
 
   h2 {
@@ -183,5 +215,8 @@ section {
       }
     }
   }
+}
+#route-anim {
+  transform: translate3d(-450px, -602px, 50px);
 }
 </style>

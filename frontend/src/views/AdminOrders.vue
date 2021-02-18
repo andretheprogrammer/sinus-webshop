@@ -28,31 +28,30 @@
       <div v-if="!ordersDone.length" class="no-orders">
         <h1>No orders finished</h1>
       </div>
-      <div class="finished-orders">
+      <div v-else class="finished-orders">
         <h1>Orders finished</h1>
         <hr />
         <ul>
           <li
+            class="infobox-item"
             v-for="(item, index) in ordersDone"
             :key="index"
             @click="openModal(item)"
           >
-            <div class="infobox-item">
-              <div class="infobox">
-                <h3>Order ID: {{ item._id }}</h3>
-                <h4>Ordered products ID: {{ item.items }}</h4>
+            <div class="infobox">
+              <h3>Order ID: {{ item._id }}</h3>
+              <h4>Ordered products ID: {{ item.items }}</h4>
 
-                <p>TimeStamp: {{ item.timeStamp }}</p>
-                <p>Ordervalue: {{ item.orderValue }}</p>
-              </div>
+              <p>TimeStamp: {{ item.timeStamp }}</p>
+              <p>Ordervalue: {{ item.orderValue }}</p>
             </div>
           </li>
         </ul>
-        <div class="order-info-wrapper">
-          <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
-            <OrderInfo :order="chosenOrder" @close="closeModal" />
-          </Overlay>
-        </div>
+      </div>
+      <div class="order-info-wrapper">
+        <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
+          <OrderInfo :order="chosenOrder" @close="closeModal" />
+        </Overlay>
       </div>
     </section>
   </div>
@@ -120,7 +119,7 @@ export default {
     },
   },
   create() {
-    if (!this.isLoggedIn && !this.isAdmin) {
+    if (!this.isLoggedIn || !this.isAdmin) {
       console.log(this.isLoggedIn, this.isAdmin);
       alert("something is fucked up, pls log out and in again");
       this.$router.push("/");
@@ -137,16 +136,33 @@ export default {
 @import "@/styles/_global.scss";
 .order-item {
   margin: 0.3rem;
-  background-color: white;
+  background-color: gainsboro;
+  border-radius: 3px;
+  padding: 0.5rem;
+  box-shadow: 1px 1px 1px 0px whitesmoke;
+}
+li {
+  width: 40%;
+  text-align: left;
+}
+
+.infobox:hover {
+  background-color: black;
+}
+.infobox-item {
+  margin: 0.3rem;
   border-radius: 15px;
   padding: 0.5rem;
   width: fit-content;
 }
-.infobox-item {
-  margin: 0.3rem;
-  background-color: white;
-  border-radius: 15px;
-  padding: 0.5rem;
-  width: fit-content;
+.no-orders {
+  text-align: center;
+}
+.wrapper {
+  align-items: center;
+}
+section {
+  display: flex;
+  flex-direction: column;
 }
 </style>

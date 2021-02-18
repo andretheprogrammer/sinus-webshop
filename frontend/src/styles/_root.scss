@@ -56,10 +56,10 @@
 .product:hover {
   background-color: lightsteelblue;
   cursor: pointer;
-}
-.price-container {
-  border: 1px solid white !important;
-  box-shadow: 0 0 5px white;
+  .price-container {
+      border: 1px solid white !important;
+      box-shadow: 0 0 5px white;
+    }
 }
 
 .product-item {
