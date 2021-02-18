@@ -5,8 +5,13 @@
       <div v-show="show" class="login-window">
         <div class="login-form">
           <input type="text" v-model="email" placeholder="Email" id="email" />
-          <input type="password" v-model="password" placeholder="Password" id="password" />
-          <button @click="loginUser">Login</button>
+          <input
+            type="password"
+            v-model="password"
+            placeholder="Password"
+            id="password"
+          />
+          <div class="login-btn" @click="loginUser">Login</div>
         </div>
       </div>
     </transition>
@@ -19,13 +24,13 @@ export default {
     return {
       show: false,
       email: "",
-      password: ""
+      password: "",
     };
   },
   directives: {
     "click-outside-window": {
-      bind: function(el, binding) {
-        const ourClickEventHandler = event => {
+      bind: function (el, binding) {
+        const ourClickEventHandler = (event) => {
           if (typeof binding.value !== "function") {
             console.warn(
               "[Vue-click-outside:] provided expression",
@@ -42,23 +47,23 @@ export default {
 
         document.addEventListener("click", ourClickEventHandler);
       },
-      unbind: function(el) {
+      unbind: function (el) {
         document.removeEventListener("click", el.__vueClickEventHandler__);
-      }
-    }
+      },
+    },
   },
   methods: {
     loginUser() {
       this.$store.dispatch("login", {
         email: this.email,
-        password: this.password
+        password: this.password,
       });
       this.show = false;
     },
     closeWindow() {
       this.show = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -80,18 +85,19 @@ export default {
 }
 
 .login-form {
+  transition: opacity 0.5s;
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
   margin: auto;
   width: 100%;
-  transition: opacity 0.5s;
 
   input {
     @include input-standard;
+    background-color: transparent;
   }
 
-  button {
+  .login-btn {
     margin: 0.2rem 0 0 auto;
     padding: 0.3rem 1.2rem;
     font-weight: 0;
@@ -99,6 +105,9 @@ export default {
     color: white;
     background: black;
     border-radius: 20px;
+  }
+  .login-btn:hover {
+    transform: scale(1.1);
   }
 }
 </style>
