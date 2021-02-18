@@ -63,6 +63,7 @@ export default {
 
 .product-content {
   text-align: left;
+  user-select: none;
   h2 {
     text-transform: uppercase;
   }
@@ -103,7 +104,7 @@ export default {
 }
 
 .product-button:hover {
-  border: 2px solid yellowgreen;
+  border: 2px solid darkorange;
   /* transform: scale(1.5); */
   .material-icons {
     transform: rotate(-20deg);

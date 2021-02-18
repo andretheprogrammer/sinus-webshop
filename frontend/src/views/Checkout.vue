@@ -2,7 +2,7 @@
   <div class="wrapper">
     <h1>YOUR CART</h1>
     <div class="section-wrapper">
-      <section>
+      <section class="cart-container">
         <p>ITEMS</p>
         <hr />
         <Cart />
@@ -33,7 +33,10 @@
           <input type="text" />
           <label>CCV</label>
           <input type="text" />
-          <input class="submit-btn" type="submit" value="Make order" />
+          <button class="submit-btn" type="submit">
+            Make Order
+            <span class="material-icons"> mouse </span>
+          </button>
         </section>
       </form>
     </div>
@@ -46,7 +49,7 @@ import Cart from "@/components/Cart";
 export default {
   data() {
     return {
-      customer: {}
+      customer: {},
     };
   },
   created() {
@@ -62,15 +65,15 @@ export default {
         payment: { cardOwner: "", cardNumber: "", validUntil: "", cvv: "" },
         orderHistory: [],
         password: "",
-        _id: ""
+        _id: "",
       };
     }
   },
   components: {
-    Cart
+    Cart,
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(["user"]),
   },
   methods: {
     makeOrder() {
@@ -79,7 +82,7 @@ export default {
       if (cartItems.length < 1) {
         alert("no things in cart gringo");
       } else {
-        cartItems.forEach(product => {
+        cartItems.forEach((product) => {
           {
             for (let i = 0; i < product.amount; i++) {
               list.push(product.item._id);
@@ -89,12 +92,12 @@ export default {
 
         this.$store.dispatch("makeOrder", {
           items: list,
-          user: this.customer
+          user: this.customer,
         });
         this.$router.push("/thanks");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -108,6 +111,7 @@ input {
 .wrapper {
   display: flex;
   align-items: center;
+  text-align: center;
 }
 
 .section-wrapper {
@@ -125,8 +129,16 @@ section {
   font-size: 14px;
   color: white;
   background: black;
-  border-radius: 20px;
+  display: flex;
+  border-radius: 15px;
+  align-items: center;
+  padding: 0.2rem 0.1rem;
 }
+.submit-btn:hover {
+  transform: scale(1.1);
+  padding: 5px;
+}
+
 .submit-btn :visited {
   outline: none;
 }
@@ -141,5 +153,15 @@ section {
     display: flex;
     flex-direction: column;
   }
+  p {
+    align-self: center;
+  }
+}
+.cart-container {
+  background-color: gainsboro;
+  padding: 0 2rem 2rem 2rem;
+}
+.material-icons {
+  font-size: 15px;
 }
 </style>

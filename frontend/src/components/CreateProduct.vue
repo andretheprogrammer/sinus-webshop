@@ -160,7 +160,7 @@ select {
   background-image: url("../assets/arrow_down.png");
   background-repeat: no-repeat;
   background-position: right;
-  border: 1px solid white;
+  border: 1px solid whitesmoke;
   padding: 0.5em;
   margin: 0;
   width: 100%;

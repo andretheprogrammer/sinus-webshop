@@ -44,18 +44,18 @@
       <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
         <OrderInfo :order="chosenOrder" @close="closeModal" />
       </Overlay>
+      <!-- <lottie
+        id="route-anim"
+        :options="defaultOptions"
+        :height="1080"
+        :width="1920"
+        v-on:animCreated="handleAnimation"
+      >
+      </lottie> -->
     </div>
   </div>
 </template>
 
-    <!-- <lottie
-      id="route-anim"
-      :options="defaultOptions"
-      :height="1080"
-      :width="1920"
-      v-on:animCreated="handleAnimation"
-    >
-    </lottie> -->
 <script >
 // import Lottie from "vue-lottie";
 // import * as animationData from "@/assets/page-animation.json";
@@ -76,7 +76,6 @@ export default {
   async created() {
     let res = await this.$store.dispatch("getAllOrders");
     this.userOrders = res;
-    stop();
   },
   computed: {
     ...mapGetters(["userHistory", "user", "chosenOrder"]),
@@ -100,21 +99,21 @@ export default {
       this.anim = anim;
     },
 
-    // stop: function () {
-    //   this.anim.stop();
-    // },
+    stop: function () {
+      this.anim.stop();
+    },
 
-    // play: function () {
-    //   this.anim.play();
-    // },
+    play: function () {
+      this.anim.play();
+    },
 
-    // pause: function () {
-    //   this.anim.pause();
-    // },
+    pause: function () {
+      this.anim.pause();
+    },
 
-    // onSpeedChange: function () {
-    //   this.anim.setSpeed(this.animationSpeed);
-    // },
+    onSpeedChange: function () {
+      this.anim.setSpeed(this.animationSpeed);
+    },
   },
 
   components: { OrderInfo, Overlay },

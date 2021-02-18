@@ -1,7 +1,12 @@
 <template>
   <header>
     <div class="navbar">
-      <img id="logo" src="@/assets/sinus-logo.svg" alt @click="routeToStart" />
+      <img
+        class="logo"
+        src="@/assets/sinus-logo.svg"
+        alt
+        @click="routeToStart"
+      />
       <div class="header-links">
         <div class="menu-item hide-items">
           <router-link v-if="isAdmin" to="/adminproducts">
@@ -50,22 +55,22 @@ import Hamburger from "@/components/Hamburger";
 export default {
   data() {
     return {
-      result: 0
+      result: 0,
     };
   },
   components: {
     Login,
-    Hamburger
+    Hamburger,
   },
   computed: {
     ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"]),
-    calculateCart: function() {
+    calculateCart: function () {
       let result = 0;
       for (this.item of this.cartItems) {
         result += this.item.amount;
       }
       return result;
-    }
+    },
   },
 
   methods: {
@@ -75,8 +80,8 @@ export default {
       } else {
         this.$router.push(`/`);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -91,7 +96,7 @@ export default {
   padding: 1rem 0 0.2rem 0;
 }
 
-#logo {
+.logo {
   height: auto;
   max-height: 4rem;
   cursor: pointer;
@@ -129,6 +134,9 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 0 0.5rem;
+    :hover {
+      transform: scale(1.05);
+    }
   }
 
   .cart-btn {
