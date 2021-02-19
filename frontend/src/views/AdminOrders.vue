@@ -9,11 +9,7 @@
         <h1>No orders in progress!</h1>
       </div>
       <ul v-else>
-        <li
-          v-for="(order, index) in ordersInProgress"
-          :key="index"
-          @click="openModal(order)"
-        >
+        <li v-for="(order, index) in ordersInProgress" :key="index" @click="openModal(order)">
           <div class="order-item">
             <h3>Order ID: {{ order._id }}</h3>
             <h4>Ordered products ID: {{ order.items }}</h4>
@@ -62,15 +58,19 @@ import { mapGetters } from "vuex";
 import Overlay from "@/components/Overlay";
 import OrderInfo from "@/components/OrderInfo";
 export default {
-  async created() {
-    if (this.$store.state.orderItems.length > 0) {
-      await this.$store.dispatch("getAllOrders");
-    } else alert("hej");
-  },
   data() {
     return {
-      showModal: false,
+      showModal: false
     };
+  },
+  created() {
+    if (this.user.role == "admin") {
+      this.$store.dispatch("getAllOrders");
+    } else alert("hej");
+  },
+  components: {
+    Overlay,
+    OrderInfo
   },
   computed: {
     ...mapGetters([
@@ -82,19 +82,9 @@ export default {
       "productResponse",
       "orderItems",
       "user",
-      "isLoggedIn",
-    ]),
-    // checkOrderItems: function() {
-    //   console.log(this.orderItems);
-    //   return this.orderItems.some(function(el) {
-    //     console.log(el);
-    //     let b = el !== null && typeof el !== "undefined";
-    //     console.log(b);
-    //     return b;
-    //   });
-    // }
+      "isLoggedIn"
+    ])
   },
-
   methods: {
     openModal(order) {
       this.$store.dispatch("setChosenOrder", order);
@@ -105,25 +95,10 @@ export default {
       }
     },
 
-    // async fillOrderItems() {
-    //   console.log(this.chosenOrder.items[0]);
-    //   let id = this.chosenOrder.items[0];
-
-    //   let response = await this.$store.dispatch("getProductById", id);
-    //   console.log(
-    //     "hello",
-    //     response.find(e => id == e._id)
-    //   );
-    // },
-
     closeModal() {
       this.showModal = false;
-    },
-  },
-  components: {
-    Overlay,
-    OrderInfo,
-  },
+    }
+  }
 };
 </script>
 
