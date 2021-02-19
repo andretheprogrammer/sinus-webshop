@@ -78,7 +78,7 @@ li {
   background-color: whitesmoke;
   margin: 5px;
   border-radius: 15px;
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem 0.9rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,13 +100,14 @@ li {
 }
 .material-icons {
   font-size: 15px;
-  cursor: pointer;
 }
 li:hover {
-  border: 1px solid black;
+  border: 1px solid gray;
+  transform: scale(1.03);
 }
 .cart-img {
   height: 3rem;
+  margin-right: 1rem;
   align-self: flex-end;
 }
 .cart-container {
@@ -128,5 +129,9 @@ li:hover {
   margin-top: 1vh;
   padding-top: 2vh;
   min-height: 14vh;
+}
+.material-icons:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 </style>

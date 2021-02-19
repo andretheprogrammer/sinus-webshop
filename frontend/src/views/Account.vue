@@ -2,21 +2,23 @@
   <div class="wrapper">
     <div class="user-card">
       <form class="user-form" @submit.prevent>
-        <section class="form-section">
-          <div class="name-header">
-            <h2 class="user-name">{{ user.name }}</h2>
-            <button class="arrow-btn" @click="showOrders = !showOrders">
-              <p v-if="!showOrders">Show</p>
-              <p v-if="showOrders">Hide</p>
-            </button>
-          </div>
-          <label class="small-title">Street Adress</label>
-          <input type="text" v-model="user.adress.street" readonly />
-          <label class="small-title">City</label>
-          <input type="text" v-model="user.adress.city" readonly />
-          <label class="small-title">Zipcode</label>
-          <input type="text" v-model="user.adress.zip" readonly />
-        </section>
+        <transition mode="ease-in" name="showtime">
+          <section class="form-section">
+            <div class="name-header">
+              <h2 class="user-name">{{ user.name }}</h2>
+              <button class="arrow-btn" @click="showOrders = !showOrders">
+                <p v-if="!showOrders">Show</p>
+                <p v-if="showOrders">Hide</p>
+              </button>
+            </div>
+            <label class="small-title">Street Adress</label>
+            <input type="text" v-model="user.adress.street" readonly />
+            <label class="small-title">City</label>
+            <input type="text" v-model="user.adress.city" readonly />
+            <label class="small-title">Zipcode</label>
+            <input type="text" v-model="user.adress.zip" readonly />
+          </section>
+        </transition>
         <transition mode="in-out" name="show-order">
           <section v-if="showOrders" class="form-section">
             <div class="order-container">
@@ -140,6 +142,7 @@ input {
 }
 
 .section-wrapper {
+  transition: all 1s ease;
   display: flex;
   justify-content: center;
 }
@@ -214,8 +217,5 @@ section {
       }
     }
   }
-}
-#route-anim {
-  transform: translate3d(-450px, -602px, 50px);
 }
 </style>

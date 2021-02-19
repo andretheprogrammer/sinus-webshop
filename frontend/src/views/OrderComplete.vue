@@ -1,7 +1,18 @@
 <template>
   <div class="order-complete-wrapper">
-    <ImageSlot class="imgslot">
-      <h1 id="ordertext">Your order has been completed!</h1>
+    <ImageSlot>
+      <template v-slot:info-slot>
+        <h1>Your order has been completed!</h1>
+      </template>
+      <template v-slot:animation-slot>
+        <lottie
+          id="lottie-anim"
+          :options="defaultOptions"
+          :height="400"
+          :width="300"
+          v-on:animCreated="handleAnimation"
+        />
+      </template>
     </ImageSlot>
 
     <div class="order-completed-lorem">
@@ -19,13 +30,6 @@
         grab
       </p>
     </div>
-    <lottie
-      id="lottie-anim"
-      :options="defaultOptions"
-      :height="400"
-      :width="300"
-      v-on:animCreated="handleAnimation"
-    />
   </div>
 </template>
 
@@ -76,20 +80,19 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: center;
+  width: 90%;
 }
 
 .order-completed-lorem {
-  width: 80%;
+  width: 90%;
   align-self: center;
   display: flex;
   flex-direction: column;
   transform: translate(0% 10%);
 }
-.imgslot {
-  align-self: center;
-}
+
 #lottie-anim {
-  transform: translate3d(-370px, -500px, 0px);
+  transform: translate3d(350px, -210px, 0px);
 }
 #ordertext {
   position: absolute;

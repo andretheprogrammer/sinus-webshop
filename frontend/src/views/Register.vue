@@ -2,8 +2,10 @@
   <div class="register-wrapper">
     <!-- <img id="imgHero" src="@/assets/skate-hero-1.jpg" alt="" /> -->
     <ImageSlot>
-      <h1 v-if="!isLoggedIn" class="image-text">Join the rolling family</h1>
-      <h1 v-else class="image-text">Welcome!</h1>
+      <template v-slot:info-slot>
+        <h1 v-if="!isLoggedIn" class="image-text">Join the rolling family</h1>
+        <h1 v-else class="image-text">Welcome!</h1>
+      </template>
     </ImageSlot>
     <div class="bottom-regwrapper">
       <div class="register-intro">
@@ -26,7 +28,7 @@
         autocomplete="off"
       >
         <div class="register-input">
-          <h4>Register</h4>
+          <h4>Register thy self</h4>
           <label>Name</label>
           <input type="text" v-model="name" />
           <label>Email</label>
@@ -99,7 +101,7 @@ label {
 .register-intro {
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  width: 65%;
 }
 .invisible {
   display: none;

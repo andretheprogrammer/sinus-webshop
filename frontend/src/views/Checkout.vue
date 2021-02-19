@@ -133,10 +133,12 @@ section {
   border-radius: 15px;
   align-items: center;
   padding: 0.2rem 0.1rem;
+  transition: all 1s ease-in;
 }
 .submit-btn:hover {
   transform: scale(1.1);
   padding: 5px;
+  cursor: pointer;
 }
 
 .submit-btn :visited {
@@ -160,6 +162,7 @@ section {
 .cart-container {
   background-color: gainsboro;
   padding: 0 2rem 2rem 2rem;
+  border-radius: 5px;
 }
 .material-icons {
   font-size: 15px;

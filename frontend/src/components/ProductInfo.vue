@@ -101,8 +101,11 @@ export default {
     text-decoration: none;
   }
   border: 2px solid transparent;
+  transition: border 1s ease-out;
 }
-
+.material-icons {
+  transition: transform 1s ease-in;
+}
 .product-button:hover {
   border: 2px solid darkorange;
   /* transform: scale(1.5); */

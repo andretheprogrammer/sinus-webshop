@@ -2,7 +2,8 @@
   <div class="container">
     <img class="image-frame" src="@/assets/skate-hero-1.jpg" alt="" />
     <div class="centered">
-      <slot> </slot>
+      <slot class="info-slot" name="info-slot"> </slot>
+      <slot name="animation-slot"> </slot>
       <!-- :style="{
         'background-image': 'url(' + require('@/assets/skate-hero-1.jpg') + ')',
       }" -->
@@ -19,6 +20,7 @@ export default {};
   color: white;
   position: relative;
   text-align: center;
+  overflow: hidden;
 }
 .centered {
   position: absolute;
@@ -28,9 +30,6 @@ export default {};
   bottom: 50%;
   width: 30vw;
   transform: translate(-50%, -50%);
-}
-slot {
-  position: absolute;
 }
 
 .image-frame {

@@ -137,7 +137,7 @@ export default {
 .order-item {
   margin: 0.3rem;
   background-color: gainsboro;
-  border-radius: 3px;
+  border-radius: 13px;
   padding: 0.5rem;
   box-shadow: 1px 1px 1px 0px whitesmoke;
 }

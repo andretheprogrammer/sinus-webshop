@@ -1,27 +1,35 @@
 <template>
   <div class="menu-item burger-menu" v-click-outside-window="closeWindow">
     <div v-if="isLoggedIn">
-      <button @click="show=!show">
+      <button @click="show = !show">
         <i class="material-icons">menu</i>
       </button>
-      <div v-if="show" class="dropdown">
-        <div class="menu">
-          <ul>
-            <li v-if="isAdmin" @click="closeWindow">
-              <router-link class="menu-link" to="/adminproducts">Admin</router-link>
-            </li>
-            <li v-if="isAdmin" @click="closeWindow">
-              <router-link class="menu-link" to="/orders">Orders</router-link>
-            </li>
-            <li @click="closeWindow">
-              <router-link class="menu-link" to="/products">Products</router-link>
-            </li>
-            <li v-if="isLoggedIn" @click="closeWindow">
-              <router-link class="menu-link" to="/account">My Account</router-link>
-            </li>
-          </ul>
+      <transition mode="in-out" name="hamburglar">
+        <div v-if="show" class="dropdown">
+          <div class="menu">
+            <ul>
+              <li v-if="isAdmin" @click="closeWindow">
+                <router-link class="menu-link" to="/adminproducts"
+                  >Admin</router-link
+                >
+              </li>
+              <li v-if="isAdmin" @click="closeWindow">
+                <router-link class="menu-link" to="/orders">Orders</router-link>
+              </li>
+              <li @click="closeWindow">
+                <router-link class="menu-link" to="/products"
+                  >Products</router-link
+                >
+              </li>
+              <li v-if="isLoggedIn" @click="closeWindow">
+                <router-link class="menu-link" to="/account"
+                  >My Account</router-link
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
     <router-link v-else to="/products">
       <button>Products</button>
@@ -36,13 +44,13 @@ export default {
   data() {
     return {
       show: false,
-      windowWidth: 0
+      windowWidth: 0,
     };
   },
   directives: {
     "click-outside-window": {
-      bind: function(el, binding) {
-        const ourClickEventHandler = event => {
+      bind: function (el, binding) {
+        const ourClickEventHandler = (event) => {
           if (typeof binding.value !== "function") {
             console.warn(
               "[Vue-click-outside:] provided expression",
@@ -59,13 +67,13 @@ export default {
 
         document.addEventListener("click", ourClickEventHandler);
       },
-      unbind: function(el) {
+      unbind: function (el) {
         document.removeEventListener("click", el.__vueClickEventHandler__);
-      }
-    }
+      },
+    },
   },
   computed: {
-    ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"])
+    ...mapGetters(["isAdmin", "cartItems", "isLoggedIn"]),
   },
   methods: {
     closeWindow() {
@@ -74,10 +82,10 @@ export default {
     getWindowWidth() {
       this.windowWidth = document.documentElement.clientWidth;
       if (this.windowWidth > 720) this.closeWindow();
-    }
+    },
   },
   mounted() {
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       window.addEventListener("resize", this.getWindowWidth);
 
       //Init
@@ -86,7 +94,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.getWindowWidth);
-  }
+  },
 };
 </script>
 

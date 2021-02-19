@@ -1,6 +1,6 @@
 <template>
   <div class="menu-item" v-click-outside-window="closeWindow">
-    <button @click="show = !show">Login</button>
+    <button class="btn-login" @click="show = !show">Login</button>
     <transition mode="out-in" name="login-anim">
       <div v-show="show" class="login-window">
         <div class="login-form">
@@ -105,9 +105,19 @@ export default {
     color: white;
     background: black;
     border-radius: 20px;
+    transition: all 1s ease-in;
   }
   .login-btn:hover {
     transform: scale(1.1);
+    cursor: pointer;
   }
+}
+
+.btn-login {
+  transition: all 1s ease-in;
+}
+.btn-login:hover {
+  transition: all 1s ease-in;
+  transform: scale(1.1);
 }
 </style>

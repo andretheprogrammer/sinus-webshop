@@ -30,9 +30,6 @@ export default new Vuex.Store({
         productResponse: (state) => state.productResponse,
         ordersResponse: (state) => state.ordersResponse,
         userHistory: (state) => state.user.userHistory,
-        // ordersInProgress: (state) => Methods.getOrdersWithStatus(state.ordersResponse, 'inProcess'),
-        // ordersDone: (state) => Methods.getOrdersWithStatus(state.ordersResponse, 'done'),
-
         ordersInProgress: (state) => state.ordersResponse.filter(e => e.status == 'inProcess'),
         ordersDone: (state) => state.ordersResponse.filter(x => x.status == 'done'),
         user: (state) => state.user,
@@ -62,18 +59,7 @@ export default new Vuex.Store({
 
             return products;
         },
-        // parseOrder: (state) => order => {
-        //     let parsedItems = []
-        //     order.forEach((element) => {
-        //         let find = parsedItems.find((e) => e.item._id == element._id);
-        //         if (!find) {
-        //             parsedItems.push({ item: element, qty: 1 });
-        //         } else {
-        //             find.qty++;
-        //         }
-        //     });
-        //     return parsedItems;
-        // }
+
     },
     mutations: {
         [Mutations.SHOW_API_PRODUCTS](state, data) {
