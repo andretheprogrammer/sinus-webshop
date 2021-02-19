@@ -108,14 +108,13 @@ export default {
     transition: all 1s ease-in;
   }
   .login-btn:hover {
+    transition: all 1s ease-in;
+
     transform: scale(1.1);
     cursor: pointer;
   }
 }
 
-.btn-login {
-  transition: all 1s ease-in;
-}
 .btn-login:hover {
   transition: all 1s ease-in;
   transform: scale(1.1);

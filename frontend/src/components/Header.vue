@@ -34,9 +34,11 @@
           <router-link to="/checkout">
             <div class="cart-btn">
               <div v-if="cartItems.length > 0" class="cart-amount">
-                <div class="calc-cart">
-                  <p>{{ calculateCart }}</p>
-                </div>
+                <transition mode="in-out" name="scale">
+                  <div class="calc-cart">
+                    <p>{{ calculateCart }}</p>
+                  </div>
+                </transition>
               </div>
               <i class="material-icons">shopping_bag</i>
             </div>
@@ -134,8 +136,12 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 0 0.5rem;
-    :hover {
-      transform: scale(1.05);
+    a {
+      :hover {
+        transition: all 1s ease-in;
+
+        transform: scale(1.05);
+      }
     }
   }
 
@@ -144,6 +150,8 @@ export default {
     background-color: whitesmoke;
     color: black;
     :hover {
+      transition: all 1s ease-in;
+
       color: black;
     }
   }
@@ -153,15 +161,43 @@ export default {
     background-color: silver;
   }
   .cart-amount {
-    position: absolute;
-    transform: translate(-10px, -10px);
     background-color: orange;
-    border-radius: 50px;
+    position: absolute;
+    border-radius: 25px;
+    align-self: flex-start;
+    margin-right: 25px;
+    animation: bounce-in 1s ease;
+
     p {
       font-size: 10px;
-      line-height: 15px;
-      width: 10px;
+      height: 13px;
+      width: 13px;
+      text-align: center;
     }
+  }
+}
+.scale-enter-active {
+  animation: bounce-in 0.5s;
+}
+.scale-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.89);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 </style>

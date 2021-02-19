@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="user-card">
       <form class="user-form" @submit.prevent>
-        <transition mode="ease-in" name="showtime">
+        <transition mode="in-out" name="showtime">
           <section class="form-section">
             <div class="name-header">
               <h2 class="user-name">{{ user.name }}</h2>
@@ -142,7 +142,7 @@ input {
 }
 
 .section-wrapper {
-  transition: all 1s ease;
+  transition: all 1s ease-in;
   display: flex;
   justify-content: center;
 }

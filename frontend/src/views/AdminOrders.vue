@@ -8,7 +8,7 @@
       <div v-if="!ordersInProgress.length" class="no-orders">
         <h1>No orders in progress!</h1>
       </div>
-      <ul>
+      <ul v-else>
         <li
           v-for="(order, index) in ordersInProgress"
           :key="index"
@@ -48,12 +48,12 @@
           </li>
         </ul>
       </div>
-      <div class="order-info-wrapper">
-        <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
-          <OrderInfo :order="chosenOrder" @close="closeModal" />
-        </Overlay>
-      </div>
     </section>
+    <div class="order-info-wrapper">
+      <Overlay v-if="chosenOrder" :show="showModal" @close="closeModal">
+        <OrderInfo :order="chosenOrder" @close="closeModal" />
+      </Overlay>
+    </div>
   </div>
 </template>
 
@@ -62,8 +62,10 @@ import { mapGetters } from "vuex";
 import Overlay from "@/components/Overlay";
 import OrderInfo from "@/components/OrderInfo";
 export default {
-  created() {
-    this.$store.dispatch("getAllOrders");
+  async created() {
+    if (this.$store.state.orderItems.length > 0) {
+      await this.$store.dispatch("getAllOrders");
+    } else alert("hej");
   },
   data() {
     return {
@@ -118,13 +120,6 @@ export default {
       this.showModal = false;
     },
   },
-  create() {
-    if (!this.isLoggedIn || !this.isAdmin) {
-      console.log(this.isLoggedIn, this.isAdmin);
-      alert("something is fucked up, pls log out and in again");
-      this.$router.push("/");
-    }
-  },
   components: {
     Overlay,
     OrderInfo,
@@ -140,6 +135,7 @@ export default {
   border-radius: 13px;
   padding: 0.5rem;
   box-shadow: 1px 1px 1px 0px whitesmoke;
+  cursor: pointer;
 }
 li {
   width: 40%;
