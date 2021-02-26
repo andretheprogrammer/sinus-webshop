@@ -101,6 +101,12 @@ export default new Vuex.Store({
         [Mutations.SET_CHOSEN_ORDER](state, order) {
             state.chosenOrder = order
         },
+        // [Mutations.EDIT_NEW_PRODUCT](state, product) {
+        //     state.productResponse.(product)
+        // },
+        [Mutations.CREATE_NEW_PRODUCT](state, product) {
+            state.productResponse.push(product)
+        },
         [Mutations.LOGIN](state, data) {
             if (data.token) {
                 if (data.user.role == 'admin') {
@@ -147,12 +153,20 @@ export default new Vuex.Store({
         async createNewProduct(context, product) {
             console.log(product)
             let data = await API.postProduct(product, sessionStorage.getItem('jwt'))
+            if (data.message == "Product created!") {
+
+                context.commit(Mutations.CREATE_NEW_PRODUCT, data.product)
+
+            } else {
+                alert('försök igen')
+            }
+
             console.log(data, context)
-            // await context.commit(Mutations.CREATE_NEW_PRODUCT, data)
         },
         async editNewProduct(context, product) {
-            let data = await API.editProduct(product, sessionStorage.getItem('jwt'))
-            console.log(data, context)
+            await API.editProduct(product, sessionStorage.getItem('jwt'))
+            // context.commit(Mutations.EDIT_NEW_PRODUCT, data.product)
+
         },
         async setChosenProduct(context, product) {
             context.commit(Mutations.SET_CHOSEN_PRODUCT, product)

@@ -69,8 +69,6 @@ export default {
   methods: {
     createProduct() {
       this.$store.dispatch("createNewProduct", this.product);
-      this.$store.dispatch("getProducts");
-      this.$router.go();
     },
     getIcon(product) {
       if (product.imgFile) {

@@ -68,7 +68,9 @@ export default {
         adress: { street: "", city: "", zip: "" },
       };
       await this.$store.dispatch("registerUser", user);
-      this.$router.go();
+      this.email = "";
+      this.password = "";
+      this.name = "";
     },
   },
   components: {

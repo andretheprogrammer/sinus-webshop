@@ -51,8 +51,6 @@ export default {
     editProduct() {
       console.log("product -->", this.product);
       this.$store.dispatch("editNewProduct", this.product);
-      this.$store.dispatch("getProducts");
-      this.$router.go();
     },
   },
 };
